@@ -1,0 +1,209 @@
+{
+    "contact": {
+        "email": "jaryd.diamond@uwaterloo.ca",
+        "linkedin": "https://linkedin.com/in/jaryddiamond/",
+        "github": "https://github.com/jarydo",
+        "twitter": "https://twitter.com/jaryd_diamond"
+    },
+    "experience": [
+        {
+            "title": "Software Developer",
+            "company": "Arctic Wolf",
+            "location": "Waterloo, ON",
+            "startDate": "05/2024",
+            "endDate": "08/2024",
+            "description": [
+                "Engineered a 33x throughput increase in malware sandboxing pipeline, scaling from 90 to 3000+ detonated samples daily, resulting in the detection of 14 novel threats across high-profile clients",
+                "Architected and implemented serverless functions using AWS Lambda, managed cross-account IAM permissions, and leveraged Infrastructre as Code (IaC) with Troposphere and CloudFormation for streamlined resource provisioning",
+                "Enhanced threat analysis infrastructure by refactoring CI/CD pipeline and implementing automated configuration management for EC2 instances using Ansible"
+            ]
+        },
+        {
+            "title": "Lead Product Developer",
+            "company": "99 Ravens AI",
+            "location": "Toronto, ON",
+            "startDate": "12/2023",
+            "endDate": "04/2024",
+            "description": [
+                "Contracted to scope and build MVP of LLM-based AI automation tool to optimize marketing executives' workflows",
+                "Handled all aspects of product development, including industry research, communicating with a non-technical founder, systems architecture, chatbot integrations with Google Cloud Platform, model prompt engineering and fine-tuning, and building endpoints"
+            ]
+        },
+        {
+            "title": "Web Developer",
+            "company": "Horizn",
+            "location": "Toronto, ON",
+            "startDate": "09/2023",
+            "endDate": "12/2023",
+            "description": [
+                "Developed and executed complex database migrations using Laravel and PHP, successfully integrating critical client configurations and demos for 20+ international banking clients, impacting over 90 million end-users",
+                "Implemented Agile methodologies, including leading daily stand-ups and sprint planning sessions, resulting in consistent on-time project delivery"
+            ]
+        },
+        {
+            "title": "Junior Developer",
+            "company": "Arctic AI",
+            "location": "Toronto, ON",
+            "startDate": "01/2023",
+            "endDate": "04/2023",
+            "description": [
+                "Engineered various full-stack client projects using the MERN stack (MySQL/MongoDB, Express, React, Node.js), including development of high-performance migration scripts that successfully mapped 80,000+ client records to a MongoDB database",
+                "Independently designed, architected, and deployed a full-stack MLOps web application to monitor active machine learning models and extract real-time analytics, which is currently being incorporated into main Managed Service offering"
+            ]
+        },
+        {
+            "title": "Software Developer",
+            "company": "Mikobyte Solutions",
+            "location": "Toronto, ON",
+            "startDate": "05/2022",
+            "endDate": "08/2022",
+            "description": [
+                "Designed, prototyped, and implemented flagship website as a full-stack developer at a new startup, utilizing React, Flask, and C++",
+                "Worked directly with co-founders to create and program new website components, along with optimizing existing codebase, resulting in a 100% improvement in website load times"
+            ]
+        }
+    ],
+    "skills": [
+        {
+            "name": "Python",
+            "category": "Languages"
+        },
+        {
+            "name": "JavaScript/TypeScript",
+            "category": "Languages"
+        },
+        {
+            "name": "C/C++",
+            "category": "Languages"
+        },
+        {
+            "name": "Java",
+            "category": "Languages"
+        },
+        {
+            "name": "HTML/CSS",
+            "category": "Languages"
+        },
+        {
+            "name": "React",
+            "category": "Tools"
+        },
+        {
+            "name": "AWS",
+            "category": "Tools"
+        },
+        {
+            "name": "MySQL",
+            "category": "Tools"
+        },
+        {
+            "name": "MongoDB",
+            "category": "Tools"
+        },
+        {
+            "name": "GraphQL",
+            "category": "Tools"
+        },
+        {
+            "name": "Jenkins",
+            "category": "Tools"
+        },
+        {
+            "name": "Flask",
+            "category": "Tools"
+        },
+        {
+            "name": "Ansible",
+            "category": "Tools"
+        }
+    ],
+    "education": [
+        {
+            "degree": "Bachelor of Computer Science, Honours Co-op",
+            "school": "University of Waterloo",
+            "startDate": "09/2021",
+            "endDate": "04/2026",
+            "description": [
+                "Recipient of the President's Scholarship of Distinction",
+                "Term Distinction for all completed terms",
+                "Nominated for Co-op Student of the Year"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "Resonant",
+            "description": [
+                "Built a friend-nominated AI-powered dating algorithm within a week for Valentine's Day, establishing 2 long-term relationships"
+            ],
+            "technologies": [
+                "GPT-4",
+                "Jupyter Notebook",
+                "Python"
+            ]
+        },
+        {
+            "name": "Resume-GPT",
+            "description": [
+                "Generate resume and cover letter based on prior work experience"
+            ],
+            "technologies": [
+                "React",
+                "GPT-3.5",
+                "JavaScript"
+            ]
+        },
+        {
+            "name": "Podcast Summarizer",
+            "description": [
+                "Downloads YouTube video and creates summary"
+            ],
+            "technologies": [
+                "Jupyter Notebook",
+                "Python",
+                "GPT-3.5"
+            ]
+        },
+        {
+            "name": "Chess Engine",
+            "description": [
+                "Created chess engine in C++ following object-oriented design patterns, with multiple levels of computer AI including implementing the negamax algorithm to play the most optimal move, resulting in a final grade of 110%"
+            ],
+            "technologies": [
+                "C++"
+            ]
+        }
+    ],
+    "extracurriculars": [
+        {
+            "name": "Socratica",
+            "position": "Host",
+            "startDate": "05/2024",
+            "endDate": "Present",
+            "description": [
+                "Community building in Waterloo (and worldwide), giving makers a space to pursue passion projects with weekly co-working sessions",
+                "• Planned and hosted various events for our over 400 unique attendees, including bonfires, paint nights, and an end-of-term showcase"
+            ]
+        },
+        {
+            "name": "UW Blueprint",
+            "position": "Project Developer, Internal Director",
+            "startDate": "09/2023",
+            "endDate": "Present",
+            "description": [
+                "Worked with Feeding Canadian Kids to develop a web platform to streamline the volunteering process, helping to feed over 150,000 children - built with React, GraphQL, Python (Flask), and MongoDB",
+                "Currently serving as Internal Director, running community events and managing logistics for our team of over 100 students"
+            ]
+        },
+        {
+            "name": "UW Mario Kart",
+            "position": "Co-founder, CEO",
+            "startDate": "05/2023",
+            "endDate": "04/2023",
+            "description": [
+                "Founded Waterloo's first Mario Kart club, lead weekly meetings, and organize tournaments",
+                "Organized live band to perform soundtrack while members raced"
+            ]
+        }
+    ]
+}
