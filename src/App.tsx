@@ -1,5 +1,7 @@
-import { useState, useEffect } from 'react'
-import { Button } from "@/components/ui/button"
+import { useState, useEffect } from 'react';
+import { Button } from "@/components/ui/button";
+import { Label } from './components/ui/label';
+import { Switch } from './components/ui/switch';
 
 function App() {
   const [index, setIndex] = useState(0);
@@ -8,6 +10,8 @@ function App() {
 
   const [activeTab, setActiveTab] = useState('Home');
   const navItems = ['Home', 'Experience', 'Projects', 'Contact'];
+
+  const [recruiterMode, setRecruiterMode] = useState(true);
 
   useEffect(() => {
     if (index < fullTitle.length) {
@@ -71,14 +75,25 @@ function App() {
             {item}
           </Button>
         ))}
-        <Button
+        {/* <Button
           variant="secondary"
           className="bg-white bg-opacity-20 text-white hover:bg-opacity-30 rounded-full px-4 py-2 text-sm"
         >
           Try a new style
-        </Button>
+        </Button> */}
+        <div className="flex items-center space-x-2 mx-4">
+          <Switch
+            id="recruiter-mode"
+            checked={recruiterMode}
+            onCheckedChange={setRecruiterMode}
+            className="data-[state=checked]:bg-purple-600"
+          />
+          <Label htmlFor="recruiter-mode" className="text-sm text-white">
+            {recruiterMode ? 'Recruiter Mode' : 'Fun Mode'}
+          </Label>
+        </div>
       </nav>
-
+      
       <main className="text-center flex flex-col gap-4 text-white">
         <h1 className="text-8xl font-bold">Introducing... <Title /></h1> 
         <h1 className="text-6xl font-bold">Your next intern.</h1>
