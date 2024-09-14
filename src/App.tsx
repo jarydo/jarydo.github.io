@@ -97,7 +97,7 @@ function App() {
       <main className="text-center flex flex-col gap-4 text-white">
         <h1 className="text-8xl font-bold">Introducing... <Title /></h1> 
         <h1 className="text-6xl font-bold">Your next intern.</h1>
-        <p className="text-xl">Developer, community builder, filmmaker, amateur musician - you can guarantee his value is <b>not just code.</b></p>
+        <p className="text-2xl">Developer, community builder, filmmaker, amateur musician - you can guarantee his value is <b>not just code.</b></p>
       </main>
       
       <footer>
