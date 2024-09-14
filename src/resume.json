@@ -3,7 +3,8 @@
         "email": "jaryd.diamond@uwaterloo.ca",
         "linkedin": "https://linkedin.com/in/jaryddiamond/",
         "github": "https://github.com/jarydo",
-        "twitter": "https://twitter.com/jaryd_diamond"
+        "twitter": "https://twitter.com/jaryd_diamond",
+        "letterboxd": "https://letterboxd.com/jarydo/"
     },
     "experience": [
         {
@@ -12,10 +13,17 @@
             "location": "Waterloo, ON",
             "startDate": "05/2024",
             "endDate": "08/2024",
-            "description": [
+            "fun_description": [],
+            "recruiter_description": [
                 "Engineered a 33x throughput increase in malware sandboxing pipeline, scaling from 90 to 3000+ detonated samples daily, resulting in the detection of 14 novel threats across high-profile clients",
                 "Architected and implemented serverless functions using AWS Lambda, managed cross-account IAM permissions, and leveraged Infrastructre as Code (IaC) with Troposphere and CloudFormation for streamlined resource provisioning",
                 "Enhanced threat analysis infrastructure by refactoring CI/CD pipeline and implementing automated configuration management for EC2 instances using Ansible"
+            ],
+            "technologies": [
+                "Python",
+                "AWS",
+                "Ansible",
+                "Malware Analysis"
             ]
         },
         {
@@ -24,9 +32,16 @@
             "location": "Toronto, ON",
             "startDate": "12/2023",
             "endDate": "04/2024",
-            "description": [
+            "fun_description": [],
+            "recruiter_description": [
                 "Contracted to scope and build MVP of LLM-based AI automation tool to optimize marketing executives' workflows",
                 "Handled all aspects of product development, including industry research, communicating with a non-technical founder, systems architecture, chatbot integrations with Google Cloud Platform, model prompt engineering and fine-tuning, and building endpoints"
+            ],
+            "technologies": [
+                "TypeScript",
+                "Google Cloud Platform",
+                "LLM",
+                "Node.js"
             ]
         },
         {
@@ -35,9 +50,16 @@
             "location": "Toronto, ON",
             "startDate": "09/2023",
             "endDate": "12/2023",
-            "description": [
+            "fun_description": [],
+            "recruiter_description": [
                 "Developed and executed complex database migrations using Laravel and PHP, successfully integrating critical client configurations and demos for 20+ international banking clients, impacting over 90 million end-users",
                 "Implemented Agile methodologies, including leading daily stand-ups and sprint planning sessions, resulting in consistent on-time project delivery"
+            ],
+            "technologies": [
+                "React",
+                "PHP",
+                "Laravel",
+                "Jenkins"
             ]
         },
         {
@@ -46,9 +68,16 @@
             "location": "Toronto, ON",
             "startDate": "01/2023",
             "endDate": "04/2023",
-            "description": [
+            "fun_description": [],
+            "recruiter_description": [
                 "Engineered various full-stack client projects using the MERN stack (MySQL/MongoDB, Express, React, Node.js), including development of high-performance migration scripts that successfully mapped 80,000+ client records to a MongoDB database",
                 "Independently designed, architected, and deployed a full-stack MLOps web application to monitor active machine learning models and extract real-time analytics, which is currently being incorporated into main Managed Service offering"
+            ],
+            "technologies": [
+                "React",
+                "TypeScript",
+                "MySQL",
+                "Node.js"
             ]
         },
         {
@@ -57,9 +86,16 @@
             "location": "Toronto, ON",
             "startDate": "05/2022",
             "endDate": "08/2022",
-            "description": [
+            "fun_description": [],
+            "recruiter_description": [
                 "Designed, prototyped, and implemented flagship website as a full-stack developer at a new startup, utilizing React, Flask, and C++",
                 "Worked directly with co-founders to create and program new website components, along with optimizing existing codebase, resulting in a 100% improvement in website load times"
+            ],
+            "technologies": [
+                "React",
+                "Flask",
+                "C++",
+                "JavaScript"
             ]
         }
     ],
@@ -132,6 +168,21 @@
     ],
     "projects": [
         {
+            "name": "Feeding Canadian Kids",
+            "description": [
+                "Worked with Feeding Canadian Kids to develop a web platform to streamline the volunteering process, helping to feed over 150,000 children"
+            ],
+            "technologies": [
+                "React",
+                "GraphQL",
+                "Flask",
+                "MongoDB"
+            ],
+            "github_url": "https://github.com/uwblueprint/feeding-canadian-kids",
+            "image_url": "fck.png",
+            "live_url": ""
+        },
+        {
             "name": "Resonant",
             "description": [
                 "Built a friend-nominated AI-powered dating algorithm within a week for Valentine's Day, establishing 2 long-term relationships"
@@ -140,7 +191,9 @@
                 "GPT-4",
                 "Jupyter Notebook",
                 "Python"
-            ]
+            ],
+            "github_url": "https://github.com/HudZah/resonant",
+            "image_url": "resonant.webp"
         },
         {
             "name": "Resume-GPT",
@@ -151,7 +204,8 @@
                 "React",
                 "GPT-3.5",
                 "JavaScript"
-            ]
+            ],
+            "github_url": "https://github.com/jarydo/resume-gpt"
         },
         {
             "name": "Podcast Summarizer",
@@ -162,7 +216,8 @@
                 "Jupyter Notebook",
                 "Python",
                 "GPT-3.5"
-            ]
+            ],
+            "github_url": "https://github.com/levp22/Podcast-Summarizer"
         },
         {
             "name": "Chess Engine",
@@ -171,7 +226,8 @@
             ],
             "technologies": [
                 "C++"
-            ]
+            ],
+            "github_url": "https://gitfront.io/r/jarydo/VuF2Tyo2U7p3/cs246-chess/"
         }
     ],
     "extracurriculars": [
@@ -182,7 +238,7 @@
             "endDate": "Present",
             "description": [
                 "Community building in Waterloo (and worldwide), giving makers a space to pursue passion projects with weekly co-working sessions",
-                "• Planned and hosted various events for our over 400 unique attendees, including bonfires, paint nights, and an end-of-term showcase"
+                "Planned and hosted various events for our over 400 unique attendees, including bonfires, paint nights, and an end-of-term showcase"
             ]
         },
         {

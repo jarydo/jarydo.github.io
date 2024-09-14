@@ -1,28 +1,46 @@
 import { useState, useEffect } from 'react';
 import { Button } from "@/components/ui/button";
-import { Label } from './components/ui/label';
-import { Switch } from './components/ui/switch';
+// import { Label } from './components/ui/label';
+// import { Switch } from './components/ui/switch';
+import Home from './components/sections/Home';
+import Experience from './components/sections/Experience';
+import Contact from './components/sections/Contact';
+import Projects from './components/sections/Projects';
 
 function App() {
   const [index, setIndex] = useState(0);
   const [title, setTitle] = useState('');
   const fullTitle = 'Jaryd.';
 
-  const [activeTab, setActiveTab] = useState('Home');
-  const navItems = ['Home', 'Experience', 'Projects', 'Contact'];
+  const [activeTab, setActiveTab] = useState('home');
+  const navItems = [
+    { id: 'home', label: 'Home' },
+    { id: 'experience', label: 'Experience' },
+    { id: 'projects', label: 'Projects' },
+    { id: 'contact', label: 'Contact' },
+  ]
 
-  const [recruiterMode, setRecruiterMode] = useState(true);
+  // const [recruiterMode, setRecruiterMode] = useState(true);
 
+  // TODO: Fix this reloading on navbar redirect
   useEffect(() => {
     if (index < fullTitle.length) {
-      const timeout = setTimeout(() => {
-        setTitle((prevTitle) => prevTitle + fullTitle[index])
-        setIndex((prevIndex) => prevIndex + 1)
-      }, 300) // Adjust this value to change the typing speed
+        const timeout = setTimeout(() => {
+          setTitle((prevTitle) => prevTitle + fullTitle[index])
+          setIndex((prevIndex) => prevIndex + 1)
+        }, 300) // Adjust this value to change the typing speed
 
-      return () => clearTimeout(timeout)
+        return () => clearTimeout(timeout)
     }
-  }, [index])
+}, [index])
+
+  const handleNavClick = (id: string) => {
+    setActiveTab(id)
+    const element = document.getElementById(id)
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' })
+    }
+  }
 
   const Background = ({ children } : { children: React.ReactNode }) => {
     return (
@@ -49,72 +67,45 @@ function App() {
     )
   }
 
-  const Title = () => {
+  const NavBar = () => {
     return (
-        <span className="font-bold text-slate-200">
-          {title}
-          <span className="animate-pulse">|</span>
-        </span>
+      <nav className="fixed top-10 left-52 right-52 z-100 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-1 flex justify-between items-center">
+      {navItems.map((item) => (
+        <Button
+          key={item.id}
+          variant="ghost"
+          className={`text-lg px-6 py-6 rounded-full transition-colors duration-200 ${
+            activeTab === item.id
+              ? 'text-blue-500 bg-white hover:text-blue-500'
+              : 'text-white hover:bg-white hover:bg-opacity-20 hover:text-white'
+          }`}
+          onClick={() => handleNavClick(item.id)}
+        >
+          {item.label}
+        </Button>
+      ))}
+      {/* <div className="flex items-center space-x-2 mx-4">
+        <Switch
+          id="recruiter-mode"
+          checked={recruiterMode}
+          onCheckedChange={setRecruiterMode}
+          className="data-[state=checked]:bg-purple-600"
+        />
+        <Label htmlFor="recruiter-mode" className="text-lg text-white">
+          Recruiter Mode
+        </Label>
+      </div> */}
+    </nav>
     )
   }
 
   return (
     <Background>
-      <nav className="bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-1 flex justify-between items-center">
-        {navItems.map((item) => (
-          <Button
-            key={item}
-            variant="ghost"
-            className={`text-sm px-4 py-2 rounded-full transition-colors duration-200 ${
-              activeTab === item
-                ? 'text-blue-500 bg-white hover:text-blue-500'
-                : 'text-white hover:bg-white hover:bg-opacity-20 hover:text-white'
-            }`}
-            onClick={() => setActiveTab(item)}
-          >
-            {item}
-          </Button>
-        ))}
-        {/* <Button
-          variant="secondary"
-          className="bg-white bg-opacity-20 text-white hover:bg-opacity-30 rounded-full px-4 py-2 text-sm"
-        >
-          Try a new style
-        </Button> */}
-        <div className="flex items-center space-x-2 mx-4">
-          <Switch
-            id="recruiter-mode"
-            checked={recruiterMode}
-            onCheckedChange={setRecruiterMode}
-            className="data-[state=checked]:bg-purple-600"
-          />
-          <Label htmlFor="recruiter-mode" className="text-sm text-white">
-            {recruiterMode ? 'Recruiter Mode' : 'Fun Mode'}
-          </Label>
-        </div>
-      </nav>
-      
-      <main className="text-center flex flex-col gap-4 text-white">
-        <h1 className="text-8xl font-bold">Introducing... <Title /></h1> 
-        <h1 className="text-6xl font-bold">Your next intern.</h1>
-        <p className="text-2xl">Developer, community builder, filmmaker, amateur musician - you can guarantee his value is <b>not just code.</b></p>
-      </main>
-      
-      <footer>
-        <div className="max-w-4xl mx-auto">
-          <div className="text-center mb-4">
-            <span className="text-white text-lg">★★★★★</span>
-            <p className="text-lg text-gray-300 mt-2">Trusted by the following companies:</p>
-          </div>
-          <div className="flex justify-center space-x-10 opacity-50">
-            <img src="/arctic_wolf.png" alt="Arctic Wolf" className="h-10" />
-            <img src="/99_ravens.png" alt="99 Ravens" className="h-10" />
-            <img src="/horizn.png" alt="Horizn" className="h-10" />
-            <img src="/arctic_ai.png" alt="Arctic AI" className="h-10" />
-            <img src="/mikobyte.webp" alt="Mikobyte Solutions" className="h-10" />
-          </div>
-        </div>
-      </footer>
+      <NavBar />
+      <Home title={title}/>
+      <Experience />
+      <Projects />
+      <Contact />
     </Background>    
   )
 }
