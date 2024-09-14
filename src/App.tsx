@@ -59,8 +59,18 @@ function App() {
         {/* Shine effect */}
         <div className="absolute inset-0 bg-gradient-to-br from-transparent via-white to-transparent opacity-10"></div>
         
-        {/* Content */}
-        <div className="relative z-10 flex flex-col justify-between min-h-screen p-12 w-4/5">
+        <div className="fixed inset-0 bg-gray-900 text-white p-6 flex flex-col items-center justify-center md:hidden">
+          <h1 className="text-2xl font-bold mb-4">Desktop Only</h1>
+          <p className="text-center mb-4">
+            We're sorry, but this portfolio is optimized for desktop use only.
+          </p>
+          <p className="text-center">
+            Please visit us on a desktop or laptop computer for the best experience.
+          </p>
+        </div>
+
+        {/* Desktop Content */}
+        <div className="hidden md:block relative z-10 flex flex-col justify-between min-h-screen p-12 w-4/5">
           {children}
         </div>
       </div>
@@ -69,7 +79,7 @@ function App() {
 
   const NavBar = () => {
     return (
-      <nav className="fixed top-10 left-52 right-52 z-100 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-1 flex justify-between items-center">
+      <nav className="fixed top-10 left-60 right-60 z-100 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-1 flex justify-between items-center">
       {navItems.map((item) => (
         <Button
           key={item.id}

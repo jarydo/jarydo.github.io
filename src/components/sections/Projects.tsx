@@ -3,6 +3,7 @@ import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import * as resume from '../../resume.json';
 
+// TODO: add proper images, external links
 const Projects = () => { 
     return (
         <section id="projects" className="min-h-screen flex items-center justify-center pt-32">
