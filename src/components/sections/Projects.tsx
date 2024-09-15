@@ -2,11 +2,12 @@ import { Card, CardHeader, CardContent, CardTitle, CardDescription, CardFooter }
 import { Badge } from '../ui/badge';
 import { Button } from '../ui/button';
 import * as resume from '../../resume.json';
+import { forwardRef } from 'react';
 
 // TODO: add proper images, external links
-const Projects = () => { 
+const Projects = forwardRef<HTMLElement>((props, ref) => {
     return (
-        <section id="projects" className="min-h-screen flex items-center justify-center pt-32">
+        <section id="projects" ref={ref} className="min-h-screen flex items-center justify-center pt-32">
             <div className="max-w-6xl mx-auto px-4">
                 <h2 className="text-6xl font-bold text-center text-white mb-8">Selected Projects</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -46,6 +47,6 @@ const Projects = () => {
             </div>
         </section>
     )
-}
+});
 
 export default Projects;

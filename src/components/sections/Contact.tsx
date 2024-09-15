@@ -1,8 +1,9 @@
 import * as resume from '../../resume.json';
+import { forwardRef } from 'react';
 
-const Contact = () => { 
+const Contact = forwardRef<HTMLElement>((props, ref) => {
     return (
-        <section id="contact" className="min-h-screen flex flex-col items-center justify-center">
+        <section id="contact" ref={ref} className="min-h-screen flex flex-col items-center justify-center">
             <h2 className="text-6xl font-bold text-center text-white mb-20">Get in Touch</h2>
             <div className="flex gap-10">
                 <a href={resume.contact.linkedin} target="_blank" rel="noopener noreferrer" className="flex items-center text-gray-600 hover:text-blue-500 transition-colors">
@@ -20,6 +21,6 @@ const Contact = () => {
             </div>
         </section>
     )
-}
+});
 
 export default Contact;

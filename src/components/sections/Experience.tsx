@@ -1,11 +1,12 @@
 import * as resume from '../../resume.json';
 import { Card, CardContent } from '../ui/card';
 import { Badge } from '../ui/badge';
+import { forwardRef } from 'react';
 
 // TODO: add skills to each position, generate latex resume from json
-const Experience = () => { 
+const Experience = forwardRef<HTMLElement>((props, ref) => {
     return (
-        <section id="experience" className="min-h-screen flex flex-col items-center justify-center gap-4 pt-32">
+        <section id="experience" ref={ref} className="min-h-screen flex flex-col items-center justify-center gap-4 pt-32">
             <h2 className="text-6xl font-bold text-center text-white mb-8">Work Experience</h2>
             {resume.experience.map((item) => {
             return (
@@ -37,6 +38,6 @@ const Experience = () => {
             })}
       </section>
     )
-}
+});
 
 export default Experience;

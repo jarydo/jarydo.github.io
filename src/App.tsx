@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button";
 // import { Label } from './components/ui/label';
 // import { Switch } from './components/ui/switch';
@@ -13,16 +13,29 @@ function App() {
   const fullTitle = 'Jaryd.';
 
   const [activeTab, setActiveTab] = useState('home');
+  const [isScrolling, setIsScrolling] = useState(false);
   const navItems = [
     { id: 'home', label: 'Home' },
     { id: 'experience', label: 'Experience' },
     { id: 'projects', label: 'Projects' },
     { id: 'contact', label: 'Contact' },
   ]
+  const sectionRefs = useRef<{
+    home: HTMLElement | null;
+    experience: HTMLElement | null;
+    projects: HTMLElement | null;
+    contact: HTMLElement | null;
+  }>({
+    home: null,
+    experience: null,
+    projects: null,
+    contact: null,
+  });
 
+  // TODO: recruiter mode, handle mobile
   // const [recruiterMode, setRecruiterMode] = useState(true);
 
-  // TODO: Fix this reloading on navbar redirect
+  // TODO: change this to CSS animation
   useEffect(() => {
     if (index < fullTitle.length) {
         const timeout = setTimeout(() => {
@@ -34,11 +47,35 @@ function App() {
     }
 }, [index])
 
+useEffect(() => {
+  const handleScroll = () => {
+    if (isScrolling) return;
+
+    const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+    for (const [id, ref] of Object.entries(sectionRefs.current)) {
+      if (ref && ref.offsetTop <= scrollPosition && ref.offsetTop + ref.offsetHeight > scrollPosition) {
+        setActiveTab(id);
+        break;
+      }
+    }
+  };
+
+  window.addEventListener('scroll', handleScroll);
+  handleScroll(); // Call once to set initial active tab
+
+  return () => window.removeEventListener('scroll', handleScroll);
+}, [isScrolling]);
+
   const handleNavClick = (id: string) => {
+    setIsScrolling(true);
     setActiveTab(id)
-    const element = document.getElementById(id)
+    const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+      element.scrollIntoView({ behavior: 'smooth' });
+      setTimeout(() => {
+        setIsScrolling(false);
+      }, 1500);
     }
   }
 
@@ -112,10 +149,10 @@ function App() {
   return (
     <Background>
       <NavBar />
-      <Home title={title}/>
-      <Experience />
-      <Projects />
-      <Contact />
+      <Home title={title} ref={(el) => (sectionRefs.current.home = el)}/> 
+      <Experience ref={(el) => (sectionRefs.current.experience = el)}/>
+      <Projects ref={(el) => (sectionRefs.current.projects = el)}/>
+      <Contact ref={(el) => (sectionRefs.current.contact = el)}/>
     </Background>    
   )
 }
