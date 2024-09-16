@@ -27,11 +27,13 @@ const Projects = forwardRef<HTMLElement>((_, ref) => {
           {resume.projects.map((project, index) => (
             <Card key={index} className="flex flex-col">
               <CardHeader>
-                <img
-                  src={project.image_url}
-                  alt={project.name}
-                  className="w-full h-48 object-cover rounded-t-lg"
-                />
+                {project.image_url && (
+                  <img
+                    src={project.image_url}
+                    alt={project.name}
+                    className="w-full h-48 object-cover rounded-t-lg"
+                  />
+                )}
               </CardHeader>
               <CardContent className="flex-grow">
                 <CardTitle className="text-xl mb-2">{project.name}</CardTitle>

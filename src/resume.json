@@ -15,9 +15,9 @@
             "endDate": "08/2024",
             "fun_description": [],
             "recruiter_description": [
-                "Engineered a 33x throughput increase in malware sandboxing pipeline, scaling from 90 to 3000+ detonated samples daily, resulting in the detection of 14 novel threats across high-profile clients",
+                "Increased malware sandboxing throughput by 33x, scaling from 90 to 3000+ daily detonations, leading to the detection of 14 novel threats across high-profile clients",
                 "Architected and implemented serverless functions using AWS Lambda, managed cross-account IAM permissions, and leveraged Infrastructre as Code (IaC) with Troposphere and CloudFormation for streamlined resource provisioning",
-                "Enhanced threat analysis infrastructure by refactoring CI/CD pipeline and implementing automated configuration management for EC2 instances using Ansible"
+                "Enhanced threat analysis infrastructure by refactoring CI/CD pipeline and automating configuration management for EC2 instances using Ansible"
             ],
             "technologies": [
                 "Python",
@@ -35,8 +35,9 @@
             "endDate": "04/2024",
             "fun_description": [],
             "recruiter_description": [
-                "Contracted to scope and build MVP of LLM-based AI automation tool to optimize marketing executives' workflows",
-                "Handled all aspects of product development, including industry research, communicating with a non-technical founder, systems architecture, chatbot integrations with Google Cloud Platform, model prompt engineering and fine-tuning, and building endpoints"
+                "Spearheaded MVP development, including research, system architecture design, chatbot integration with GCP, and LLM fine-tuning",
+                "Translated complex technical details into clear communication with a non-technical founder, ensuring alignment and project clarity",
+                "Developed, deployed, and optimized chatbot functionality through prompt engineering and API endpoint creation"
             ],
             "technologies": [
                 "TypeScript",
@@ -54,8 +55,8 @@
             "endDate": "12/2023",
             "fun_description": [],
             "recruiter_description": [
-                "Developed and executed complex database migrations using Laravel and PHP, successfully integrating critical client configurations and demos for 20+ international banking clients, impacting over 90 million end-users",
-                "Implemented Agile methodologies, including leading daily stand-ups and sprint planning sessions, resulting in consistent on-time project delivery"
+                "Executed complex database migrations using Laravel and PHP, successfully integrating critical client configurations and demos for 20+ international banking clients, benefiting over 90 million end-users",
+                "Implemented and led Agile methodologies, including stand-ups and sprint planning, to ensure consistent on-time delivery"
             ],
             "technologies": [
                 "React",
@@ -92,8 +93,8 @@
             "endDate": "08/2022",
             "fun_description": [],
             "recruiter_description": [
-                "Designed, prototyped, and implemented flagship website as a full-stack developer at a new startup, utilizing React, Flask, and C++",
-                "Worked directly with co-founders to create and program new website components, along with optimizing existing codebase, resulting in a 100% improvement in website load times"
+                "Designed, prototyped, and implemented flagship service as a full-stack developer at a new startup, utilizing React, Flask, and C++",
+                "Collaborated directly with co-founders to innovate and streamline features, achieving a 100% improvement in website load times"
             ],
             "technologies": [
                 "React",
@@ -210,12 +211,13 @@
                 "GPT-3.5",
                 "JavaScript"
             ],
-            "github_url": "https://github.com/jarydo/resume-gpt"
+            "github_url": "https://github.com/jarydo/resume-gpt",
+            "image_url": "resume_gpt.png"
         },
         {
             "name": "Podcast Summarizer",
             "description": [
-                "Downloads YouTube video and creates summary"
+                "Uses AI to summarize podcasts into a few sentences, allowing users to quickly understand the content of a podcast without listening to the entire episode"
             ],
             "technologies": [
                 "Jupyter Notebook",
@@ -227,12 +229,13 @@
         {
             "name": "Chess Engine",
             "description": [
-                "Created chess engine in C++ following object-oriented design patterns, with multiple levels of computer AI including implementing the negamax algorithm to play the most optimal move, resulting in a final grade of 110%"
+                "Created chess engine in C++ following object-oriented design patterns, with multiple levels of computer AI, resulting in a final grade of 110%"
             ],
             "technologies": [
                 "C++"
             ],
-            "github_url": "https://gitfront.io/r/jarydo/VuF2Tyo2U7p3/cs246-chess/"
+            "github_url": "https://gitfront.io/r/jarydo/VuF2Tyo2U7p3/cs246-chess/",
+            "image_url": ""
         }
     ],
     "extracurriculars": [

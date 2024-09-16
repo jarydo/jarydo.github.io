@@ -66,9 +66,13 @@ const Home = forwardRef<HTMLElement, { title: string }>((props, ref) => {
           Introducing... <Title />
         </h1>
         <h1 className="text-6xl font-bold">Your next hire.</h1>
-        {/*TODO: fix, A curious and passionate developer, with a variety of experience from startups to large organizations - you can guarantee his value is not just code.*/}
-        <p className="text-2xl">
+        {/* <p className="text-2xl">
           Developer, community builder, filmmaker, amateur musician - you can
+          guarantee his value is <b>not just code.</b>
+        </p> */}
+        <p className="text-2xl text-slate-200">
+          A multi-faceted developer with experience building innovative
+          solutions, inspiring communities, and driving impact — you can
           guarantee his value is <b>not just code.</b>
         </p>
       </main>
