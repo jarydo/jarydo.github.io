@@ -8,7 +8,7 @@
     },
     "experience": [
         {
-            "title": "Software Developer",
+            "title": "Software Developer - Security Research Services Team",
             "company": "Arctic Wolf",
             "location": "Waterloo, ON",
             "startDate": "05/2024",
@@ -24,7 +24,8 @@
                 "AWS",
                 "Ansible",
                 "Malware Analysis"
-            ]
+            ],
+            "quote": "\"Consistent attitude/emotional state when approaching work, adapted well to changing situations. Looked for opportunities to learn new skills regularly, had a plan in place to develop himself and his skills.\" - Dallas Rathbone"
         },
         {
             "title": "Lead Product Developer",
@@ -42,7 +43,8 @@
                 "Google Cloud Platform",
                 "LLM",
                 "Node.js"
-            ]
+            ],
+            "quote": ""
         },
         {
             "title": "Web Developer",
@@ -60,7 +62,8 @@
                 "PHP",
                 "Laravel",
                 "Jenkins"
-            ]
+            ],
+            "quote": "\"Jaryd consistently displayed an insatiable drive for growth, always eager to delve deeper, expand his knowledge, and make meaningful contributions. His enthusiasm encompassed every facet of the opportunity presented to him: embracing emerging technologies, collaborating within teams, and embracing novel approaches to software development.\" - Kirk Lalchan"
         },
         {
             "title": "Junior Developer",
@@ -78,7 +81,8 @@
                 "TypeScript",
                 "MySQL",
                 "Node.js"
-            ]
+            ],
+            "quote": "\"His ability to be both dynamic and detail oriented is very impressive. Jaryd's work will continue to be utilized by the team, well beyond his internship.\" - Jessica Ascunion"
         },
         {
             "title": "Software Developer",
@@ -96,7 +100,8 @@
                 "Flask",
                 "C++",
                 "JavaScript"
-            ]
+            ],
+            "quote": "\"Jaryd was an amazing collaborator and was able to apply his knowledge and abilities to produce high quality results. We were also impressed with how fast he was able to learn new tools.\" - Manjeet Ram"
         }
     ],
     "skills": [
