@@ -19,7 +19,7 @@ const Experience = forwardRef<HTMLElement>((props, ref) => {
                                 {item.startDate} - {item.endDate}
                             </div>
                             <div className="text-sm text-blue-500 mt-1">{item.location}</div>
-                            <div className="flex gap-2 mt-2">
+                            <div className="flex flex-wrap gap-2 mt-3">
                                 {item.technologies.map((tech, techIndex) => (
                                     <Badge key={techIndex} variant="secondary">{tech}</Badge>
                                 ))}

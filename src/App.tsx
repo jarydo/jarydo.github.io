@@ -107,7 +107,7 @@ useEffect(() => {
         </div>
 
         {/* Desktop Content */}
-        <div className="hidden md:block relative z-10 flex flex-col justify-between min-h-screen p-12 w-4/5">
+        <div className="hidden md:block relative z-10 flex flex-col justify-between min-h-screen w-9/12">
           {children}
         </div>
       </div>
@@ -116,7 +116,7 @@ useEffect(() => {
 
   const NavBar = () => {
     return (
-      <nav className="fixed top-10 left-60 right-60 z-100 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-1 flex justify-between items-center">
+      <nav className="fixed top-10 left-60 right-60 z-50 bg-white bg-opacity-10 backdrop-filter backdrop-blur-lg rounded-full p-1 flex justify-between items-center">
       {navItems.map((item) => (
         <Button
           key={item.id}
