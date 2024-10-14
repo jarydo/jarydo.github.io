@@ -15,3 +15,6 @@
   url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.ttf")format("truetype"),
   url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.svg#ChiKareGo2")format("svg");
 }
+body {
+  @apply cursor-default;
+}

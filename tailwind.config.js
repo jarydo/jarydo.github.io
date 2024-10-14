@@ -15,7 +15,10 @@ export default {
   		colors: {},
       fontFamily: {
         macos: 'ChiKareGo2, ui-serif', // Adds a new `font-display` class
-      }
+      },
+      cursor: {
+        'default': 'url(/macos_assets/cursor.png), auto',
+      },
   	}
   },
   plugins: [require("tailwindcss-animate")],
