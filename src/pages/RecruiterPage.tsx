@@ -1,13 +1,16 @@
 import { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/button";
-// import { Label } from './components/ui/label';
-// import { Switch } from './components/ui/switch';
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
 import Home from "../components/sections/Home";
 import Experience from "../components/sections/Experience";
 import Contact from "../components/sections/Contact";
 import Projects from "../components/sections/Projects";
+import { useNavigate } from "react-router-dom";
 
 function RecruiterPage() {
+  const navigate = useNavigate();
+
   const [index, setIndex] = useState(0);
   const [title, setTitle] = useState("");
   const fullTitle = "Jaryd.";
@@ -32,8 +35,7 @@ function RecruiterPage() {
     contact: null,
   });
 
-  // TODO: recruiter mode, handle mobile
-  // const [recruiterMode, setRecruiterMode] = useState(true);
+  // TODO: handle mobile
 
   // TODO: change this to CSS animation
   useEffect(() => {
@@ -136,17 +138,17 @@ function RecruiterPage() {
             {item.label}
           </Button>
         ))}
-        {/* <div className="flex items-center space-x-2 mx-4">
+        <div className="flex items-center space-x-2 mx-4">
           <Switch
             id="recruiter-mode"
-            checked={recruiterMode}
-            onCheckedChange={setRecruiterMode}
+            checked={true}
+            onCheckedChange={() => navigate("/")}
             className="data-[state=checked]:bg-purple-600"
           />
           <Label htmlFor="recruiter-mode" className="text-lg text-white">
             Recruiter Mode
           </Label>
-        </div> */}
+        </div>
       </nav>
     );
   };
