@@ -1,4 +1,6 @@
 import React from "react";
+import ReactMarkdown from "react-markdown";
+import "github-markdown-css/github-markdown.css";
 
 interface TextContentProps {
   content: string;
@@ -6,6 +8,10 @@ interface TextContentProps {
 
 export const TextContent: React.FC<TextContentProps> = ({ content }) => {
   return (
-    <div className="p-4 font-mono text-sm whitespace-pre-wrap">{content}</div>
+    <>
+      <div className="markdown-body p-4 font-macos text-sm">
+        <ReactMarkdown>{content}</ReactMarkdown>
+      </div>
+    </>
   );
 };

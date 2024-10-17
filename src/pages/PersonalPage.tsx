@@ -11,7 +11,7 @@ type FileItem = {
   name: string;
   icon: string;
   type: "file" | "folder";
-  content?: string;
+  path: string;
   children?: FileItem[];
 };
 
@@ -25,6 +25,20 @@ type WindowState = {
   parentId?: string;
 };
 
+async function loadMarkdownContent(path: string): Promise<string> {
+  try {
+    // Using dynamic import to load markdown files
+    const content = await import(
+      /* @vite-ignore */
+      path
+    );
+    return content.markdown;
+  } catch (error) {
+    console.error(`Error loading markdown file: ${path}`, error);
+    return "Error loading content";
+  }
+}
+
 function PersonalPage() {
   const [fileSystem, setFileSystem] = useState<FileItem[]>([]);
   const [windows, setWindows] = useState<WindowState[]>([]);
@@ -37,7 +51,7 @@ function PersonalPage() {
 
   const isDisabled = (id: string) => disabledItems.has(id);
 
-  const openWindow = (item: FileItem, parentId?: string) => {
+  const openWindow = async (item: FileItem, parentId?: string) => {
     // Check if window is already open
     const existingWindow = windows.find((w) => w.id === item.id);
     if (existingWindow) {
@@ -53,10 +67,11 @@ function PersonalPage() {
     });
 
     if (item.type === "file" && item.name.endsWith(".txt")) {
+      const content = await loadMarkdownContent(item.path);
       const newWindow: WindowState = {
         id: item.id,
         title: item.name,
-        content: item.content || "",
+        content: content,
         zIndex: maxZIndex + 1,
         isOpen: true,
         windowType: "text",

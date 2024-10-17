@@ -18,3 +18,27 @@
 body {
   @apply cursor-default;
 }
+
+.markdown-body {
+  background-color: transparent;
+  color: black;
+  /* font-family: "ChiKareGo2", sans-serif; */
+  /* min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px; */
+}
+
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
+}
+
+.markdown-body ul {
+  list-style-type: disc !important;
+}
+
+.markdown-body ol {
+  list-style-type: decimal !important;
+}

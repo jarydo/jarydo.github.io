@@ -10,37 +10,116 @@
                 "name": "Casual Film Critic.txt",
                 "icon": "/macos_assets/file.png",
                 "type": "file",
-                "content": "Some stuff"
+                "path": "/content/files/test.md"
             },
             {
                 "id": "directing",
                 "name": "Directing.txt",
                 "icon": "/macos_assets/file.png",
                 "type": "file",
-                "content": "Some stuff"
+                "path": "/content/files/test.md"
             },
             {
                 "id": "letterboxd",
                 "name": "Letterboxd.txt",
                 "icon": "/macos_assets/file.png",
                 "type": "file",
-                "content": "Some stuff"
+                "path": "/content/files/test.md"
             }
         ]
     },
     {
-        "id": "pictures",
-        "name": "Pictures",
+        "id": "music",
+        "name": "Music",
         "icon": "/macos_assets/folder.png",
         "type": "folder",
         "children": [
             {
-                "id": "vacation",
-                "name": "Vacation.txt",
+                "id": "jamming_with_jaryd",
+                "name": "Jamming With Jaryd.txt",
                 "icon": "/macos_assets/file.png",
                 "type": "file",
-                "content": "My vacation plans..."
+                "path": "/content/files/test.md"
+            },
+            {
+                "id": "producing",
+                "name": "Producing.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            },
+            {
+                "id": "concerts",
+                "name": "Concerts.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
             }
         ]
+    },
+    {
+        "id": "side_quests",
+        "name": "Side Quests",
+        "icon": "/macos_assets/folder.png",
+        "type": "folder",
+        "children": [
+            {
+                "id": "socratica",
+                "name": "Socratica.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            },
+            {
+                "id": "mario_kart",
+                "name": "Mario Kart.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            },
+            {
+                "id": "doodling",
+                "name": "Doodling.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            }
+        ]
+    },
+    {
+        "id": "projects",
+        "name": "Projects",
+        "icon": "/macos_assets/folder.png",
+        "type": "folder",
+        "children": [
+            {
+                "id": "resonant",
+                "name": "Resonant.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            },
+            {
+                "id": "mini_builds",
+                "name": "Mini Builds.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            },
+            {
+                "id": "personal_site",
+                "name": "Personal Site.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "path": "/content/files/test.md"
+            }
+        ]
+    },
+    {
+        "id": "readme",
+        "name": "README.txt",
+        "icon": "/macos_assets/file.png",
+        "type": "file",
+        "path": "/src/content/files/test.md"
     }
 ]
