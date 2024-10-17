@@ -19,6 +19,7 @@ export const Window: React.FC<WindowProps> = ({
   children,
 }) => {
   const [size, setSize] = useState({ width: 400, height: 300 });
+  const [isCloseButtonPressed, setIsCloseButtonPressed] = useState(false);
 
   return (
     <Rnd
@@ -36,15 +37,46 @@ export const Window: React.FC<WindowProps> = ({
         setSize({ width: ref.offsetWidth, height: ref.offsetHeight });
       }}
     >
-      <div className="bg-white border border-gray-300 rounded-lg shadow-lg flex flex-col h-full">
-        <div className="bg-gray-100 p-2 flex justify-between items-center border-b border-gray-300 rounded-t-lg">
-          <h2 className="text-sm font-semibold">{title}</h2>
+      <div className="bg-white border-black border-2 flex flex-col h-full">
+        <div className="flex border-black border-b-2 items-center ">
+          <img
+            src="/macos_assets/window_header.png"
+            width="12px"
+            className="mx-2"
+            draggable="false"
+          />
           <button
             onClick={onClose}
-            className="text-gray-600 hover:text-gray-800"
+            onMouseDown={() => setIsCloseButtonPressed(true)}
+            onMouseUp={() => setIsCloseButtonPressed(false)}
+            onMouseLeave={() => setIsCloseButtonPressed(false)}
           >
-            ×
+            <img
+              src={
+                isCloseButtonPressed
+                  ? "/macos_assets/window_clicked.png"
+                  : "/macos_assets/window_unclicked.png"
+              }
+              width="22px"
+              draggable="false"
+            />
           </button>
+          <img
+            className="grow mx-2 h-[38px]"
+            src="/macos_assets/window_header.png"
+            draggable="false"
+          />
+          <div className="text-xl">{title}</div>
+          <img
+            className="grow ml-2 h-[38px]"
+            src="/macos_assets/window_header.png"
+            draggable="false"
+          />
+          <img
+            className="h-[38px] w-[50px] mr-2"
+            src="/macos_assets/window_header.png"
+            draggable="false"
+          />
         </div>
         <div className="p-4 flex-grow overflow-auto">{children}</div>
       </div>
