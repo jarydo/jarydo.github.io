@@ -141,7 +141,7 @@ function PersonalPage() {
   };
 
   return (
-    <div className="font-macos fixed top-0 left-0 w-full h-full touch-none">
+    <div className="font-macos fixed top-0 left-0 w-full h-full touch-none bg-chessboard">
       {fileSystem.map((item) => renderFileOrFolder(item))}
 
       {windows

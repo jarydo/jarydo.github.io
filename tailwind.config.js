@@ -19,6 +19,9 @@ export default {
       cursor: {
         'default': 'url(/macos_assets/cursor.png), auto',
       },
+      backgroundImage: {
+        'chessboard': 'url(/macos_assets/background.png)'
+      }
   	}
   },
   plugins: [require("tailwindcss-animate")],
