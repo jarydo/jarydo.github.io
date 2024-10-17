@@ -14,7 +14,6 @@ export const Header: React.FC = () => {
     setActiveDropdown(activeDropdown === menu ? null : menu);
   };
 
-  // TODO: get onClick working
   const fileMenuItems: MenuItem[] = [
     {
       name: "Open",
@@ -37,7 +36,7 @@ export const Header: React.FC = () => {
   ];
 
   const MenuDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => (
-    <div className="absolute top-full left-0 bg-white border-2 border-black shadow-md min-w-[160px]">
+    <div className="absolute top-full left-0 bg-white border-2 border-black shadow-md min-w-[160px] z-20">
       {items.map((item, index) => (
         <div
           key={index}
