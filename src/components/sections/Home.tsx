@@ -7,7 +7,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "../ui/carousel";
-import * as resume from "../../resume.json";
+import * as resume from "../../content/resume.json";
 
 type AutoplayType = {
   play: () => void;

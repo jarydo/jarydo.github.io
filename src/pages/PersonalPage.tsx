@@ -1,61 +1,169 @@
-document.addEventListener("DOMContentLoaded", () => {
-  const desktop = document.getElementById("desktop");
-  let draggedItem: HTMLElement | null = null;
+import { File } from "@/components/personal/File";
+import { Window } from "@/components/personal/Window";
+import { Folder } from "@/components/personal/Folder";
+import { useState, useEffect } from "react";
+import { TextContent } from "@/components/personal/TextContent";
+import fileSystemData from "@/content/filesystem.json";
 
-  document.addEventListener("dragstart", function (e) {
-    const target = e.target as HTMLElement;
-    if (target && target.classList.contains("folder")) {
-      draggedItem = target;
-      if (e.dataTransfer) {
-        e.dataTransfer.setData("text/plain", target.id);
-      }
-      setTimeout(() => {
-        target.style.opacity = "0.5";
-      }, 0);
-    }
-  });
+type FileItem = {
+  id: string;
+  name: string;
+  icon: string;
+  type: "file" | "folder";
+  content?: string;
+  children?: FileItem[];
+};
 
-  document.addEventListener("dragend", function (e) {
-    const target = e.target as HTMLElement;
-    if (target && target.classList.contains("folder")) {
-      target.style.opacity = "";
-    }
-
-    console.log(desktop);
-  });
-
-  if (desktop) {
-    desktop.addEventListener("dragover", function (e) {
-      e.preventDefault();
-    });
-
-    desktop.addEventListener("drop", function (e) {
-      e.preventDefault();
-
-      if (draggedItem) {
-        const rect = desktop.getBoundingClientRect();
-        const x = e.clientX - rect.left - draggedItem.offsetWidth / 2;
-        const y = e.clientY - rect.top - draggedItem.offsetHeight / 2;
-
-        draggedItem.style.left = `${x}px`;
-        draggedItem.style.top = `${y}px`;
-        draggedItem = null;
-      }
-    });
-  }
-});
+type WindowState = {
+  id: string;
+  title: string;
+  content: FileItem[] | string;
+  zIndex: number;
+  isOpen: boolean;
+  windowType: "folder" | "text";
+  parentId?: string;
+};
 
 function PersonalPage() {
+  const [fileSystem, setFileSystem] = useState<FileItem[]>([]);
+  const [windows, setWindows] = useState<WindowState[]>([]);
+  const [maxZIndex, setMaxZIndex] = useState(0);
+  const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
+
+  useEffect(() => {
+    setFileSystem(fileSystemData as FileItem[]);
+  }, []);
+
+  const isDisabled = (id: string) => disabledItems.has(id);
+
+  const openWindow = (item: FileItem, parentId?: string) => {
+    // Check if window is already open
+    const existingWindow = windows.find((w) => w.id === item.id);
+    if (existingWindow) {
+      bringToFront(item.id);
+      return;
+    }
+
+    // Mark the item as disabled
+    setDisabledItems((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(item.id);
+      return newSet;
+    });
+
+    if (item.type === "file" && item.name.endsWith(".txt")) {
+      const newWindow: WindowState = {
+        id: item.id,
+        title: item.name,
+        content: item.content || "",
+        zIndex: maxZIndex + 1,
+        isOpen: true,
+        windowType: "text",
+        parentId,
+      };
+      setWindows([...windows, newWindow]);
+    } else if (item.type === "folder") {
+      const newWindow: WindowState = {
+        id: item.id,
+        title: item.name,
+        content: item.children || [],
+        zIndex: maxZIndex + 1,
+        isOpen: true,
+        windowType: "folder",
+        parentId,
+      };
+      setWindows([...windows, newWindow]);
+    }
+    setMaxZIndex(maxZIndex + 1);
+  };
+
+  const bringToFront = (id: string) => {
+    setWindows(
+      windows.map((win) => ({
+        ...win,
+        zIndex: win.id === id ? maxZIndex + 1 : win.zIndex,
+      }))
+    );
+    setMaxZIndex(maxZIndex + 1);
+  };
+
+  const closeWindow = (id: string) => {
+    // Remove the disabled state when closing the window
+    setDisabledItems((prev) => {
+      const newSet = new Set(prev);
+      newSet.delete(id);
+      return newSet;
+    });
+
+    // Close the window and any child windows
+    setWindows((prevWindows) => {
+      const windowToClose = prevWindows.find((w) => w.id === id);
+      if (!windowToClose) return prevWindows;
+
+      // Find all child windows that need to be closed
+      const childWindows = prevWindows.filter((w) => w.parentId === id);
+
+      // Remove disabled state for all child items
+      setDisabledItems((prev) => {
+        const newSet = new Set(prev);
+        childWindows.forEach((child) => newSet.delete(child.id));
+        return newSet;
+      });
+
+      // Remove the window and all its children
+      return prevWindows.filter((w) => w.id !== id && w.parentId !== id);
+    });
+  };
+
+  const renderFileOrFolder = (item: FileItem, parentId?: string) => {
+    const isItemDisabled = isDisabled(item.id);
+
+    if (item.type === "folder") {
+      return (
+        <Folder
+          key={item.id}
+          name={item.name}
+          icon={item.icon}
+          disabled={isItemDisabled}
+          onOpen={() => !isItemDisabled && openWindow(item, parentId)}
+        />
+      );
+    }
+    return (
+      <File
+        key={item.id}
+        name={item.name}
+        icon={item.icon}
+        disabled={isItemDisabled}
+        onOpen={() => !isItemDisabled && openWindow(item, parentId)}
+      />
+    );
+  };
+
   return (
-    <div className="font-macos" id="desktop">
-      <div className="folder" draggable="true" id="folder1">
-        <img src="/assets/folder.png" alt="Folder" width="32px" />
-        <div className="folder-name">Documents</div>
-      </div>
-      <div className="folder" draggable="true" id="folder2">
-        <img src="folder-icon.png" alt="Folder" />
-        <div className="folder-name">Projects</div>
-      </div>
+    <div className="font-macos fixed top-0 left-0 w-full h-full touch-none">
+      {fileSystem.map((item) => renderFileOrFolder(item))}
+
+      {windows
+        .filter((w) => w.isOpen)
+        .map((win) => (
+          <Window
+            key={win.id}
+            title={win.title}
+            initialPosition={{ x: 100, y: 100 }}
+            zIndex={win.zIndex}
+            onFocus={() => bringToFront(win.id)}
+            onClose={() => closeWindow(win.id)}
+          >
+            {win.windowType === "folder" && Array.isArray(win.content) ? (
+              <div className="p-2 flex flex-wrap gap-4">
+                {win.content.map((item) => renderFileOrFolder(item, win.id))}
+              </div>
+            ) : (
+              <TextContent content={win.content as string} />
+            )}
+          </Window>
+        ))}
     </div>
   );
 }

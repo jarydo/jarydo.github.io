@@ -1,4 +1,4 @@
-import * as resume from "../../resume.json";
+import * as resume from "../../content/resume.json";
 import { forwardRef } from "react";
 
 const Contact = forwardRef<HTMLElement>((_, ref) => {

@@ -1,0 +1,46 @@
+[
+    {
+        "id": "film",
+        "name": "Film",
+        "icon": "/macos_assets/folder.png",
+        "type": "folder",
+        "children": [
+            {
+                "id": "casual_film_critic",
+                "name": "Casual Film Critic.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "content": "Some stuff"
+            },
+            {
+                "id": "directing",
+                "name": "Directing.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "content": "Some stuff"
+            },
+            {
+                "id": "letterboxd",
+                "name": "Letterboxd.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "content": "Some stuff"
+            }
+        ]
+    },
+    {
+        "id": "pictures",
+        "name": "Pictures",
+        "icon": "/macos_assets/folder.png",
+        "type": "folder",
+        "children": [
+            {
+                "id": "vacation",
+                "name": "Vacation.txt",
+                "icon": "/macos_assets/file.png",
+                "type": "file",
+                "content": "My vacation plans..."
+            }
+        ]
+    }
+]
