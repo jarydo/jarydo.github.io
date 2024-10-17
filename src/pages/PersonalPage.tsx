@@ -4,6 +4,7 @@ import { Folder } from "@/components/personal/Folder";
 import { useState, useEffect } from "react";
 import { TextContent } from "@/components/personal/TextContent";
 import fileSystemData from "@/content/filesystem.json";
+import { Header } from "@/components/personal/Header";
 
 type FileItem = {
   id: string;
@@ -142,6 +143,8 @@ function PersonalPage() {
 
   return (
     <div className="font-macos fixed top-0 left-0 w-full h-full touch-none bg-chessboard">
+      <Header />
+
       {fileSystem.map((item) => renderFileOrFolder(item))}
 
       {windows
