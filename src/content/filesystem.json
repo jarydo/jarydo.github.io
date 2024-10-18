@@ -120,6 +120,6 @@
         "name": "README.txt",
         "icon": "/macos_assets/file.png",
         "type": "file",
-        "path": "/src/content/files/test.md"
+        "path": "/src/content/files/README.md"
     }
 ]

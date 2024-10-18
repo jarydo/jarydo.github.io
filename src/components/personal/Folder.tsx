@@ -2,14 +2,12 @@ import React from "react";
 
 interface FolderProps {
   name: string;
-  icon: string;
   onOpen: () => void;
   disabled?: boolean;
 }
 
 export const Folder: React.FC<FolderProps> = ({
   name,
-  icon,
   onOpen,
   disabled = false,
 }) => {

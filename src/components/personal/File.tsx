@@ -3,7 +3,6 @@ import { Rnd } from "react-rnd";
 
 interface FileProps {
   name: string;
-  icon: string;
   initialPosition?: { x: number; y: number };
   onOpen: () => void;
   disabled?: boolean;
@@ -11,7 +10,6 @@ interface FileProps {
 
 export const File: React.FC<FileProps> = ({
   name,
-  icon,
   initialPosition,
   onOpen,
   disabled = false,

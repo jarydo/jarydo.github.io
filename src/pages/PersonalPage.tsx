@@ -139,7 +139,6 @@ function PersonalPage() {
         <Folder
           key={item.id}
           name={item.name}
-          icon={item.icon}
           disabled={isItemDisabled}
           onOpen={() => !isItemDisabled && openWindow(item, parentId)}
         />
@@ -149,7 +148,6 @@ function PersonalPage() {
       <File
         key={item.id}
         name={item.name}
-        icon={item.icon}
         disabled={isItemDisabled}
         onOpen={() => !isItemDisabled && openWindow(item, parentId)}
       />
