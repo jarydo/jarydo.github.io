@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Rnd } from "react-rnd";
+// import ClassicScrollbar from "./Scrollbar";
 
 interface WindowProps {
   title: string;
@@ -18,7 +19,7 @@ export const Window: React.FC<WindowProps> = ({
   onClose,
   children,
 }) => {
-  const [size, setSize] = useState({ width: 400, height: 300 });
+  const [size, setSize] = useState({ width: 600, height: 450 });
   const [isCloseButtonPressed, setIsCloseButtonPressed] = useState(false);
 
   return (
@@ -29,16 +30,20 @@ export const Window: React.FC<WindowProps> = ({
         width: size.width,
         height: size.height,
       }}
-      minWidth={300}
-      minHeight={200}
+      minWidth={400}
+      minHeight={300}
+      maxWidth={800}
+      maxHeight={600}
       style={{ zIndex }}
       onMouseDown={onFocus}
       onResize={(e, direction, ref) => {
         setSize({ width: ref.offsetWidth, height: ref.offsetHeight });
       }}
+      dragHandleClassName="window-header"
+      cancel=".window-button"
     >
       <div className="bg-white border-black border-2 flex flex-col h-full">
-        <div className="flex border-black border-b-2 items-center ">
+        <div className="window-header flex border-black border-b-2 items-center cursor-move">
           <img
             src="/macos_assets/window_header.png"
             width="12px"
@@ -50,6 +55,7 @@ export const Window: React.FC<WindowProps> = ({
             onMouseDown={() => setIsCloseButtonPressed(true)}
             onMouseUp={() => setIsCloseButtonPressed(false)}
             onMouseLeave={() => setIsCloseButtonPressed(false)}
+            className="window-button cursor-pointer"
           >
             <img
               src={
@@ -66,7 +72,7 @@ export const Window: React.FC<WindowProps> = ({
             src="/macos_assets/window_header.png"
             draggable="false"
           />
-          <div className="text-xl">{title}</div>
+          <div className="text-xl select-none">{title}</div>
           <img
             className="grow ml-2 h-[38px]"
             src="/macos_assets/window_header.png"
@@ -78,7 +84,10 @@ export const Window: React.FC<WindowProps> = ({
             draggable="false"
           />
         </div>
-        <div className="p-4 flex-grow overflow-auto">{children}</div>
+
+        <div className="p-4 flex-grow overflow-hidden cursor-default">
+          {children}
+        </div>
       </div>
     </Rnd>
   );
