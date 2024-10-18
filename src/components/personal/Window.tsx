@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Rnd } from "react-rnd";
-// import ClassicScrollbar from "./Scrollbar";
+import ClassicScrollbar from "./Scrollbar";
 
 interface WindowProps {
   title: string;
@@ -85,8 +85,8 @@ export const Window: React.FC<WindowProps> = ({
           />
         </div>
 
-        <div className="p-4 flex-grow overflow-hidden cursor-default">
-          {children}
+        <div className="flex-grow overflow-hidden cursor-default">
+          <ClassicScrollbar>{children}</ClassicScrollbar>
         </div>
       </div>
     </Rnd>

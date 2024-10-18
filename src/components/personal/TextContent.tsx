@@ -9,7 +9,7 @@ interface TextContentProps {
 export const TextContent: React.FC<TextContentProps> = ({ content }) => {
   return (
     <>
-      <div className="markdown-body font-macos text-lg">
+      <div className="markdown-body p-4 font-macos text-lg">
         <ReactMarkdown>{content}</ReactMarkdown>
       </div>
     </>
