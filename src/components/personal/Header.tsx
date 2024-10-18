@@ -14,11 +14,35 @@ export const Header: React.FC = () => {
     setActiveDropdown(activeDropdown === menu ? null : menu);
   };
 
-  const fileMenuItems: MenuItem[] = [
+  const contactMenuItems: MenuItem[] = [
     {
-      name: "Open",
+      name: "Twitter",
       onClick: () => {
-        console.log("open");
+        window.open("https://x.com/jaryd_diamond");
+      },
+    },
+    {
+      name: "LinkedIn",
+      onClick: () => {
+        window.open("https://linkedin.com/in/jaryddiamond");
+      },
+    },
+    {
+      name: "Github",
+      onClick: () => {
+        window.open("https://github.com/jarydo");
+      },
+    },
+    {
+      name: "Letterboxd",
+      onClick: () => {
+        window.open("https://letterboxd.com/jarydo");
+      },
+    },
+    {
+      name: "Email",
+      onClick: () => {
+        window.open("mailto:jaryd.diamond@uwaterloo.ca");
       },
     },
   ];
@@ -63,13 +87,13 @@ export const Header: React.FC = () => {
           <img src="/macos_assets/pear_logo.png" width="16px" alt="Pear logo" />
           <div className="relative">
             <button
-              onClick={() => handleMenuClick("file")}
-              className={`px-2 ${activeDropdown === "file" ? "bg-black text-white" : ""}`}
+              onClick={() => handleMenuClick("contact")}
+              className={`px-2 ${activeDropdown === "contact" ? "bg-black text-white" : ""}`}
             >
-              File
+              Contact
             </button>
-            {activeDropdown === "file" && (
-              <MenuDropdown items={fileMenuItems} />
+            {activeDropdown === "contact" && (
+              <MenuDropdown items={contactMenuItems} />
             )}
           </div>
           <div className="relative">
