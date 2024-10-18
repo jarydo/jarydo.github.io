@@ -158,7 +158,9 @@ function PersonalPage() {
     <div className="font-macos fixed top-0 left-0 w-full h-full touch-none bg-chessboard">
       <Header />
 
-      {fileSystem.map((item) => renderFileOrFolder(item))}
+      <div className="grid grid-flow-row justify-end pr-1">
+        {fileSystem.map((item) => renderFileOrFolder(item))}
+      </div>
 
       {windows
         .filter((w) => w.isOpen)
