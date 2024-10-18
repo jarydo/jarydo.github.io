@@ -9,7 +9,6 @@ import { Header } from "@/components/personal/Header";
 type FileItem = {
   id: string;
   name: string;
-  icon: string;
   type: "file" | "folder";
   path: string;
   children?: FileItem[];
