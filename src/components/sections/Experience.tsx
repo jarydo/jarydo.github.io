@@ -1,4 +1,4 @@
-import * as resume from "../../resume.json";
+import * as resume from "../../content/resume.json";
 import { Card, CardContent } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { forwardRef } from "react";

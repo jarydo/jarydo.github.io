@@ -8,7 +8,7 @@ import {
 } from "../ui/card";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import * as resume from "../../resume.json";
+import * as resume from "../../content/resume.json";
 import { forwardRef } from "react";
 
 // TODO: add proper images, external links

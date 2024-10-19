@@ -12,7 +12,16 @@ export default {
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
   		},
-  		colors: {}
+  		colors: {},
+      fontFamily: {
+        macos: 'ChiKareGo2, ui-serif', // Adds a new `font-display` class
+      },
+      cursor: {
+        'default': 'url(/macos_assets/cursor.png), auto',
+      },
+      backgroundImage: {
+        'chessboard': 'url(/macos_assets/background.png)'
+      }
   	}
   },
   plugins: [require("tailwindcss-animate")],
