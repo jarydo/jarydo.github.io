@@ -33,11 +33,10 @@ body {
 .markdown-body {
   background-color: transparent;
   color: black;
-  /* font-family: "ChiKareGo2", sans-serif; */
-  /* min-width: 200px;
-  max-width: 980px;
-  margin: 0 auto;
-  padding: 45px; */
+  a {
+    color: black;
+    text-decoration: underline;
+  }
 }
 
 @media (max-width: 767px) {

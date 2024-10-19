@@ -105,11 +105,11 @@ function RecruiterPage() {
         <div className="fixed inset-0 bg-gray-900 text-white p-6 flex flex-col items-center justify-center md:hidden">
           <h1 className="text-2xl font-bold mb-4">Desktop Only</h1>
           <p className="text-center mb-4">
-            We're sorry, but this portfolio is optimized for desktop use only.
+            Sorry, but this portfolio is optimized for desktop use only.
           </p>
           <p className="text-center">
-            Please visit us on a desktop or laptop computer for the best
-            experience.
+            Please visit on a desktop or laptop computer for the best
+            experience. You won't regret it!
           </p>
         </div>
 
