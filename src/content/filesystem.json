@@ -8,19 +8,19 @@
                 "id": "casual_film_critic",
                 "name": "Casual Film Critic.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/casual_film_critic.md"
             },
             {
                 "id": "directing",
                 "name": "Directing.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/directing.md"
             },
             {
-                "id": "letterboxd",
-                "name": "Letterboxd.txt",
+                "id": "favourite_films",
+                "name": "Favourites.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/favourite_films.md"
             }
         ]
     },
@@ -33,19 +33,13 @@
                 "id": "jamming_with_jaryd",
                 "name": "Jamming With Jaryd.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
-            },
-            {
-                "id": "producing",
-                "name": "Producing.txt",
-                "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/jamming_with_jaryd.md"
             },
             {
                 "id": "concerts",
                 "name": "Concerts.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/concerts.md"
             }
         ]
     },
@@ -58,25 +52,25 @@
                 "id": "socratica",
                 "name": "Socratica.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/socratica.md"
             },
             {
                 "id": "mario_kart",
                 "name": "Mario Kart.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/mario_kart.md"
             },
             {
                 "id": "uw_blueprint",
                 "name": "UW Blueprint.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/uw_blueprint.md"
             },
             {
                 "id": "doodling",
                 "name": "Doodling.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/doodling.md"
             }
         ]
     },
@@ -89,19 +83,19 @@
                 "id": "resonant",
                 "name": "Resonant.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/resonant.md"
             },
             {
                 "id": "mini_builds",
                 "name": "Mini Builds.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/mini_builds.md"
             },
             {
                 "id": "personal_site",
                 "name": "Personal Site.txt",
                 "type": "file",
-                "path": "/content/files/test.md"
+                "path": "/src/content/files/personal_site.md"
             }
         ]
     },
