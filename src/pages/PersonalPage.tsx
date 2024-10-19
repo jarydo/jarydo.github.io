@@ -11,6 +11,7 @@ type FileItem = {
   name: string;
   type: "file" | "folder";
   path: string;
+  content?: string;
   children?: FileItem[];
 };
 
@@ -24,18 +25,18 @@ type WindowState = {
   parentId?: string;
 };
 
-async function loadMarkdownContent(path: string): Promise<string> {
-  try {
-    // Using dynamic import to load markdown files
-    const content = await import(
-      /* @vite-ignore */
-      path
-    );
-    return content.markdown;
-  } catch (error) {
-    console.error(`Error loading markdown file: ${path}`, error);
-    return "Error loading content";
-  }
+// Helper function to recursively process the file system
+function processFileSystem(items: FileItem[]): FileItem[] {
+  return items.map((item) => {
+    if (item.type === "folder" && item.children) {
+      return { ...item, children: processFileSystem(item.children) };
+    }
+    if (item.type === "file" && item.path) {
+      // For files, we'll load the content here
+      return { ...item, content: "" }; // Initialize with empty content
+    }
+    return item;
+  });
 }
 
 function PersonalPage() {
@@ -45,12 +46,43 @@ function PersonalPage() {
   const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
 
   useEffect(() => {
-    setFileSystem(fileSystemData as FileItem[]);
+    const processedFileSystem = processFileSystem(fileSystemData as FileItem[]);
+    setFileSystem(processedFileSystem);
+
+    // Load all file contents
+    const loadAllContents = async () => {
+      const loadContent = async (items: FileItem[]): Promise<FileItem[]> => {
+        const promises = items.map(async (item) => {
+          if (item.type === "file" && item.path) {
+            try {
+              const response = await fetch(item.path);
+              const content = await response.text();
+              return { ...item, content };
+            } catch (error) {
+              console.error(`Error loading file: ${item.path}`, error);
+              return { ...item, content: "Error loading content" };
+            }
+          }
+          if (item.type === "folder" && item.children) {
+            const children = await loadContent(item.children);
+            return { ...item, children };
+          }
+          return item;
+        });
+
+        return Promise.all(promises);
+      };
+
+      const updatedFileSystem = await loadContent(processedFileSystem);
+      setFileSystem(updatedFileSystem);
+    };
+
+    loadAllContents();
   }, []);
 
   const isDisabled = (id: string) => disabledItems.has(id);
 
-  const openWindow = async (item: FileItem, parentId?: string) => {
+  const openWindow = (item: FileItem, parentId?: string) => {
     // Check if window is already open
     const existingWindow = windows.find((w) => w.id === item.id);
     if (existingWindow) {
@@ -65,12 +97,11 @@ function PersonalPage() {
       return newSet;
     });
 
-    if (item.type === "file" && item.name.endsWith(".txt")) {
-      const content = await loadMarkdownContent(item.path);
+    if (item.type === "file") {
       const newWindow: WindowState = {
         id: item.id,
         title: item.name,
-        content: content,
+        content: item.content || "Error: Content not loaded",
         zIndex: maxZIndex + 1,
         isOpen: true,
         windowType: "text",
