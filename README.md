@@ -6,3 +6,6 @@ Built with:
 - Vite
 - Tailwind CSS
 - shadcn
+- Figma
+- Airplane Pretzels
+- Love

@@ -36,7 +36,7 @@ export const Window: React.FC<WindowProps> = ({
       maxHeight={600}
       style={{ zIndex }}
       onMouseDown={onFocus}
-      onResize={(e, direction, ref) => {
+      onResize={(_, __, ref) => {
         setSize({ width: ref.offsetWidth, height: ref.offsetHeight });
       }}
       dragHandleClassName="window-header"
