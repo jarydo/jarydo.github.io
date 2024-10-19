@@ -2,7 +2,7 @@ I watch movies. [Often](https://letterboxd.com/jarydo/).
 
 My (current) faves:
 
-- Don Hertzfeldt's [It's Such a Beautiful Day](https://vimeo.com/ondemand/itssuchabeautifulday) changed the directory of my life. I have never had a piece of art affect me so profoundly before, and I am not sure I will again. Animation is so powerful. Managed to convince my local cinema to play it during the rerelease, eternally grateful to have seen it in theatres.
+- Don Hertzfeldt's [It's Such a Beautiful Day](https://vimeo.com/ondemand/itssuchabeautifulday) changed the directory of my life. I have never had a piece of art affect me so profoundly before, and I am not sure I will again. Animation is so powerful. Managed to convince my local cinema to play it during the re-release, eternally grateful to have seen it in theatres.
 
 - Terry Gilliam's [Brazil](https://www.youtube.com/watch?v=A_7ATU9dslE&ab_channel=HDRetroTrailers) is a masterwork of set design and creativity, it operates on its own plane of existence and is so unabashedly itself. 
 
