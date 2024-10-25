@@ -110,20 +110,17 @@ export const Header: React.FC = () => {
               onClick={() => handleMenuClick("webRing")}
               className={`px-2 py-2 ${activeDropdown === "webRing" ? "bg-black text-white" : ""}`}
             >
-              {!activeDropdown && (
-                <img
-                  src="/macos_assets/webring_black.png"
-                  width="24px"
-                  alt="CS Webring"
-                />
-              )}
-              {activeDropdown && (
-                <img
-                  src="/macos_assets/webring_white.png"
-                  width="24px"
-                  alt="CS Webring"
-                />
-              )}
+              <img
+                src={
+                  activeDropdown === "webRing"
+                    ? "/macos_assets/webring_white.png"
+                    : "/macos_assets/webring_black.png"
+                }
+                width="24"
+                height="24"
+                alt="CS Webring"
+                className="w-5 h-5"
+              />
             </button>
             {activeDropdown === "webRing" && (
               <MenuDropdown items={webRingItems} />
