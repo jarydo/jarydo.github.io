@@ -14,6 +14,27 @@ export const Header: React.FC = () => {
     setActiveDropdown(activeDropdown === menu ? null : menu);
   };
 
+  const webRingItems: MenuItem[] = [
+    {
+      name: "CS Webring",
+      onClick: () => {
+        window.open("https://cs.uwatering.com/#jaryddiamond");
+      },
+    },
+    {
+      name: "←",
+      onClick: () => {
+        window.open("https://cs.uwatering.com/#jaryddiamond?nav=prev");
+      },
+    },
+    {
+      name: "→",
+      onClick: () => {
+        window.open("https://cs.uwatering.com/#jaryddiamond?nav=next");
+      },
+    },
+  ];
+
   const contactMenuItems: MenuItem[] = [
     {
       name: "Twitter",
@@ -83,8 +104,31 @@ export const Header: React.FC = () => {
       {/* Header */}
       <div className="bg-white flex text-xl border-b-4 border-black items-center">
         <img src="/macos_assets/header_left.png" />
-        <div className="flex grow items-center gap-6  h-full">
-          <img src="/macos_assets/pear_logo.png" width="16px" alt="Pear logo" />
+        <div className="flex grow items-center gap-6 h-full">
+          <div className="relative">
+            <button
+              onClick={() => handleMenuClick("webRing")}
+              className={`px-2 py-2 ${activeDropdown === "webRing" ? "bg-black text-white" : ""}`}
+            >
+              {!activeDropdown && (
+                <img
+                  src="/macos_assets/webring_black.png"
+                  width="24px"
+                  alt="CS Webring"
+                />
+              )}
+              {activeDropdown && (
+                <img
+                  src="/macos_assets/webring_white.png"
+                  width="24px"
+                  alt="CS Webring"
+                />
+              )}
+            </button>
+            {activeDropdown === "webRing" && (
+              <MenuDropdown items={webRingItems} />
+            )}
+          </div>
           <div className="relative">
             <button
               onClick={() => handleMenuClick("contact")}
