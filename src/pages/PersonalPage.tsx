@@ -44,6 +44,20 @@ function PersonalPage() {
   const [windows, setWindows] = useState<WindowState[]>([]);
   const [maxZIndex, setMaxZIndex] = useState(0);
   const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
+  const [clickedItem, setClickedItem] = useState<string | null>(null);
+
+  // handle clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (!target.closest(".file-container")) {
+        setClickedItem(null);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const processedFileSystem = processFileSystem(fileSystemData as FileItem[]);
@@ -171,6 +185,8 @@ function PersonalPage() {
           name={item.name}
           disabled={isItemDisabled}
           onOpen={() => !isItemDisabled && openWindow(item, parentId)}
+          clicked={clickedItem === item.id}
+          onClick={() => setClickedItem(item.id)}
         />
       );
     }
@@ -180,6 +196,8 @@ function PersonalPage() {
         name={item.name}
         disabled={isItemDisabled}
         onOpen={() => !isItemDisabled && openWindow(item, parentId)}
+        clicked={clickedItem === item.id}
+        onClick={() => setClickedItem(item.id)}
       />
     );
   };

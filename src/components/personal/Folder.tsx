@@ -4,13 +4,22 @@ interface FolderProps {
   name: string;
   onOpen: () => void;
   disabled?: boolean;
+  clicked?: boolean;
+  onClick: () => void;
 }
 
 export const Folder: React.FC<FolderProps> = ({
   name,
   onOpen,
   disabled = false,
+  clicked = false,
+  onClick,
 }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onClick();
+  };
+
   const handleDoubleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     onOpen();
@@ -18,14 +27,17 @@ export const Folder: React.FC<FolderProps> = ({
 
   return (
     <div
-      className={`flex flex-col items-center justify-center p-2 ${!disabled ? "cursor-pointer" : ""}`}
+      className={`file-container flex flex-col items-center justify-center p-2 ${!disabled ? "cursor-pointer" : ""}`}
       onDoubleClick={!disabled ? handleDoubleClick : undefined}
+      onClick={!disabled ? handleClick : undefined}
     >
       <img
         src={
           disabled
             ? "/macos_assets/folder_disabled.png"
-            : "/macos_assets/folder.png"
+            : clicked
+              ? "/macos_assets/folder_clicked.png"
+              : "/macos_assets/folder.png"
         }
         alt="Folder"
         draggable="false"

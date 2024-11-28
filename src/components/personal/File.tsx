@@ -6,6 +6,8 @@ interface FileProps {
   initialPosition?: { x: number; y: number };
   onOpen: () => void;
   disabled?: boolean;
+  clicked?: boolean;
+  onClick: () => void;
 }
 
 export const File: React.FC<FileProps> = ({
@@ -13,7 +15,14 @@ export const File: React.FC<FileProps> = ({
   initialPosition,
   onOpen,
   disabled = false,
+  clicked = false,
+  onClick,
 }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onClick();
+  };
+
   const handleDoubleClick = (e: React.MouseEvent) => {
     e.preventDefault();
     onOpen();
@@ -21,14 +30,17 @@ export const File: React.FC<FileProps> = ({
 
   const FileContent = (
     <div
-      className={`flex flex-col items-center justify-center p-2 ${!disabled ? "cursor-pointer" : ""}`}
+      className={`file-container flex flex-col items-center justify-center p-2 ${!disabled ? "cursor-pointer" : ""}`}
       onDoubleClick={!disabled ? handleDoubleClick : undefined}
+      onClick={!disabled ? handleClick : undefined}
     >
       <img
         src={
           disabled
             ? "/macos_assets/file_disabled.png"
-            : "/macos_assets/file.png"
+            : clicked
+              ? "/macos_assets/file_clicked.png"
+              : "/macos_assets/file.png"
         }
         alt="File"
         draggable="false"
