@@ -97,6 +97,9 @@ function PersonalPage() {
   const isDisabled = (id: string) => disabledItems.has(id);
 
   const openWindow = (item: FileItem, parentId?: string) => {
+    // Remove click
+    setClickedItem(null);
+
     // Check if window is already open
     const existingWindow = windows.find((w) => w.id === item.id);
     if (existingWindow) {

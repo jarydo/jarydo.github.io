@@ -42,7 +42,9 @@ export const Folder: React.FC<FolderProps> = ({
         alt="Folder"
         draggable="false"
       />
-      <p className="text-black bg-white font-medium text-sm px-2 text-xl">
+      <p
+        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} font-medium text-sm px-2 text-xl`}
+      >
         {name}
       </p>
     </div>
