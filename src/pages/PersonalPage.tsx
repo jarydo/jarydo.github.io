@@ -219,7 +219,10 @@ function PersonalPage() {
           <Window
             key={win.id}
             title={win.title}
-            initialPosition={{ x: 100, y: 100 }}
+            initialPosition={{
+              x: 100 + windows.length * 20,
+              y: 100 + windows.length * 20,
+            }}
             zIndex={win.zIndex}
             onFocus={() => bringToFront(win.id)}
             onClose={() => closeWindow(win.id)}

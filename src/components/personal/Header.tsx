@@ -39,7 +39,7 @@ export const Header: React.FC = () => {
     {
       name: "Twitter",
       onClick: () => {
-        window.open("https://x.com/jaryd_diamond");
+        window.open("https://x.com/jaryddiamond");
       },
     },
     {
