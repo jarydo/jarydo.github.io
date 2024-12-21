@@ -236,8 +236,8 @@ function PersonalPage() {
             width={isMobile ? 350 : 600}
             height={isMobile ? 300 : 400}
             initialPosition={{
-              x: 100 + windows.length * 20,
-              y: 100 + windows.length * 20,
+              x: (isMobile ? 0 : 100) + windows.length * 20,
+              y: (isMobile ? 40 : 100) + windows.length * 20,
             }}
             zIndex={win.zIndex}
             onFocus={() => bringToFront(win.id)}
