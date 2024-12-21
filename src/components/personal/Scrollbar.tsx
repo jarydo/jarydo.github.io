@@ -15,11 +15,17 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
     scrollPosition: 0,
   });
   const [isDragging, setIsDragging] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const dragStart = useRef({ y: 0, scrollTop: 0 });
 
   const contentRef = useRef<HTMLDivElement>(null);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const scrollThumbRef = useRef<HTMLDivElement>(null);
+
+  // Check if device supports touch
+  useEffect(() => {
+    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
+  }, []);
 
   const checkOverflow = useCallback((): void => {
     const content = contentRef.current;
@@ -60,19 +66,39 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
     }));
   }, []);
 
-  const handleDragStart = useCallback((e: React.PointerEvent): void => {
-    e.preventDefault();
-    setIsDragging(true);
-    dragStart.current = {
-      y: e.clientY,
-      scrollTop: contentRef.current?.scrollTop || 0,
-    };
-    (e.target as HTMLElement).setPointerCapture(e.pointerId);
+  const handleTouchStart = useCallback((): void => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    // Allow native touch scrolling
+    content.style.overflowY = "auto";
   }, []);
+
+  const handleTouchEnd = useCallback((): void => {
+    const content = contentRef.current;
+    if (!content) return;
+
+    // Restore overflow behavior
+    content.style.overflowY = "hidden";
+  }, []);
+
+  const handleDragStart = useCallback(
+    (e: React.PointerEvent): void => {
+      if (isTouchDevice) return; // Disable drag on touch devices
+      e.preventDefault();
+      setIsDragging(true);
+      dragStart.current = {
+        y: e.clientY,
+        scrollTop: contentRef.current?.scrollTop || 0,
+      };
+      (e.target as HTMLElement).setPointerCapture(e.pointerId);
+    },
+    [isTouchDevice]
+  );
 
   const handleDragMove = useCallback(
     (e: React.PointerEvent): void => {
-      if (!isDragging) return;
+      if (!isDragging || isTouchDevice) return;
 
       const content = contentRef.current;
       const track = scrollTrackRef.current;
@@ -94,16 +120,16 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
       const scrollPercentage = newThumbPosition / trackHeight;
       content.scrollTop = scrollPercentage * scrollRange;
     },
-    [isDragging]
+    [isDragging, isTouchDevice]
   );
 
   const handleDragEnd = useCallback(
     (e: React.PointerEvent): void => {
-      if (!isDragging) return;
+      if (!isDragging || isTouchDevice) return;
       setIsDragging(false);
       (e.target as HTMLElement).releasePointerCapture(e.pointerId);
     },
-    [isDragging]
+    [isDragging, isTouchDevice]
   );
 
   const handleArrowClick = useCallback((direction: "up" | "down"): void => {
@@ -133,12 +159,14 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
       <div
         ref={contentRef}
         onScroll={handleScroll}
-        className="flex-grow overflow-hidden hover:overflow-y-auto no-scrollbar pr-4"
+        className={`flex-grow overflow-hidden ${
+          isTouchDevice ? "overflow-y-auto" : "hover:overflow-y-auto"
+        } no-scrollbar pr-4`}
       >
         {children}
       </div>
 
-      {scrollState.isOverflowing && (
+      {scrollState.isOverflowing && !isTouchDevice && (
         <div className="w-8 flex flex-col border-l-2 border-black">
           <button
             onClick={() => handleArrowClick("up")}
@@ -157,6 +185,8 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
               onPointerMove={handleDragMove}
               onPointerUp={handleDragEnd}
               onPointerCancel={handleDragEnd}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
               style={{
                 top: `${scrollState.scrollPosition}px`,
                 height: getThumbHeight(),
@@ -168,7 +198,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
 
           <button
             onClick={() => handleArrowClick("down")}
-            className="border-t-2 border-black w-8 flex items-center justify-center"
+            className="border-t-2 border-black flex w-8 items-center justify-center"
           >
             <img src="/macos_assets/arrow_down.png" alt="Scroll down" />
           </button>
