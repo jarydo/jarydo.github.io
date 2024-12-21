@@ -45,7 +45,7 @@ function PersonalPage() {
   const [maxZIndex, setMaxZIndex] = useState(0);
   const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
   const [clickedItem, setClickedItem] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
 
   // handle clicking outside
   useEffect(() => {
@@ -220,7 +220,7 @@ function PersonalPage() {
   };
 
   return (
-    <div className="font-macos fixed top-0 left-0 w-full h-full touch-none bg-chessboard">
+    <div className="font-macos fixed top-0 left-0 w-full h-full bg-chessboard">
       <Header />
 
       <div className="grid grid-flow-row justify-end pr-1">
