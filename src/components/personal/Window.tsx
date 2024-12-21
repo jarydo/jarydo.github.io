@@ -5,6 +5,8 @@ import ClassicScrollbar from "./Scrollbar";
 interface WindowProps {
   title: string;
   initialPosition: { x: number; y: number };
+  width?: number;
+  height?: number;
   zIndex: number;
   onFocus: () => void;
   onClose: () => void;
@@ -13,13 +15,15 @@ interface WindowProps {
 
 export const Window: React.FC<WindowProps> = ({
   title,
+  width = 600,
+  height = 450,
   initialPosition,
   zIndex,
   onFocus,
   onClose,
   children,
 }) => {
-  const [size, setSize] = useState({ width: 600, height: 450 });
+  const [size, setSize] = useState({ width: width, height: height });
   const [isCloseButtonPressed, setIsCloseButtonPressed] = useState(false);
 
   return (
@@ -30,7 +34,7 @@ export const Window: React.FC<WindowProps> = ({
         width: size.width,
         height: size.height,
       }}
-      minWidth={400}
+      minWidth={350}
       minHeight={300}
       maxWidth={800}
       maxHeight={600}

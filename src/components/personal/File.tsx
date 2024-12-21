@@ -46,7 +46,7 @@ export const File: React.FC<FileProps> = ({
         draggable="false"
       />
       <p
-        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} font-medium text-sm px-2 text-xl`}
+        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} text-wrap max-w-[140px] text-center font-medium text-sm px-2 text-xl`}
       >
         {name}
       </p>

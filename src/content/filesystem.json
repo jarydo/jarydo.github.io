@@ -67,10 +67,16 @@
                 "path": "/files/uw_blueprint.md"
             },
             {
-                "id": "doodling",
-                "name": "Doodling.txt",
+                "id": "skiing",
+                "name": "Skiing.txt",
                 "type": "file",
-                "path": "/files/doodling.md"
+                "path": "/files/skiing.md"
+            },
+            {
+                "id": "uw_film",
+                "name": "UW Film.txt",
+                "type": "file",
+                "path": "/files/uw_film.md"
             }
         ]
     },
@@ -92,10 +98,34 @@
                 "path": "/files/mini_builds.md"
             },
             {
+                "id": "borrowbee",
+                "name": "BorrowBee.txt",
+                "type": "file",
+                "path": "/files/borrowbee.md"
+            },
+            {
+                "id": "tritone_paradox",
+                "name": "Tritone Paradox.txt",
+                "type": "file",
+                "path": "/files/tritone_paradox.md"
+            },
+            {
                 "id": "personal_site",
                 "name": "Personal Site.txt",
                 "type": "file",
                 "path": "/files/personal_site.md"
+            },
+            {
+                "id": "podcast_summarizer",
+                "name": "Podcast Summarizer.txt",
+                "type": "file",
+                "path": "/files/podcast_summarizer.md"
+            },
+            {
+                "id": "resume_gpt",
+                "name": "Resume GPT.txt",
+                "type": "file",
+                "path": "/files/resume_gpt.md"
             }
         ]
     },

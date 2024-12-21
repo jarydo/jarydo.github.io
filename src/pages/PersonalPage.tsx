@@ -45,6 +45,7 @@ function PersonalPage() {
   const [maxZIndex, setMaxZIndex] = useState(0);
   const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
   const [clickedItem, setClickedItem] = useState<string | null>(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   // handle clicking outside
   useEffect(() => {
@@ -93,6 +94,19 @@ function PersonalPage() {
 
     loadAllContents();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
+  const handleWindowResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
 
   const isDisabled = (id: string) => disabledItems.has(id);
 
@@ -219,6 +233,8 @@ function PersonalPage() {
           <Window
             key={win.id}
             title={win.title}
+            width={isMobile ? 350 : 600}
+            height={isMobile ? 300 : 400}
             initialPosition={{
               x: 100 + windows.length * 20,
               y: 100 + windows.length * 20,
@@ -228,7 +244,9 @@ function PersonalPage() {
             onClose={() => closeWindow(win.id)}
           >
             {win.windowType === "folder" && Array.isArray(win.content) ? (
-              <div className="p-2 flex flex-wrap gap-4">
+              <div
+                className={`p-2 pt-4 grid ${isMobile ? "grid-cols-2" : "grid-cols-3"} items-start`}
+              >
                 {win.content.map((item) => renderFileOrFolder(item, win.id))}
               </div>
             ) : (
