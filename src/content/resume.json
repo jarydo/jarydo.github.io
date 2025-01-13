@@ -15,15 +15,15 @@
             "endDate": "08/2024",
             "fun_description": [],
             "recruiter_description": [
-                "Increased malware sandboxing throughput by 33x, scaling from 90 to 3000+ daily detonations, leading to the detection of 14 novel threats across high-profile clients",
-                "Architected and implemented serverless functions using AWS Lambda, managed cross-account IAM permissions, and leveraged Infrastructre as Code (IaC) with Troposphere and CloudFormation for streamlined resource provisioning",
-                "Enhanced threat analysis infrastructure by refactoring CI/CD pipeline and automating configuration management for EC2 instances using Ansible"
+                "Scaled malware sandboxing infrastructure by 33x, leading to the detection of 14 novel threats across high-profile clients",
+                "Architected and implemented serverless functions using AWS Lambda, managed cross-account IAM permissions, and leveraged Infrastructure as Code (IaC) with Troposphere and CloudFormation for streamlined resource provisioning",
+                "Coordinated efforts across security teams to automate threat analysis workflows through Ansible and CI/CD pipeline deployment"
             ],
             "technologies": [
                 "Python",
                 "AWS",
                 "Ansible",
-                "Malware Analysis"
+                "Docker"
             ],
             "quote": "\"Consistent attitude/emotional state when approaching work, adapted well to changing situations. Looked for opportunities to learn new skills regularly, had a plan in place to develop himself and his skills.\" - Dallas Rathbone"
         },
@@ -35,13 +35,12 @@
             "endDate": "04/2024",
             "fun_description": [],
             "recruiter_description": [
-                "Spearheaded MVP development, including research, system architecture design, chatbot integration with GCP, and LLM fine-tuning",
-                "Translated complex technical details into clear communication with a non-technical founder, ensuring alignment and project clarity",
-                "Developed, deployed, and optimized chatbot functionality through prompt engineering and API endpoint creation"
+                "Led MVP development, including research, system architecture design, chatbot integration with GCP, and LLM fine-tuning",
+                "Drove project success through clear communication with non-technical founders, ensuring alignment and clarity"
             ],
             "technologies": [
                 "TypeScript",
-                "Google Cloud Platform",
+                "GCP",
                 "LLM",
                 "Node.js"
             ],
@@ -55,8 +54,8 @@
             "endDate": "12/2023",
             "fun_description": [],
             "recruiter_description": [
-                "Executed complex database migrations using Laravel and PHP, successfully integrating critical client configurations and demos for 20+ international banking clients, benefiting over 90 million end-users",
-                "Implemented and led Agile methodologies, including stand-ups and sprint planning, to ensure consistent on-time delivery"
+                "Managed complex database migrations using Laravel, seamlessly integrating critical client configurations and delivering successful demos for 20+ international banking clients, benefiting over 90 million end-users",
+                "Improved backend PHP infrastructure, accelerating configuration updates and enhancing developer efficiency by up to 20%"
             ],
             "technologies": [
                 "React",
@@ -67,15 +66,15 @@
             "quote": "\"Jaryd consistently displayed an insatiable drive for growth, always eager to delve deeper, expand his knowledge, and make meaningful contributions. His enthusiasm encompassed every facet of the opportunity presented to him: embracing emerging technologies, collaborating within teams, and embracing novel approaches to software development.\" - Kirk Lalchan"
         },
         {
-            "title": "Junior Developer",
+            "title": "Software Developer",
             "company": "Arctic AI",
             "location": "Toronto, ON",
             "startDate": "01/2023",
             "endDate": "04/2023",
             "fun_description": [],
             "recruiter_description": [
-                "Engineered various full-stack client projects using the MERN stack (MySQL/MongoDB, Express, React, Node.js), including development of high-performance migration scripts that successfully mapped 80,000+ client records to a MongoDB database",
-                "Independently designed, architected, and deployed a full-stack MLOps web application to monitor active machine learning models and extract real-time analytics, which is currently being incorporated into main Managed Service offering"
+                "Engineered various full-stack client projects using the MERN stack (MySQL/MongoDB, Express, React, Node.js), including development of high-performance migration scripts that successfully mapped 80,000+ legacy client records to a MongoDB database",
+                "Built full-stack MLOps platform for real-time model monitoring and metrics, driving adoption into core product suite"
             ],
             "technologies": [
                 "React",
@@ -93,7 +92,7 @@
             "endDate": "08/2022",
             "fun_description": [],
             "recruiter_description": [
-                "Designed, prototyped, and implemented flagship service as a full-stack developer at a new startup, utilizing React, Flask, and C++",
+                "Developed production-ready financial visualization tools with React, Flask, and C++, launching in key product offering",
                 "Collaborated directly with co-founders to innovate and streamline features, achieving a 100% improvement in website load times"
             ],
             "technologies": [
@@ -176,7 +175,7 @@
         {
             "name": "Feeding Canadian Kids",
             "description": [
-                "Worked with Feeding Canadian Kids to develop a web platform to streamline the volunteering process, helping to feed over 150,000 children"
+                "Developed full-stack volunteer platform to coordinate meals for 150,000+ underprivileged kids for charity Feeding Canadian Kids"
             ],
             "technologies": [
                 "React",
@@ -184,21 +183,20 @@
                 "Flask",
                 "MongoDB"
             ],
-            "github_url": "https://github.com/uwblueprint/feeding-canadian-kids",
-            "image_url": "fck.png",
-            "live_url": ""
+            "live_url": "https://github.com/uwblueprint/feeding-canadian-kids",
+            "image_url": "fck.png"
         },
         {
             "name": "Resonant",
             "description": [
-                "Built a friend-nominated AI-powered dating algorithm within a week for Valentine's Day, establishing 2 long-term relationships"
+                "Implemented a friend-nominated dating algorithm in 6 days, earning 100k+ Twitter impressions and fostering 2 relationships"
             ],
             "technologies": [
                 "GPT-4",
                 "Jupyter Notebook",
                 "Python"
             ],
-            "github_url": "https://github.com/HudZah/resonant",
+            "live_url": "https://x.com/ansonyuu/status/1755307905383879133",
             "image_url": "resonant.webp"
         },
         {
@@ -211,8 +209,20 @@
                 "GPT-3.5",
                 "JavaScript"
             ],
-            "github_url": "https://github.com/jarydo/resume-gpt",
+            "live_url": "https://github.com/jarydo/resume-gpt",
             "image_url": "resume_gpt.png"
+        },
+        {
+            "name": "Mini Builds",
+            "description": [
+                "Created real-time multiplayer game in 36 hours using WebSockets and React, ran a successful live demo for a 100+ person audience"
+            ],
+            "technologies": [
+                "React",
+                "Socket.IO",
+                "Next.js"
+            ],
+            "live_url": "https://x.com/jaryddiamond/status/1846227535144620303"
         },
         {
             "name": "Podcast Summarizer",
@@ -224,7 +234,7 @@
                 "Python",
                 "GPT-3.5"
             ],
-            "github_url": "https://github.com/levp22/Podcast-Summarizer"
+            "live_url": "https://github.com/levp22/Podcast-Summarizer"
         },
         {
             "name": "Chess Engine",
@@ -234,7 +244,7 @@
             "technologies": [
                 "C++"
             ],
-            "github_url": "https://gitfront.io/r/jarydo/VuF2Tyo2U7p3/cs246-chess/",
+            "live_url": "https://gitfront.io/r/jarydo/VuF2Tyo2U7p3/cs246-chess/",
             "image_url": ""
         }
     ],

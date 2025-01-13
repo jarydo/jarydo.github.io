@@ -10,6 +10,7 @@ import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
 import * as resume from "../../content/resume.json";
 import { forwardRef } from "react";
+import { ExternalLink } from "lucide-react";
 
 // TODO: add proper images, external links
 const Projects = forwardRef<HTMLElement>((_, ref) => {
@@ -25,7 +26,17 @@ const Projects = forwardRef<HTMLElement>((_, ref) => {
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {resume.projects.map((project, index) => (
-            <Card key={index} className="flex flex-col">
+            <Card key={index} className="flex flex-col relative">
+              {project.live_url && (
+                <a
+                  href={project.live_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="absolute top-4 right-4 z-10 p-2 bg-white rounded"
+                >
+                  <ExternalLink className="w-6 h-6" />
+                </a>
+              )}
               <CardHeader>
                 {project.image_url && (
                   <img
@@ -48,30 +59,6 @@ const Projects = forwardRef<HTMLElement>((_, ref) => {
                   ))}
                 </div>
               </CardContent>
-              <CardFooter className="flex justify-between">
-                <Button variant="outline" size="sm" asChild>
-                  <a
-                    href={project.github_url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {/* <Github className="w-4 h-4 mr-2" /> */}
-                    GitHub
-                  </a>
-                </Button>
-                {project.live_url && (
-                  <Button variant="outline" size="sm" asChild>
-                    <a
-                      href={project.live_url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      {/* <ExternalLink className="w-4 h-4 mr-2" /> */}
-                      Live Demo
-                    </a>
-                  </Button>
-                )}
-              </CardFooter>
             </Card>
           ))}
         </div>
