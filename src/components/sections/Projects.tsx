@@ -4,10 +4,8 @@ import {
   CardContent,
   CardTitle,
   CardDescription,
-  CardFooter,
 } from "../ui/card";
 import { Badge } from "../ui/badge";
-import { Button } from "../ui/button";
 import * as resume from "../../content/resume.json";
 import { forwardRef } from "react";
 import { ExternalLink } from "lucide-react";
