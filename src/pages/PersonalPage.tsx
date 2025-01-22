@@ -5,6 +5,7 @@ import { useState, useEffect } from "react";
 import { TextContent } from "@/components/personal/TextContent";
 import fileSystemData from "@/content/filesystem.json";
 import { Header } from "@/components/personal/Header";
+import StartupScreen from "@/components/personal/StartupScreen";
 
 type FileItem = {
   id: string;
@@ -46,6 +47,7 @@ function PersonalPage() {
   const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
   const [clickedItem, setClickedItem] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const [isStarting, setIsStarting] = useState(true);
 
   // handle clicking outside
   useEffect(() => {
@@ -220,41 +222,44 @@ function PersonalPage() {
   };
 
   return (
-    <div className="font-macos fixed top-0 left-0 w-full h-full bg-chessboard">
-      <Header />
+    <>
+      {isStarting && <StartupScreen onComplete={() => setIsStarting(false)} />}
+      <div className="font-macos fixed top-0 left-0 w-full h-full bg-chessboard">
+        <Header />
 
-      <div className="grid grid-flow-row justify-end pr-1">
-        {fileSystem.map((item) => renderFileOrFolder(item))}
+        <div className="grid grid-flow-row justify-end pr-1">
+          {fileSystem.map((item) => renderFileOrFolder(item))}
+        </div>
+
+        {windows
+          .filter((w) => w.isOpen)
+          .map((win) => (
+            <Window
+              key={win.id}
+              title={win.title}
+              width={isMobile ? 350 : 600}
+              height={isMobile ? 300 : 400}
+              initialPosition={{
+                x: (isMobile ? 0 : 100) + windows.length * 20,
+                y: (isMobile ? 40 : 100) + windows.length * 20,
+              }}
+              zIndex={win.zIndex}
+              onFocus={() => bringToFront(win.id)}
+              onClose={() => closeWindow(win.id)}
+            >
+              {win.windowType === "folder" && Array.isArray(win.content) ? (
+                <div
+                  className={`p-2 pt-4 grid ${isMobile ? "grid-cols-2" : "grid-cols-3"} items-start`}
+                >
+                  {win.content.map((item) => renderFileOrFolder(item, win.id))}
+                </div>
+              ) : (
+                <TextContent content={win.content as string} />
+              )}
+            </Window>
+          ))}
       </div>
-
-      {windows
-        .filter((w) => w.isOpen)
-        .map((win) => (
-          <Window
-            key={win.id}
-            title={win.title}
-            width={isMobile ? 350 : 600}
-            height={isMobile ? 300 : 400}
-            initialPosition={{
-              x: (isMobile ? 0 : 100) + windows.length * 20,
-              y: (isMobile ? 40 : 100) + windows.length * 20,
-            }}
-            zIndex={win.zIndex}
-            onFocus={() => bringToFront(win.id)}
-            onClose={() => closeWindow(win.id)}
-          >
-            {win.windowType === "folder" && Array.isArray(win.content) ? (
-              <div
-                className={`p-2 pt-4 grid ${isMobile ? "grid-cols-2" : "grid-cols-3"} items-start`}
-              >
-                {win.content.map((item) => renderFileOrFolder(item, win.id))}
-              </div>
-            ) : (
-              <TextContent content={win.content as string} />
-            )}
-          </Window>
-        ))}
-    </div>
+    </>
   );
 }
 
