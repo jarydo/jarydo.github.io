@@ -1,90 +1,15 @@
 [
     {
-        "id": "film",
-        "name": "Film",
-        "type": "folder",
-        "children": [
-            {
-                "id": "casual_film_critic",
-                "name": "Casual Film Critic.txt",
-                "type": "file",
-                "path": "/files/casual_film_critic.md"
-            },
-            {
-                "id": "directing",
-                "name": "Directing.txt",
-                "type": "file",
-                "path": "/files/directing.md"
-            },
-            {
-                "id": "favourite_films",
-                "name": "Favourites.txt",
-                "type": "file",
-                "path": "/files/favourite_films.md"
-            }
-        ]
-    },
-    {
-        "id": "music",
-        "name": "Music",
-        "type": "folder",
-        "children": [
-            {
-                "id": "jamming_with_jaryd",
-                "name": "Jamming With Jaryd.txt",
-                "type": "file",
-                "path": "/files/jamming_with_jaryd.md"
-            },
-            {
-                "id": "concerts",
-                "name": "Concerts.txt",
-                "type": "file",
-                "path": "/files/concerts.md"
-            }
-        ]
-    },
-    {
-        "id": "side_quests",
-        "name": "Side Quests",
-        "type": "folder",
-        "children": [
-            {
-                "id": "socratica",
-                "name": "Socratica.txt",
-                "type": "file",
-                "path": "/files/socratica.md"
-            },
-            {
-                "id": "mario_kart",
-                "name": "Mario Kart.txt",
-                "type": "file",
-                "path": "/files/mario_kart.md"
-            },
-            {
-                "id": "uw_blueprint",
-                "name": "UW Blueprint.txt",
-                "type": "file",
-                "path": "/files/uw_blueprint.md"
-            },
-            {
-                "id": "skiing",
-                "name": "Skiing.txt",
-                "type": "file",
-                "path": "/files/skiing.md"
-            },
-            {
-                "id": "uw_film",
-                "name": "UW Film.txt",
-                "type": "file",
-                "path": "/files/uw_film.md"
-            }
-        ]
-    },
-    {
         "id": "projects",
         "name": "Projects",
         "type": "folder",
         "children": [
+            {
+                "id": "prism",
+                "name": "Prism Collective.txt",
+                "type": "file",
+                "path": "/files/prism.md"
+            },
             {
                 "id": "resonant",
                 "name": "Resonant.txt",
@@ -126,6 +51,87 @@
                 "name": "Resume GPT.txt",
                 "type": "file",
                 "path": "/files/resume_gpt.md"
+            }
+        ]
+    },
+    {
+        "id": "side_quests",
+        "name": "Side Quests",
+        "type": "folder",
+        "children": [
+            {
+                "id": "socratica",
+                "name": "Socratica.txt",
+                "type": "file",
+                "path": "/files/socratica.md"
+            },
+            {
+                "id": "mario_kart",
+                "name": "Mario Kart.txt",
+                "type": "file",
+                "path": "/files/mario_kart.md"
+            },
+            {
+                "id": "uw_blueprint",
+                "name": "UW Blueprint.txt",
+                "type": "file",
+                "path": "/files/uw_blueprint.md"
+            },
+            {
+                "id": "skiing",
+                "name": "Skiing.txt",
+                "type": "file",
+                "path": "/files/skiing.md"
+            },
+            {
+                "id": "uw_film",
+                "name": "UW Film.txt",
+                "type": "file",
+                "path": "/files/uw_film.md"
+            }
+        ]
+    },
+    {
+        "id": "film",
+        "name": "Film",
+        "type": "folder",
+        "children": [
+            {
+                "id": "casual_film_critic",
+                "name": "Casual Film Critic.txt",
+                "type": "file",
+                "path": "/files/casual_film_critic.md"
+            },
+            {
+                "id": "directing",
+                "name": "Directing.txt",
+                "type": "file",
+                "path": "/files/directing.md"
+            },
+            {
+                "id": "favourite_films",
+                "name": "Favourites.txt",
+                "type": "file",
+                "path": "/files/favourite_films.md"
+            }
+        ]
+    },
+    {
+        "id": "music",
+        "name": "Music",
+        "type": "folder",
+        "children": [
+            {
+                "id": "jamming_with_jaryd",
+                "name": "Jamming With Jaryd.txt",
+                "type": "file",
+                "path": "/files/jamming_with_jaryd.md"
+            },
+            {
+                "id": "concerts",
+                "name": "Concerts.txt",
+                "type": "file",
+                "path": "/files/concerts.md"
             }
         ]
     },
