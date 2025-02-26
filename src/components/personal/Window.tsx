@@ -55,7 +55,14 @@ export const Window: React.FC<WindowProps> = ({
 
     if (sourceElement) {
       // Animation starts from source element (file or folder)
-      startRect = sourceElement.getBoundingClientRect();
+      // Use getBoundingClientRect and adjust for scroll position to ensure mobile compatibility
+      const rect = sourceElement.getBoundingClientRect();
+      startRect = {
+        left: rect.left + window.scrollX,
+        top: rect.top + window.scrollY,
+        width: rect.width,
+        height: rect.height,
+      };
     } else {
       // Default animation starts from a small centered point
       startRect = {
@@ -168,6 +175,14 @@ export const Window: React.FC<WindowProps> = ({
 
     const currentRect = rndElement.getBoundingClientRect();
 
+    // Adjust for scroll position
+    const adjustedCurrentRect = {
+      left: currentRect.left + window.scrollX,
+      top: currentRect.top + window.scrollY,
+      width: currentRect.width,
+      height: currentRect.height,
+    };
+
     // Find the source element if it exists
     const sourceElement = sourceElementId
       ? document.getElementById(sourceElementId)
@@ -179,7 +194,18 @@ export const Window: React.FC<WindowProps> = ({
       return;
     }
 
-    const targetRect = sourceElement.getBoundingClientRect();
+    const targetRectRaw = sourceElement.getBoundingClientRect();
+    // Adjust for scroll position
+    const targetRect = {
+      left: targetRectRaw.left + window.scrollX,
+      top: targetRectRaw.top + window.scrollY,
+      width: targetRectRaw.width,
+      height: targetRectRaw.height,
+    };
+
+    // Log positions for debugging
+    console.log("Current window position:", adjustedCurrentRect);
+    console.log("Target element position:", targetRect);
 
     // Hide the actual window and show the outline for animation
     setShowContent(false);
@@ -191,10 +217,10 @@ export const Window: React.FC<WindowProps> = ({
     // Start with current window position
     setAnimationStyle({
       position: "fixed",
-      left: `${currentRect.left}px`,
-      top: `${currentRect.top}px`,
-      width: `${currentRect.width}px`,
-      height: `${currentRect.height}px`,
+      left: `${adjustedCurrentRect.left}px`,
+      top: `${adjustedCurrentRect.top}px`,
+      width: `${adjustedCurrentRect.width}px`,
+      height: `${adjustedCurrentRect.height}px`,
       transform: "none",
       transition: "none",
       zIndex: zIndex,
@@ -202,8 +228,8 @@ export const Window: React.FC<WindowProps> = ({
     });
 
     // Calculate position to shrink while maintaining center position
-    const centerOffsetX = (currentRect.width - targetRect.width) / 2;
-    const centerOffsetY = (currentRect.height - targetRect.height) / 2;
+    const centerOffsetX = (adjustedCurrentRect.width - targetRect.width) / 2;
+    const centerOffsetY = (adjustedCurrentRect.height - targetRect.height) / 2;
 
     // First phase: Shrink in place - run in next frame to ensure initial position renders
     requestAnimationFrame(() => {
@@ -211,8 +237,8 @@ export const Window: React.FC<WindowProps> = ({
         window.setTimeout(() => {
           setAnimationStyle({
             position: "fixed",
-            left: `${currentRect.left + centerOffsetX}px`,
-            top: `${currentRect.top + centerOffsetY}px`,
+            left: `${adjustedCurrentRect.left + centerOffsetX}px`,
+            top: `${adjustedCurrentRect.top + centerOffsetY}px`,
             width: `${targetRect.width}px`,
             height: `${targetRect.height}px`,
             transform: "none",
