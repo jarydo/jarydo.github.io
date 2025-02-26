@@ -203,76 +203,55 @@ export const Window: React.FC<WindowProps> = ({
       height: targetRectRaw.height,
     };
 
-    // Log positions for debugging
-    console.log("Current window position:", adjustedCurrentRect);
-    console.log("Target element position:", targetRect);
-
-    // Hide the actual window and show the outline for animation
-    setShowContent(false);
-    setShowOutline(true);
-
     // Clear any existing timers
     clearAllTimers();
 
-    // Start with current window position
-    setAnimationStyle({
-      position: "fixed",
-      left: `${adjustedCurrentRect.left}px`,
-      top: `${adjustedCurrentRect.top}px`,
-      width: `${adjustedCurrentRect.width}px`,
-      height: `${adjustedCurrentRect.height}px`,
-      transform: "none",
-      transition: "none",
-      zIndex: zIndex,
-      pointerEvents: "none",
-    });
+    // Create a temporary div for the animation
+    const animationDiv = document.createElement("div");
+    animationDiv.className = "fixed border-2 border-black bg-transparent";
+    animationDiv.style.position = "fixed";
+    animationDiv.style.left = `${adjustedCurrentRect.left}px`;
+    animationDiv.style.top = `${adjustedCurrentRect.top}px`;
+    animationDiv.style.width = `${adjustedCurrentRect.width}px`;
+    animationDiv.style.height = `${adjustedCurrentRect.height}px`;
+    animationDiv.style.zIndex = `${zIndex}`;
+    animationDiv.style.pointerEvents = "none";
+    document.body.appendChild(animationDiv);
+
+    // Hide the actual window immediately
+    setShowContent(false);
+    setShowOutline(false);
 
     // Calculate position to shrink while maintaining center position
     const centerOffsetX = (adjustedCurrentRect.width - targetRect.width) / 2;
     const centerOffsetY = (adjustedCurrentRect.height - targetRect.height) / 2;
 
-    // First phase: Shrink in place - run in next frame to ensure initial position renders
+    // Use direct DOM manipulation for the animation
+    // First phase: Shrink in place
     requestAnimationFrame(() => {
-      addTimer(
-        window.setTimeout(() => {
-          setAnimationStyle({
-            position: "fixed",
-            left: `${adjustedCurrentRect.left + centerOffsetX}px`,
-            top: `${adjustedCurrentRect.top + centerOffsetY}px`,
-            width: `${targetRect.width}px`,
-            height: `${targetRect.height}px`,
-            transform: "none",
-            transition: "all 250ms cubic-bezier(0.2, 0, 0.2, 1)",
-            zIndex: zIndex,
-            pointerEvents: "none",
-          });
+      // Force reflow
+      void animationDiv.offsetHeight;
 
-          // Second phase: Move to target position
-          addTimer(
-            window.setTimeout(() => {
-              setAnimationStyle({
-                position: "fixed",
-                left: `${targetRect.left}px`,
-                top: `${targetRect.top}px`,
-                width: `${targetRect.width}px`,
-                height: `${targetRect.height}px`,
-                transform: "none",
-                transition: "all 180ms cubic-bezier(0.3, 0, 0.2, 1)",
-                zIndex: zIndex,
-                pointerEvents: "none",
-              });
+      // Apply transition
+      animationDiv.style.transition = "all 250ms cubic-bezier(0.2, 0, 0.2, 1)";
+      animationDiv.style.left = `${adjustedCurrentRect.left + centerOffsetX}px`;
+      animationDiv.style.top = `${adjustedCurrentRect.top + centerOffsetY}px`;
+      animationDiv.style.width = `${targetRect.width}px`;
+      animationDiv.style.height = `${targetRect.height}px`;
 
-              // Final phase: Close the window after animation completes
-              addTimer(
-                window.setTimeout(() => {
-                  setShowOutline(false);
-                  onClose();
-                }, 200)
-              );
-            }, 250)
-          );
-        }, 10)
-      );
+      // Second phase: Move to target position
+      setTimeout(() => {
+        animationDiv.style.transition =
+          "all 180ms cubic-bezier(0.3, 0, 0.2, 1)";
+        animationDiv.style.left = `${targetRect.left}px`;
+        animationDiv.style.top = `${targetRect.top}px`;
+
+        // Remove the animation div and complete close
+        setTimeout(() => {
+          document.body.removeChild(animationDiv);
+          onClose();
+        }, 200);
+      }, 250);
     });
   };
 
