@@ -6,6 +6,7 @@ interface FolderProps {
   disabled?: boolean;
   clicked?: boolean;
   onClick: () => void;
+  id: string;
 }
 
 export const Folder: React.FC<FolderProps> = ({
@@ -14,6 +15,7 @@ export const Folder: React.FC<FolderProps> = ({
   disabled = false,
   clicked = false,
   onClick,
+  id,
 }) => {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ export const Folder: React.FC<FolderProps> = ({
 
   return (
     <div
+      id={id}
       className={`file-container flex flex-col items-center justify-center p-2 ${!disabled ? "cursor-pointer" : ""}`}
       onDoubleClick={!disabled ? handleDoubleClick : undefined}
       onClick={!disabled ? handleClick : undefined}

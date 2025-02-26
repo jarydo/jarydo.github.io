@@ -8,6 +8,7 @@ interface FileProps {
   disabled?: boolean;
   clicked?: boolean;
   onClick: () => void;
+  id: string;
 }
 
 export const File: React.FC<FileProps> = ({
@@ -17,6 +18,7 @@ export const File: React.FC<FileProps> = ({
   disabled = false,
   clicked = false,
   onClick,
+  id,
 }) => {
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -30,6 +32,7 @@ export const File: React.FC<FileProps> = ({
 
   const FileContent = (
     <div
+      id={id}
       className={`file-container flex flex-col items-center justify-center p-2 ${!disabled ? "cursor-pointer" : ""}`}
       onDoubleClick={!disabled ? handleDoubleClick : undefined}
       onClick={!disabled ? handleClick : undefined}

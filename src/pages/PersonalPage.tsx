@@ -24,6 +24,7 @@ type WindowState = {
   isOpen: boolean;
   windowType: "folder" | "text";
   parentId?: string;
+  sourceElementId?: string;
 };
 
 // Helper function to recursively process the file system
@@ -139,6 +140,7 @@ function PersonalPage() {
         isOpen: true,
         windowType: "text",
         parentId,
+        sourceElementId: item.id,
       };
       setWindows([...windows, newWindow]);
     } else if (item.type === "folder") {
@@ -150,6 +152,7 @@ function PersonalPage() {
         isOpen: true,
         windowType: "folder",
         parentId,
+        sourceElementId: item.id,
       };
       setWindows([...windows, newWindow]);
     }
@@ -201,6 +204,7 @@ function PersonalPage() {
       return (
         <Folder
           key={item.id}
+          id={item.id}
           name={item.name}
           disabled={isItemDisabled}
           onOpen={() => !isItemDisabled && openWindow(item, parentId)}
@@ -212,6 +216,7 @@ function PersonalPage() {
     return (
       <File
         key={item.id}
+        id={item.id}
         name={item.name}
         disabled={isItemDisabled}
         onOpen={() => !isItemDisabled && openWindow(item, parentId)}
@@ -246,6 +251,7 @@ function PersonalPage() {
               zIndex={win.zIndex}
               onFocus={() => bringToFront(win.id)}
               onClose={() => closeWindow(win.id)}
+              sourceElementId={win.sourceElementId}
             >
               {win.windowType === "folder" && Array.isArray(win.content) ? (
                 <div
