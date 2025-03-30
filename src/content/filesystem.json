@@ -88,6 +88,12 @@
                 "name": "UW Film.txt",
                 "type": "file",
                 "path": "/files/uw_film.md"
+            },
+            {
+                "id": "debate",
+                "name": "Debate.txt",
+                "type": "file",
+                "path": "/files/debate.md"
             }
         ]
     },
