@@ -15,6 +15,13 @@
   url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.ttf")format("truetype"),
   url("https://db.onlinewebfonts.com/t/20879f289f178c7c99a7623b1bcda06f.svg#ChiKareGo2")format("svg");
 }
+
+@font-face {
+  font-family: "FOT-RodinNTLG Pro";
+  src: url('/fonts/FOT-RodinNTLGProDB.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 body {
   /* @apply cursor-default; */
 }
