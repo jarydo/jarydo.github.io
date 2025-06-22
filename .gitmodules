@@ -1,0 +1,3 @@
+[submodule "src/pages/channels/scratch-art"]
+	path = src/pages/channels/scratch-art
+	url = https://github.com/jarydo/scratch-art
