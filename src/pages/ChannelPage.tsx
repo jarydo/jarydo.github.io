@@ -65,7 +65,7 @@ function ChannelPage() {
         {projects.map(({ name, date }) =>
           Date.parse(date) <= Date.now() ? (
             <div
-              className="rounded-[20px] border-4 border-[#C3C3C3] bg-[#F7F7F7]"
+              className="rounded-[20px] border-4 border-[#C3C3C3] bg-[#F7F7F7] transition-all duration-300 hover:border-[#36BFED] hover:shadow-[0_0_20px_rgba(54,191,237,0.5)] "
               key={name}
             >
               Insert Project
