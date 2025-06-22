@@ -109,8 +109,8 @@ function ChannelPage() {
             />
           </button>
 
-          <div className="flex flex-col items-center justify-around">
-            <div className="flex items-center gap-2 text-gray-600 text-3xl font-light tracking-wider">
+          <div className="flex flex-col items-center justify-between h-full">
+            <div className="flex items-center gap-2 text-gray-600 text-4xl font-light tracking-wider">
               <span>{hours}</span>
               <span className="text-4xl opacity-70 animate-flash">:</span>
               <span>{minutes}</span>
@@ -119,7 +119,7 @@ function ChannelPage() {
               </span>
             </div>
 
-            <div className="text-gray-600 text-4xl font-light tracking-wide mt-5">
+            <div className="text-gray-600 text-4xl font-light tracking-wide mb-12">
               {dateString}
             </div>
           </div>
