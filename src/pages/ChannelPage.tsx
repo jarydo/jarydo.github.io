@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 type Project = {
   name: string;
@@ -21,8 +22,9 @@ const projects: Project[] = [
   { name: "Project 12", repo: "", date: "" },
 ];
 
-function ProjectsPage() {
+function ChannelPage() {
   const [time, setTime] = useState(new Date());
+  const navigate = useNavigate();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -59,7 +61,7 @@ function ProjectsPage() {
 
   return (
     <div className="flex font-wii cursor-wii min-h-screen flex-col bg-[repeating-linear-gradient(to_bottom,#F8F8F8_0px,#F8F8F8_8px,transparent_8px,transparent_10px)]">
-      <div className="flex-1 grid grid-cols-4 gap-[25px]">
+      <div className="flex-1 grid grid-cols-4 gap-[25px] p-12">
         {projects.map(({ name, date }) =>
           Date.parse(date) <= Date.now() ? (
             <div
@@ -75,20 +77,67 @@ function ProjectsPage() {
           )
         )}
       </div>
-      <div className="h-min-[100px] bg-wiiFooter bg-cover bg-no-repeat">
-        <div className="flex items-center gap-2 text-gray-600 text-3xl font-light tracking-wider">
-          <span>{hours}</span>
-          <span className="text-4xl opacity-70 animate-flash">:</span>
-          <span>{minutes}</span>
-          <span className="text-lg font-normal opacity-80">{ampm}</span>
-        </div>
 
-        <div className="text-gray-600 text-4xl font-light tracking-wide mt-5">
-          {dateString}
+      <div className="h-[200px] flex relative">
+        <div
+          className="w-[300px] h-full bg-cover bg-no-repeat bg-center"
+          style={{ backgroundImage: "url(/wii_assets/footer_l.svg)" }}
+        />
+
+        <div
+          className="flex-1 h-full bg-repeat-x"
+          style={{
+            backgroundImage: "url(/wii_assets/footer_c.png)",
+            backgroundPosition: "bottom",
+          }}
+        />
+
+        <div
+          className="w-[300px] h-full bg-cover bg-no-repeat bg-center"
+          style={{ backgroundImage: "url(/wii_assets/footer_r.svg)" }}
+        />
+
+        <div className="absolute inset-0 flex justify-between items-center px-12">
+          <button
+            className="transition-all duration-200 hover:scale-110 cursor-wii"
+            onClick={() => navigate("/")}
+          >
+            <img
+              src="/wii_assets/home_button.png"
+              alt="home"
+              className="w-28 h-28"
+            />
+          </button>
+
+          <div className="flex flex-col items-center justify-around">
+            <div className="flex items-center gap-2 text-gray-600 text-3xl font-light tracking-wider">
+              <span>{hours}</span>
+              <span className="text-4xl opacity-70 animate-flash">:</span>
+              <span>{minutes}</span>
+              <span className="text-sm font-normal align-text-bottom">
+                {ampm}
+              </span>
+            </div>
+
+            <div className="text-gray-600 text-4xl font-light tracking-wide mt-5">
+              {dateString}
+            </div>
+          </div>
+
+          <button
+            className="transition-all duration-200 hover:scale-110 cursor-wii"
+            onClick={() => window.open("mailto:jarydnoahdiamond@gmail.com")}
+          >
+            <img
+              src="/wii_assets/mail_button.png"
+              alt="mail"
+              className="w-28 h-28"
+            />
+          </button>
         </div>
       </div>
     </div>
   );
 }
 
-export default ProjectsPage;
+export default ChannelPage;
