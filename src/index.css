@@ -59,3 +59,16 @@ body {
 .markdown-body ol {
   list-style-type: decimal !important;
 }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+.react-p5-wrapper {
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}

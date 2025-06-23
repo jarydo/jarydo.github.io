@@ -5,10 +5,16 @@ type Project = {
   name: string;
   repo: string;
   date: string;
+  img?: string;
 };
 
 const projects: Project[] = [
-  { name: "Project 1", repo: "", date: "2025-06-18" },
+  {
+    name: "Project 1",
+    repo: "scratch-away",
+    date: "2025-06-22",
+    img: "/scratch_away.png",
+  },
   { name: "Project 2", repo: "", date: "2025-06-29" },
   { name: "Project 3", repo: "", date: "2025-07-06" },
   { name: "Project 4", repo: "", date: "2025-07-13" },
@@ -62,17 +68,26 @@ function ChannelPage() {
   return (
     <div className="flex font-wii cursor-wii min-h-screen flex-col bg-[repeating-linear-gradient(to_bottom,#F8F8F8_0px,#F8F8F8_8px,transparent_8px,transparent_10px)]">
       <div className="flex-1 grid grid-cols-4 gap-[25px] p-12">
-        {projects.map(({ name, date }) =>
+        {projects.map(({ name, date, repo, img }) =>
           Date.parse(date) <= Date.now() ? (
             <div
-              className="rounded-[20px] border-4 border-[#C3C3C3] bg-[#F7F7F7] transition-all duration-300 hover:border-[#36BFED] hover:shadow-[0_0_20px_rgba(54,191,237,0.5)] "
+              className="rounded-[20px] h-40 border-4 border-[#C3C3C3] bg-[#F7F7F7] transition-all duration-300 hover:border-[#36BFED] hover:shadow-[0_0_20px_rgba(54,191,237,0.5)] overflow-hidden"
               key={name}
+              onClick={() => navigate(`/channel/${repo}`)}
             >
-              Insert Project
+              <img
+                src={img || "/wii_assets/default_project.png"}
+                alt={name}
+                className="w-full h-full object-cover"
+              />
             </div>
           ) : (
-            <div className="flex items-center justify-center rounded-[20px] border-4 border-[#C3C3C3] bg-[rgb(231_231_231/60%)] text-[rgb(121_121_121/50%)] text-[26px]">
-              Upcoming...
+            <div className="flex items-center h-40 justify-center rounded-[20px] border-4 border-[#C3C3C3] bg-[rgb(231_231_231/60%)] text-[rgb(121_121_121/50%)] text-[26px]">
+              {Date.parse(date) <= Date.now() + 7 * 24 * 60 * 60 * 1000 ? (
+                <b>{`Releases ${date}`}</b>
+              ) : (
+                "Upcoming..."
+              )}
             </div>
           )
         )}

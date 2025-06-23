@@ -6,6 +6,7 @@ import { TextContent } from "@/components/personal/TextContent";
 import fileSystemData from "@/content/filesystem.json";
 import { Header } from "@/components/personal/Header";
 import StartupScreen from "@/components/personal/StartupScreen";
+import { useNavigate } from "react-router-dom";
 
 type FileItem = {
   id: string;
@@ -49,6 +50,8 @@ function PersonalPage() {
   const [clickedItem, setClickedItem] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const [isStarting, setIsStarting] = useState(true);
+
+  const navigate = useNavigate();
 
   // handle clicking outside
   useEffect(() => {
@@ -234,6 +237,22 @@ function PersonalPage() {
 
         <div className="grid grid-flow-row justify-end pr-1">
           {fileSystem.map((item) => renderFileOrFolder(item))}
+
+          <div
+            className="file-container flex flex-col items-center justify-center p-2 cursor-pointer"
+            onClick={() => navigate("/channel")}
+          >
+            <img
+              src={"/wii_assets/channel_icon.png"}
+              alt="Me Channel"
+              draggable="false"
+              width="60"
+              height="60"
+            />
+            <p className="text-black bg-white text-wrap max-w-[140px] text-center font-medium px-2 text-xl">
+              Me Channel
+            </p>
+          </div>
         </div>
 
         {windows
