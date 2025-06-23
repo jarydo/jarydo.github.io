@@ -30,7 +30,21 @@ const projects: Project[] = [
 
 function ChannelPage() {
   const [time, setTime] = useState(new Date());
+  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowResize);
+    return () => window.removeEventListener("resize", handleWindowResize);
+  }, []);
+
+  const handleWindowResize = () => {
+    if (window.innerWidth < 768) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -64,6 +78,25 @@ function ChannelPage() {
 
   const { hours, minutes, ampm } = formatTime(time);
   const dateString = formatDate(time);
+
+  if (isMobile) {
+    return (
+      <div className="flex items-center justify-center min-h-screen bg-chessboard font-macos">
+        <div className="text-center p-6 bg-white rounded-lg shadow-lg">
+          <h1 className="text-2xl font-bold mb-4">Uh oh!</h1>
+          <p className="text-gray-600 mb-4">
+            This page is not on mobile (yet). Sorry!
+          </p>
+          <button
+            className="px-4 py-2 bg-black text-white rounded "
+            onClick={() => navigate("/")}
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="flex font-wii cursor-wii min-h-screen flex-col bg-[repeating-linear-gradient(to_bottom,#F8F8F8_0px,#F8F8F8_8px,transparent_8px,transparent_10px)]">
