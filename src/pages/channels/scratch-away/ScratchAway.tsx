@@ -1,4 +1,3 @@
-import React from "react";
 import { ReactP5Wrapper, P5CanvasInstance } from "@p5-wrapper/react";
 import p5Types from "p5";
 
@@ -138,21 +137,21 @@ function sketch(p5: P5CanvasInstance) {
     }
   }
 
-  function drawHeart(): void {
-    scratchLayer.push();
-    scratchLayer.translate(p5.width / 2, p5.height / 2);
-    scratchLayer.scale(2);
-    scratchLayer.stroke("#FFD700");
-    scratchLayer.strokeWeight(3);
-    scratchLayer.noFill();
+  //   function drawHeart(): void {
+  //     scratchLayer.push();
+  //     scratchLayer.translate(p5.width / 2, p5.height / 2);
+  //     scratchLayer.scale(2);
+  //     scratchLayer.stroke("#FFD700");
+  //     scratchLayer.strokeWeight(3);
+  //     scratchLayer.noFill();
 
-    scratchLayer.arc(-50, -50, 100, 100, p5.PI, 0);
-    scratchLayer.arc(50, -50, 100, 100, p5.PI, 0);
-    scratchLayer.line(-100, -50, 0, 75);
-    scratchLayer.line(100, -50, 0, 75);
+  //     scratchLayer.arc(-50, -50, 100, 100, p5.PI, 0);
+  //     scratchLayer.arc(50, -50, 100, 100, p5.PI, 0);
+  //     scratchLayer.line(-100, -50, 0, 75);
+  //     scratchLayer.line(100, -50, 0, 75);
 
-    scratchLayer.pop();
-  }
+  //     scratchLayer.pop();
+  //   }
 
   function drawCustomCursor(): void {
     p5.push();
@@ -164,8 +163,7 @@ function sketch(p5: P5CanvasInstance) {
     }
 
     // Draw the cursor image
-    // Adjust the positioning so the cursor tip aligns with the mouse position
-    // You may need to adjust these offset values based on your cursor image
+    // @ts-expect-error p5.imageMode is not properly defined in p5Types
     p5.imageMode(p5.LEFT);
     p5.image(cursorImg, 0, 0, 200, 100); // Adjust size as needed
 
@@ -211,9 +209,11 @@ function sketch(p5: P5CanvasInstance) {
 
   p5.touchMoved = () => {
     if (p5.touches && p5.touches.length > 0) {
+      // @ts-expect-error p5.touches[0] is not properly defined in p5Types
       createParticles(p5.touches[0].x, p5.touches[0].y);
 
       scratchLayer.erase();
+      // @ts-expect-error p5.touches[0] is not properly defined in p5Types
       scratchLayer.circle(p5.touches[0].x, p5.touches[0].y, brushSize * 2);
       scratchLayer.noErase();
     }
