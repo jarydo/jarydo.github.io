@@ -2,7 +2,7 @@ import PersonalPage from "./pages/PersonalPage";
 import ChannelPage from "./pages/ChannelPage";
 import RecruiterPage from "./pages/RecruiterPage";
 import ScratchAway from "./pages/channels/scratch-away/ScratchAway";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
