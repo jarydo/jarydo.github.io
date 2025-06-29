@@ -78,7 +78,7 @@ function ChannelPage() {
     const day = date.getDate();
     const month = date.getMonth() + 1; // JavaScript months are 0-indexed
 
-    return `${dayOfWeek} ${day}/${month}`;
+    return `${dayOfWeek} ${month}/${day}`;
   };
 
   const { hours, minutes, ampm } = formatTime(time);
