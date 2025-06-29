@@ -4,7 +4,7 @@ import type { CategoryType } from "./types";
 import "./index.css";
 
 function App() {
-  const [category, setCategory] = useState<CategoryType>("creation");
+  const [category, setCategory] = useState<CategoryType>("conversation");
   const [usedCards, setUsedCards] = useState<Set<number>>(new Set());
   const [currentCard, setCurrentCard] = useState<string>("");
 
@@ -44,12 +44,6 @@ function App() {
     <div id="curiosity-cards">
       <div className="category-container">
         <button
-          className={`category-btn ${category === "creation" ? "active" : ""}`}
-          onClick={() => switchCategory("creation")}
-        >
-          {category === "creation" ? "< CREATION >" : "( CREATION )"}
-        </button>
-        <button
           className={`category-btn ${
             category === "conversation" ? "active" : ""
           }`}
@@ -66,6 +60,12 @@ function App() {
           onClick={() => switchCategory("connection")}
         >
           {category === "connection" ? "< CONNECTION >" : "( CONNECTION )"}
+        </button>
+        <button
+          className={`category-btn ${category === "creation" ? "active" : ""}`}
+          onClick={() => switchCategory("creation")}
+        >
+          {category === "creation" ? "< CREATION >" : "( CREATION )"}
         </button>
       </div>
       <div id="card">{currentCard}</div>
