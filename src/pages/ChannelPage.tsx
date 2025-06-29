@@ -10,12 +10,17 @@ type Project = {
 
 const projects: Project[] = [
   {
-    name: "Project 1",
+    name: "Scratch Away",
     repo: "scratch-away",
     date: "2025-06-22",
     img: "/scratch_away.png",
   },
-  { name: "Project 2", repo: "", date: "2025-06-29" },
+  {
+    name: "Curiosity Cards",
+    repo: "curiosity-cards",
+    date: "2025-06-29",
+    img: "/curiosity_cards.png",
+  },
   { name: "Project 3", repo: "", date: "2025-07-06" },
   { name: "Project 4", repo: "", date: "2025-07-13" },
   { name: "Project 5", repo: "", date: "2025-07-20" },
