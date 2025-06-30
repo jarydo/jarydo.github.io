@@ -79,10 +79,9 @@ function PersonalPage() {
           if (item.type === "file" && item.path) {
             try {
               // Vite automatically resolves the URL regardless of base path
-              const content = await import(
-                /* @vite-ignore */ item.path + "?raw"
-              );
-              return { ...item, content: content.default };
+              const response = await fetch(item.path);
+              const content = await response.text();
+              return { ...item, content };
             } catch (error) {
               console.error(`Error loading file: ${item.path}`, error);
               return { ...item, content: "Error loading content" };
