@@ -5,7 +5,6 @@ import footerC from "/wii_assets/footer_c.png";
 import footerR from "/wii_assets/footer_r.svg";
 import homeButton from "/wii_assets/home_button.png";
 import mailButton from "/wii_assets/mail_button.png";
-import defaultProject from "/wii_assets/default_project.png";
 
 type Project = {
   name: string;
@@ -120,7 +119,7 @@ function ChannelPage() {
               onClick={() => navigate(`/channel/${repo}`)}
             >
               <img
-                src={img || defaultProject}
+                src={img}
                 alt={name}
                 className="w-full h-full object-cover"
               />
