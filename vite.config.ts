@@ -3,8 +3,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import { plugin as markdownPlugin, Mode } from "vite-plugin-markdown";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-export default defineConfig(({ command, mode }) => {
+export default defineConfig(({ mode }) => {
   // Determine the base URL based on the environment
   let base = "/";
 
