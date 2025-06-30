@@ -1,5 +1,8 @@
 import React from "react";
 import { Rnd } from "react-rnd";
+import fileIcon from "/macos_assets/file.png";
+import fileClickedIcon from "/macos_assets/file_clicked.png";
+import fileDisabledIcon from "/macos_assets/file_disabled.png";
 
 interface FileProps {
   name: string;
@@ -30,6 +33,13 @@ export const File: React.FC<FileProps> = ({
     onOpen();
   };
 
+  // Select the appropriate icon based on state
+  const getIconSrc = () => {
+    if (disabled) return fileDisabledIcon;
+    if (clicked) return fileClickedIcon;
+    return fileIcon;
+  };
+
   const FileContent = (
     <div
       id={id}
@@ -37,17 +47,7 @@ export const File: React.FC<FileProps> = ({
       onDoubleClick={!disabled ? handleDoubleClick : undefined}
       onClick={!disabled ? handleClick : undefined}
     >
-      <img
-        src={
-          disabled
-            ? "/macos_assets/file_disabled.png"
-            : clicked
-              ? "/macos_assets/file_clicked.png"
-              : "/macos_assets/file.png"
-        }
-        alt="File"
-        draggable="false"
-      />
+      <img src={getIconSrc()} alt="File" draggable="false" />
       <p
         className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} text-wrap max-w-[140px] text-center font-medium text-sm px-2 text-xl`}
       >

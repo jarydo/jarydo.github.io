@@ -1,5 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import footerL from "/wii_assets/footer_l.svg";
+import footerC from "/wii_assets/footer_c.png";
+import footerR from "/wii_assets/footer_r.svg";
+import homeButton from "/wii_assets/home_button.png";
+import mailButton from "/wii_assets/mail_button.png";
+import defaultProject from "/wii_assets/default_project.png";
 
 type Project = {
   name: string;
@@ -114,7 +120,7 @@ function ChannelPage() {
               onClick={() => navigate(`/channel/${repo}`)}
             >
               <img
-                src={img || "/wii_assets/default_project.png"}
+                src={img || defaultProject}
                 alt={name}
                 className="w-full h-full object-cover"
               />
@@ -134,20 +140,20 @@ function ChannelPage() {
       <div className="h-[200px] flex relative">
         <div
           className="w-[300px] h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: "url(/wii_assets/footer_l.svg)" }}
+          style={{ backgroundImage: `url(${footerL})` }}
         />
 
         <div
           className="flex-1 h-full bg-repeat-x"
           style={{
-            backgroundImage: "url(/wii_assets/footer_c.png)",
+            backgroundImage: `url(${footerC})`,
             backgroundPosition: "bottom",
           }}
         />
 
         <div
           className="w-[300px] h-full bg-cover bg-no-repeat bg-center"
-          style={{ backgroundImage: "url(/wii_assets/footer_r.svg)" }}
+          style={{ backgroundImage: `url(${footerR})` }}
         />
 
         <div className="absolute inset-0 flex justify-between items-center px-12">
@@ -155,11 +161,7 @@ function ChannelPage() {
             className="transition-all duration-200 hover:scale-110 cursor-wii"
             onClick={() => navigate("/")}
           >
-            <img
-              src="/wii_assets/home_button.png"
-              alt="home"
-              className="w-28 h-28"
-            />
+            <img src={homeButton} alt="home" className="w-28 h-28" />
           </button>
 
           <div className="flex flex-col items-center justify-between h-full">
@@ -181,11 +183,7 @@ function ChannelPage() {
             className="transition-all duration-200 hover:scale-110 cursor-wii"
             onClick={() => window.open("mailto:jarydnoahdiamond@gmail.com")}
           >
-            <img
-              src="/wii_assets/mail_button.png"
-              alt="mail"
-              className="w-28 h-28"
-            />
+            <img src={mailButton} alt="mail" className="w-28 h-28" />
           </button>
         </div>
       </div>

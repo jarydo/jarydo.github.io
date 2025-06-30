@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Rnd } from "react-rnd";
 import ClassicScrollbar from "./Scrollbar";
+import windowHeader from "/macos_assets/window_header.png";
+import windowClicked from "/macos_assets/window_clicked.png";
+import windowUnclicked from "/macos_assets/window_unclicked.png";
 
 interface WindowProps {
   title: string;
@@ -290,7 +293,7 @@ export const Window: React.FC<WindowProps> = ({
           <div className="bg-white border-black border-2 flex flex-col h-full">
             <div className="window-header flex border-black border-b-2 items-center cursor-move">
               <img
-                src="/macos_assets/window_header.png"
+                src={windowHeader}
                 width="12px"
                 className="mx-2"
                 draggable="false"
@@ -303,29 +306,25 @@ export const Window: React.FC<WindowProps> = ({
                 className="window-button cursor-pointer"
               >
                 <img
-                  src={
-                    isCloseButtonPressed
-                      ? "/macos_assets/window_clicked.png"
-                      : "/macos_assets/window_unclicked.png"
-                  }
+                  src={isCloseButtonPressed ? windowClicked : windowUnclicked}
                   width="22px"
                   draggable="false"
                 />
               </button>
               <img
                 className="grow mx-2 h-[38px]"
-                src="/macos_assets/window_header.png"
+                src={windowHeader}
                 draggable="false"
               />
               <div className="text-xl select-none">{title}</div>
               <img
                 className="grow ml-2 h-[38px]"
-                src="/macos_assets/window_header.png"
+                src={windowHeader}
                 draggable="false"
               />
               <img
                 className="h-[38px] w-[50px] mr-2"
-                src="/macos_assets/window_header.png"
+                src={windowHeader}
                 draggable="false"
               />
             </div>

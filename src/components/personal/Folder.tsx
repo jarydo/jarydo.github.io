@@ -1,4 +1,7 @@
 import React from "react";
+import folderIcon from "/macos_assets/folder.png";
+import folderClickedIcon from "/macos_assets/folder_clicked.png";
+import folderDisabledIcon from "/macos_assets/folder_disabled.png";
 
 interface FolderProps {
   name: string;
@@ -27,6 +30,12 @@ export const Folder: React.FC<FolderProps> = ({
     onOpen();
   };
 
+  const getIconSrc = () => {
+    if (disabled) return folderDisabledIcon;
+    if (clicked) return folderClickedIcon;
+    return folderIcon;
+  };
+
   return (
     <div
       id={id}
@@ -34,17 +43,7 @@ export const Folder: React.FC<FolderProps> = ({
       onDoubleClick={!disabled ? handleDoubleClick : undefined}
       onClick={!disabled ? handleClick : undefined}
     >
-      <img
-        src={
-          disabled
-            ? "/macos_assets/folder_disabled.png"
-            : clicked
-              ? "/macos_assets/folder_clicked.png"
-              : "/macos_assets/folder.png"
-        }
-        alt="Folder"
-        draggable="false"
-      />
+      <img src={getIconSrc()} alt="Folder" draggable="false" />
       <p
         className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} font-medium text-sm px-2 text-xl`}
       >

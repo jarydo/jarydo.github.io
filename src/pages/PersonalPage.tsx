@@ -8,6 +8,8 @@ import { Header } from "@/components/personal/Header";
 import StartupScreen from "@/components/personal/StartupScreen";
 import { useNavigate } from "react-router-dom";
 
+import meChannelIcon from "/wii_assets/channel_icon.png";
+
 type FileItem = {
   id: string;
   name: string;
@@ -243,7 +245,7 @@ function PersonalPage() {
             onClick={() => navigate("/channel")}
           >
             <img
-              src={"/wii_assets/channel_icon.png"}
+              src={meChannelIcon}
               alt="Me Channel"
               draggable="false"
               width="60"

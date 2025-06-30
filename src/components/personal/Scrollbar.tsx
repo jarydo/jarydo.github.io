@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import arrowUpIcon from "/macos_assets/arrow_up.png";
+import arrowDownIcon from "/macos_assets/arrow_down.png";
 
 interface ClassicScrollbarProps {
   children: React.ReactNode;
@@ -172,7 +174,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
             onClick={() => handleArrowClick("up")}
             className="border-b-2 border-black h-8 flex items-center justify-center"
           >
-            <img src="/macos_assets/arrow_up.png" alt="Scroll up" />
+            <img src={arrowUpIcon} alt="Scroll up" />
           </button>
 
           <div
@@ -200,7 +202,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
             onClick={() => handleArrowClick("down")}
             className="border-t-2 border-black flex w-8 items-center justify-center"
           >
-            <img src="/macos_assets/arrow_down.png" alt="Scroll down" />
+            <img src={arrowDownIcon} alt="Scroll down" />
           </button>
         </div>
       )}

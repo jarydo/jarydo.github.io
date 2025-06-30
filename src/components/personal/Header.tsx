@@ -1,5 +1,9 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import headerRightIcon from "/macos_assets/header_right.png";
+import headerLeftIcon from "/macos_assets/header_left.png";
+import webringBlackIcon from "/macos_assets/webring_black.png";
+import webringWhiteIcon from "/macos_assets/webring_white.png";
 
 interface MenuItem {
   name: string;
@@ -103,18 +107,20 @@ export const Header: React.FC = () => {
     <>
       {/* Header */}
       <div className="bg-white flex text-xl border-b-4 border-black items-center">
-        <img src="/macos_assets/header_left.png" />
+        <img src={headerLeftIcon} />
         <div className="flex grow items-center gap-6 h-full">
           <div className="relative">
             <button
               onClick={() => handleMenuClick("webRing")}
-              className={`px-2 py-2 ${activeDropdown === "webRing" ? "bg-black text-white" : ""}`}
+              className={`px-2 flex items-center ${
+                activeDropdown === "webRing" ? "bg-black text-white" : ""
+              }`}
             >
               <img
                 src={
                   activeDropdown === "webRing"
-                    ? "/macos_assets/webring_white.png"
-                    : "/macos_assets/webring_black.png"
+                    ? webringWhiteIcon
+                    : webringBlackIcon
                 }
                 width="24"
                 height="24"
@@ -149,7 +155,7 @@ export const Header: React.FC = () => {
             )}
           </div>
         </div>
-        <img src="/macos_assets/header_right.png" />
+        <img src={headerRightIcon} />
       </div>
 
       {/* Click anywhere else to close dropdowns */}
