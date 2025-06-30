@@ -282,7 +282,19 @@ export const Window: React.FC<WindowProps> = ({
           maxWidth={800}
           maxHeight={600}
           style={{ zIndex }}
-          onMouseDown={onFocus}
+          onClick={(e: { target: HTMLElement }) => {
+            // Only focus if not clicking on a link or interactive element
+            const target = e.target as HTMLElement;
+            const isLink = target.tagName === "A" || target.closest("a");
+            const isButton =
+              target.tagName === "BUTTON" || target.closest("button");
+            const isInput =
+              target.tagName === "INPUT" || target.tagName === "TEXTAREA";
+
+            if (!isLink && !isButton && !isInput) {
+              onFocus();
+            }
+          }}
           onResize={(_, __, ref) => {
             setSize({ width: ref.offsetWidth, height: ref.offsetHeight });
           }}

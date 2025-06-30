@@ -10,7 +10,15 @@ export const TextContent: React.FC<TextContentProps> = ({ content }) => {
   return (
     <>
       <div className="markdown-body p-4 font-macos text-lg">
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <ReactMarkdown
+          components={{
+            a: (props) => (
+              <a {...props} target="_blank" rel="noopener noreferrer" />
+            ),
+          }}
+        >
+          {content}
+        </ReactMarkdown>
       </div>
     </>
   );

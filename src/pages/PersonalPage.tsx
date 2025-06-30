@@ -78,9 +78,11 @@ function PersonalPage() {
         const promises = items.map(async (item) => {
           if (item.type === "file" && item.path) {
             try {
-              const response = await fetch(item.path);
-              const content = await response.text();
-              return { ...item, content };
+              // Vite automatically resolves the URL regardless of base path
+              const content = await import(
+                /* @vite-ignore */ item.path + "?raw"
+              );
+              return { ...item, content: content.default };
             } catch (error) {
               console.error(`Error loading file: ${item.path}`, error);
               return { ...item, content: "Error loading content" };
@@ -92,7 +94,6 @@ function PersonalPage() {
           }
           return item;
         });
-
         return Promise.all(promises);
       };
 
