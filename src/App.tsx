@@ -1,9 +1,27 @@
 import PersonalPage from "./pages/PersonalPage";
-import ChannelPage from "./pages/ChannelPage";
 import RecruiterPage from "./pages/RecruiterPage";
-import ScratchAway from "./pages/channels/scratch-away/ScratchAway";
-import CuriosityCards from "./pages/channels/curiosity-cards/CuriosityCards";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
+
+// Redirect component for external URLs
+const ExternalRedirect = ({ to }: { to: string }) => {
+  useEffect(() => {
+    window.location.href = to;
+  }, [to]);
+
+  return (
+    <div
+      className="flex items-center justify-center min-h-screen bg-cover bg-center bg-no-repeat"
+      style={{ backgroundImage: "url(/macos_assets/background.png)" }}
+    >
+      <img
+        src="/wii_assets/channel_icon.png"
+        alt="Channel Icon"
+        className="w-32 h-32"
+      />
+    </div>
+  );
+};
 
 function App() {
   return (
@@ -11,9 +29,17 @@ function App() {
       <Routes>
         <Route path="/" element={<PersonalPage />} />
         <Route path="/recruiter" element={<RecruiterPage />} />
-        <Route path="/channel" element={<ChannelPage />} />
-        <Route path="/channel/scratch-away" element={<ScratchAway />} />
-        <Route path="/channel/curiosity-cards" element={<CuriosityCards />} />
+        {/* Previously launched project redirects*/}
+        <Route
+          path="/channel"
+          element={<ExternalRedirect to="https://channel.jaryddiamond.com" />}
+        />
+        <Route
+          path="/channel/curiosity-cards"
+          element={
+            <ExternalRedirect to="https://channel.jaryddiamond.com/curiosity-cards" />
+          }
+        />
       </Routes>
     </Router>
   );
