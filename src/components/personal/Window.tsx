@@ -341,7 +341,7 @@ export const Window: React.FC<WindowProps> = ({
               />
             </div>
 
-            <div className="flex-grow overflow-hidden cursor-default">
+            <div className="flex-grow overflow-hidden">
               <ClassicScrollbar>{children}</ClassicScrollbar>
             </div>
           </div>
