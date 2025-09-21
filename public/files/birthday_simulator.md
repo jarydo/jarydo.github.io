@@ -1,0 +1,3 @@
+It was my dad's birthday, but I was spending the summer in a different city, so I decided to make him the "most unique gift \[he's\] ever received" (his words, not mine). I thought back to what the most awkward parts of a birthday are - being the centre of attention, receiving texts from random people, a reminder of your own mortality - and made it into a simulator!
+
+You can play around with it [here](https://channel.jaryddiamond.com/birthday-simulator), very fun to harass your friends with (with the bonus of a genuine message at the end). Around 3000 monthly users, featured on WebCurios, b3ta, 94.5 The Buzz, Hubspot, and more.

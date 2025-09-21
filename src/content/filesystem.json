@@ -5,6 +5,12 @@
         "type": "folder",
         "children": [
             {
+                "id": "birthday_simulator",
+                "name": "Birthday Simulator.txt",
+                "type": "file",
+                "path": "/files/birthday_simulator.md"
+            },
+            {
                 "id": "prism",
                 "name": "Prism Collective.txt",
                 "type": "file",
