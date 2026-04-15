@@ -36,14 +36,6 @@ const Contact = forwardRef<HTMLElement>((_, ref) => {
         >
           <img src="/x.svg" alt="X" className="w-20 h-20" />
         </a>
-        <a
-          href="/Jaryd_Diamond_Resume.pdf"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center text-gray-600 hover:text-blue-500 transition-colors"
-        >
-          <img src="/resume.svg" alt="Resume" className="w-20 h-20" />
-        </a>
       </div>
     </section>
   );
