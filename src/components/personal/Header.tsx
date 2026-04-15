@@ -216,6 +216,21 @@ export const Header: React.FC = () => {
         <img src={headerRightIcon} />
       </div>
 
+      {/* Hidden Socratica webring links for crawler detection */}
+      <a
+        href="https://socratica.info/webring/jaryddiamond.com/prev"
+        className="sr-only"
+      >
+        Prev
+      </a>
+      <a
+        href="https://socratica.info/webring/jaryddiamond.com/next"
+        className="sr-only"
+      >
+        Next
+      </a>
+      <a href="https://socratica.info/webring" className="sr-only"></a>
+
       {/* Click anywhere else to close dropdowns */}
       {activeDropdown && (
         <div
