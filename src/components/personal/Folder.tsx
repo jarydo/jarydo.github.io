@@ -45,7 +45,7 @@ export const Folder: React.FC<FolderProps> = ({
     >
       <img src={getIconSrc()} alt="Folder" draggable="false" />
       <p
-        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} font-medium text-sm px-2 text-xl`}
+        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} font-medium px-2 text-lg sm:text-xl`}
       >
         {name}
       </p>

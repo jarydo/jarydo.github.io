@@ -169,7 +169,7 @@ function PersonalPage() {
       windows.map((win) => ({
         ...win,
         zIndex: win.id === id ? maxZIndex + 1 : win.zIndex,
-      }))
+      })),
     );
     setMaxZIndex(maxZIndex + 1);
   };
@@ -251,7 +251,7 @@ function PersonalPage() {
               width="60"
               height="60"
             />
-            <p className="text-black bg-white text-wrap max-w-[140px] text-center font-medium px-2 text-xl">
+            <p className="text-black bg-white text-wrap max-w-[140px] text-center font-medium px-2 text-lg sm:text-xl">
               Me Channel
             </p>
           </div>

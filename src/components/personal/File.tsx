@@ -49,7 +49,7 @@ export const File: React.FC<FileProps> = ({
     >
       <img src={getIconSrc()} alt="File" draggable="false" />
       <p
-        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} text-wrap max-w-[140px] text-center font-medium text-sm px-2 text-xl`}
+        className={`${!clicked ? "text-black bg-white" : "text-white bg-black"} text-wrap max-w-[140px] text-center font-medium px-2 text-lg sm:text-xl`}
       >
         {name}
       </p>

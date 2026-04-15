@@ -149,9 +149,9 @@ export const Window: React.FC<WindowProps> = ({
             window.setTimeout(() => {
               setShowOutline(false);
               setShowContent(true);
-            }, 300)
+            }, 300),
           );
-        }, 200)
+        }, 200),
       );
     });
 
@@ -328,7 +328,7 @@ export const Window: React.FC<WindowProps> = ({
                 src={windowHeader}
                 draggable="false"
               />
-              <div className="text-xl select-none">{title}</div>
+              <div className="text-lg sm:text-xl select-none">{title}</div>
               <img
                 className="grow ml-2 h-[38px]"
                 src={windowHeader}
