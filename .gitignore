@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Temporary MD files
+IMPROVEMENTS.md
+SITE_REVAMP_TODO.md

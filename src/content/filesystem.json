@@ -5,16 +5,22 @@
         "type": "folder",
         "children": [
             {
+                "id": "performance_pack",
+                "name": "Performance Pack.txt",
+                "type": "file",
+                "path": "/files/performance_pack.md"
+            },
+            {
+                "id": "presto_wand",
+                "name": "PRESTO Wand.txt",
+                "type": "file",
+                "path": "/files/presto_wand.md"
+            },
+            {
                 "id": "birthday_simulator",
                 "name": "Birthday Simulator.txt",
                 "type": "file",
                 "path": "/files/birthday_simulator.md"
-            },
-            {
-                "id": "prism",
-                "name": "Prism Collective.txt",
-                "type": "file",
-                "path": "/files/prism.md"
             },
             {
                 "id": "resonant",
@@ -35,36 +41,55 @@
                 "path": "/files/borrowbee.md"
             },
             {
-                "id": "tritone_paradox",
-                "name": "Tritone Paradox.txt",
-                "type": "file",
-                "path": "/files/tritone_paradox.md"
-            },
-            {
                 "id": "personal_site",
                 "name": "Personal Site.txt",
                 "type": "file",
                 "path": "/files/personal_site.md"
-            },
-            {
-                "id": "podcast_summarizer",
-                "name": "Podcast Summarizer.txt",
-                "type": "file",
-                "path": "/files/podcast_summarizer.md"
-            },
-            {
-                "id": "resume_gpt",
-                "name": "Resume GPT.txt",
-                "type": "file",
-                "path": "/files/resume_gpt.md"
             }
         ]
     },
     {
-        "id": "side_quests",
-        "name": "Side Quests",
+        "id": "experiments",
+        "name": "Experiments",
         "type": "folder",
         "children": [
+            {
+                "id": "uwagg",
+                "name": "UWAGG.txt",
+                "type": "file",
+                "path": "/files/uwagg.md"
+            },
+            {
+                "id": "artwork_for_airports",
+                "name": "Artwork for Airports.txt",
+                "type": "file",
+                "path": "/files/artwork_for_airports.md"
+            },
+            {
+                "id": "blind_spot",
+                "name": "Blind Spot.txt",
+                "type": "file",
+                "path": "/files/blind_spot.md"
+            },
+            {
+                "id": "tritone_paradox",
+                "name": "Tritone Paradox.txt",
+                "type": "file",
+                "path": "/files/tritone_paradox.md"
+            }
+        ]
+    },
+    {
+        "id": "community",
+        "name": "Community",
+        "type": "folder",
+        "children": [
+            {
+                "id": "symposium",
+                "name": "Symposium.txt",
+                "type": "file",
+                "path": "/files/symposium.md"
+            },
             {
                 "id": "socratica",
                 "name": "Socratica.txt",
@@ -73,7 +98,7 @@
             },
             {
                 "id": "mario_kart",
-                "name": "Mario Kart.txt",
+                "name": "UW Mario Kart.txt",
                 "type": "file",
                 "path": "/files/mario_kart.md"
             },
@@ -82,12 +107,6 @@
                 "name": "UW Blueprint.txt",
                 "type": "file",
                 "path": "/files/uw_blueprint.md"
-            },
-            {
-                "id": "skiing",
-                "name": "Skiing.txt",
-                "type": "file",
-                "path": "/files/skiing.md"
             },
             {
                 "id": "uw_film",
@@ -104,8 +123,8 @@
         ]
     },
     {
-        "id": "film",
-        "name": "Film",
+        "id": "fun",
+        "name": "Fun",
         "type": "folder",
         "children": [
             {
@@ -122,17 +141,10 @@
             },
             {
                 "id": "favourite_films",
-                "name": "Favourites.txt",
+                "name": "Film Favourites.txt",
                 "type": "file",
                 "path": "/files/favourite_films.md"
-            }
-        ]
-    },
-    {
-        "id": "music",
-        "name": "Music",
-        "type": "folder",
-        "children": [
+            },
             {
                 "id": "jamming_with_jaryd",
                 "name": "Jamming With Jaryd.txt",
@@ -144,6 +156,12 @@
                 "name": "Concerts.txt",
                 "type": "file",
                 "path": "/files/concerts.md"
+            },
+            {
+                "id": "skiing",
+                "name": "Skiing.txt",
+                "type": "file",
+                "path": "/files/skiing.md"
             }
         ]
     },

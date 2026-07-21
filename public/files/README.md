@@ -1,19 +1,17 @@
-Yo! I’m Jaryd, a creative technologist based in Toronto and a CS + HCI student at the University of Waterloo on the side. I'm passionate about community, film, music, and any combination of the 3. And yes I have a y in my name, it’s because my dad had a dream - don’t question it.
+Yo! I’m Jaryd, a **creative technologist** in Toronto who aims to bring a little extra sparkle to the everyday. I'm obsessed with community, film, music, and any combination of the 3. And yes I have a y in my name - my dad had a dream, don’t question it.
 
-I love to bring whimsy and a little extra sparkle to everyday life! Currently exploring human-centred computing, art tech, and 3d graphics.
+Currently on the Brand Design Engineering team at **Shopify**, formerly CS at **Waterloo**.
 
-Some recent projects:
+A few things I've done:
 
-- Turned my transit card into a magic wand (#1 on r/Toronto)
-- Took the most awkward parts of a birthday and made it a playable experience (featured on WebCurios, 94.5 The Buzz, Hubspot, and more)
-- Created a localized newspaper for my 8 roommates
-- Organized a sold-out student film festival at my favourite local theatre
-- Mario Kart with the soundtrack played by a live band
-- Friend-nominated dating algorithms
-- Conceptualized and finished a short film in 6 weeks for buildspace
-- Ran a summer camp for adults
-- Built an RPG party game about organizing a hackathon (for a hackathon)
+- Turned my transit card into a **magic wand** (#1 on r/Toronto)
+- Ran **Socratica Symposium 2026** - a sold-out, 2500 person celebration of making (supported by Anthropic, Figma, Shopify, and more)
+- Made the most awkward parts of a birthday into a **playable simulator** (featured on WebCurios, 94.5 The Buzz, Hubspot)
+- Built **friend-nominated dating algorithms** for Valentine's Day
+- An **RPG party game** about organizing a hackathon (for a hackathon)
+- Conceived + shot a **short film in 6 weeks** with buildspace
+- **Mario Kart with the soundtrack played by a live band**
 
-Hope you enjoy your stay - plenty of hidden goodies to find
+Currently into art-tech and 3d graphics. Plenty of hidden goodies to find, hope you enjoy your stay!
 
-PS - if you are a recruiter, check out Recruiter Mode
+PS - for flexing, check out Recruiter Mode
