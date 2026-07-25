@@ -25,6 +25,11 @@ type WindowState = {
 const MOBILE_BREAKPOINT = 768;
 /** Number of windows before the cascade offset wraps, so windows stay on screen. */
 const CASCADE_LENGTH = 5;
+/**
+ * Phones have height to spare and no room to arrange windows side by side, so
+ * windows open tall. `Window` shrinks this to fit short/landscape viewports.
+ */
+const MOBILE_WINDOW_HEIGHT = 520;
 
 // The boot animation is charming on arrival and tedious on every navigation
 // back, so it plays once per browser session. Private modes can refuse storage
@@ -190,7 +195,7 @@ function PersonalPage() {
             key={win.id}
             title={win.title}
             width={isMobile ? 350 : 600}
-            height={isMobile ? 300 : 400}
+            height={isMobile ? MOBILE_WINDOW_HEIGHT : 400}
             initialPosition={win.position}
             zIndex={index + 1}
             onFocus={() => bringToFront(win.id)}
@@ -198,7 +203,13 @@ function PersonalPage() {
             sourceElementId={win.id}
           >
             {win.windowType === "folder" ? (
-              <div className="p-2 pt-4 grid grid-cols-2 sm:grid-cols-3 justify-items-center items-start">
+              // Column count follows the same breakpoint as the window width,
+              // so icons never outgrow the window they're in
+              <div
+                className={`p-2 pt-4 grid ${
+                  isMobile ? "grid-cols-2" : "grid-cols-3"
+                } justify-items-center items-start`}
+              >
                 {win.items.map((item) => renderIcon(item, win.id))}
               </div>
             ) : (
