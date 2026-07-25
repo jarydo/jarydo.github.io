@@ -1,174 +1,174 @@
 [
-    {
-        "id": "projects",
-        "name": "Projects",
-        "type": "folder",
-        "children": [
-            {
-                "id": "performance_pack",
-                "name": "Performance Pack.txt",
-                "type": "file",
-                "path": "/files/performance_pack.md"
-            },
-            {
-                "id": "presto_wand",
-                "name": "PRESTO Wand.txt",
-                "type": "file",
-                "path": "/files/presto_wand.md"
-            },
-            {
-                "id": "birthday_simulator",
-                "name": "Birthday Simulator.txt",
-                "type": "file",
-                "path": "/files/birthday_simulator.md"
-            },
-            {
-                "id": "resonant",
-                "name": "Resonant.txt",
-                "type": "file",
-                "path": "/files/resonant.md"
-            },
-            {
-                "id": "mini_builds",
-                "name": "Mini Builds.txt",
-                "type": "file",
-                "path": "/files/mini_builds.md"
-            },
-            {
-                "id": "borrowbee",
-                "name": "BorrowBee.txt",
-                "type": "file",
-                "path": "/files/borrowbee.md"
-            },
-            {
-                "id": "personal_site",
-                "name": "Personal Site.txt",
-                "type": "file",
-                "path": "/files/personal_site.md"
-            }
-        ]
-    },
-    {
-        "id": "experiments",
-        "name": "Experiments",
-        "type": "folder",
-        "children": [
-            {
-                "id": "uwagg",
-                "name": "UWAGG.txt",
-                "type": "file",
-                "path": "/files/uwagg.md"
-            },
-            {
-                "id": "artwork_for_airports",
-                "name": "Artwork for Airports.txt",
-                "type": "file",
-                "path": "/files/artwork_for_airports.md"
-            },
-            {
-                "id": "blind_spot",
-                "name": "Blind Spot.txt",
-                "type": "file",
-                "path": "/files/blind_spot.md"
-            },
-            {
-                "id": "tritone_paradox",
-                "name": "Tritone Paradox.txt",
-                "type": "file",
-                "path": "/files/tritone_paradox.md"
-            }
-        ]
-    },
-    {
-        "id": "community",
-        "name": "Community",
-        "type": "folder",
-        "children": [
-            {
-                "id": "symposium",
-                "name": "Symposium.txt",
-                "type": "file",
-                "path": "/files/symposium.md"
-            },
-            {
-                "id": "socratica",
-                "name": "Socratica.txt",
-                "type": "file",
-                "path": "/files/socratica.md"
-            },
-            {
-                "id": "mario_kart",
-                "name": "UW Mario Kart.txt",
-                "type": "file",
-                "path": "/files/mario_kart.md"
-            },
-            {
-                "id": "uw_blueprint",
-                "name": "UW Blueprint.txt",
-                "type": "file",
-                "path": "/files/uw_blueprint.md"
-            },
-            {
-                "id": "uw_film",
-                "name": "UW Film.txt",
-                "type": "file",
-                "path": "/files/uw_film.md"
-            },
-            {
-                "id": "debate",
-                "name": "Debate.txt",
-                "type": "file",
-                "path": "/files/debate.md"
-            }
-        ]
-    },
-    {
-        "id": "fun",
-        "name": "Fun",
-        "type": "folder",
-        "children": [
-            {
-                "id": "casual_film_critic",
-                "name": "Casual Film Critic.txt",
-                "type": "file",
-                "path": "/files/casual_film_critic.md"
-            },
-            {
-                "id": "directing",
-                "name": "Directing.txt",
-                "type": "file",
-                "path": "/files/directing.md"
-            },
-            {
-                "id": "favourite_films",
-                "name": "Film Favourites.txt",
-                "type": "file",
-                "path": "/files/favourite_films.md"
-            },
-            {
-                "id": "jamming_with_jaryd",
-                "name": "Jamming With Jaryd.txt",
-                "type": "file",
-                "path": "/files/jamming_with_jaryd.md"
-            },
-            {
-                "id": "concerts",
-                "name": "Concerts.txt",
-                "type": "file",
-                "path": "/files/concerts.md"
-            },
-            {
-                "id": "skiing",
-                "name": "Skiing.txt",
-                "type": "file",
-                "path": "/files/skiing.md"
-            }
-        ]
-    },
-    {
-        "id": "readme",
-        "name": "README.txt",
+  {
+    "id": "projects",
+    "name": "Projects",
+    "type": "folder",
+    "children": [
+      {
+        "id": "performance_pack",
+        "name": "Performance Pack.txt",
         "type": "file",
-        "path": "/files/README.md"
-    }
+        "path": "/files/performance_pack.md"
+      },
+      {
+        "id": "presto_wand",
+        "name": "PRESTO Wand.txt",
+        "type": "file",
+        "path": "/files/presto_wand.md"
+      },
+      {
+        "id": "birthday_simulator",
+        "name": "Birthday Simulator.txt",
+        "type": "file",
+        "path": "/files/birthday_simulator.md"
+      },
+      {
+        "id": "resonant",
+        "name": "Resonant.txt",
+        "type": "file",
+        "path": "/files/resonant.md"
+      },
+      {
+        "id": "mini_builds",
+        "name": "Mini Builds.txt",
+        "type": "file",
+        "path": "/files/mini_builds.md"
+      },
+      {
+        "id": "borrowbee",
+        "name": "BorrowBee.txt",
+        "type": "file",
+        "path": "/files/borrowbee.md"
+      },
+      {
+        "id": "personal_site",
+        "name": "Personal Site.txt",
+        "type": "file",
+        "path": "/files/personal_site.md"
+      }
+    ]
+  },
+  {
+    "id": "experiments",
+    "name": "Experiments",
+    "type": "folder",
+    "children": [
+      {
+        "id": "uwagg",
+        "name": "UWAGG.txt",
+        "type": "file",
+        "path": "/files/uwagg.md"
+      },
+      {
+        "id": "artwork_for_airports",
+        "name": "Artwork for Airports.txt",
+        "type": "file",
+        "path": "/files/artwork_for_airports.md"
+      },
+      {
+        "id": "blind_spot",
+        "name": "Blind Spot.txt",
+        "type": "file",
+        "path": "/files/blind_spot.md"
+      },
+      {
+        "id": "tritone_paradox",
+        "name": "Tritone Paradox.txt",
+        "type": "file",
+        "path": "/files/tritone_paradox.md"
+      }
+    ]
+  },
+  {
+    "id": "community",
+    "name": "Community",
+    "type": "folder",
+    "children": [
+      {
+        "id": "symposium",
+        "name": "Symposium.txt",
+        "type": "file",
+        "path": "/files/symposium.md"
+      },
+      {
+        "id": "socratica",
+        "name": "Socratica.txt",
+        "type": "file",
+        "path": "/files/socratica.md"
+      },
+      {
+        "id": "mario_kart",
+        "name": "UW Mario Kart.txt",
+        "type": "file",
+        "path": "/files/mario_kart.md"
+      },
+      {
+        "id": "uw_blueprint",
+        "name": "UW Blueprint.txt",
+        "type": "file",
+        "path": "/files/uw_blueprint.md"
+      },
+      {
+        "id": "uw_film",
+        "name": "UW Film.txt",
+        "type": "file",
+        "path": "/files/uw_film.md"
+      },
+      {
+        "id": "debate",
+        "name": "Debate.txt",
+        "type": "file",
+        "path": "/files/debate.md"
+      }
+    ]
+  },
+  {
+    "id": "fun",
+    "name": "Fun",
+    "type": "folder",
+    "children": [
+      {
+        "id": "casual_film_critic",
+        "name": "Casual Film Critic.txt",
+        "type": "file",
+        "path": "/files/casual_film_critic.md"
+      },
+      {
+        "id": "directing",
+        "name": "Directing.txt",
+        "type": "file",
+        "path": "/files/directing.md"
+      },
+      {
+        "id": "favourite_films",
+        "name": "Film Favourites.txt",
+        "type": "file",
+        "path": "/files/favourite_films.md"
+      },
+      {
+        "id": "jamming_with_jaryd",
+        "name": "Jamming With Jaryd.txt",
+        "type": "file",
+        "path": "/files/jamming_with_jaryd.md"
+      },
+      {
+        "id": "concerts",
+        "name": "Concerts.txt",
+        "type": "file",
+        "path": "/files/concerts.md"
+      },
+      {
+        "id": "skiing",
+        "name": "Skiing.txt",
+        "type": "file",
+        "path": "/files/skiing.md"
+      }
+    ]
+  },
+  {
+    "id": "readme",
+    "name": "README.txt",
+    "type": "file",
+    "path": "/files/README.md"
+  }
 ]

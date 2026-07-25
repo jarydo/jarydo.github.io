@@ -1,1 +1,0 @@
-export type Ref = ((el: HTMLDivElement | null) => void) | React.MutableRefObject<HTMLDivElement | null> | null;

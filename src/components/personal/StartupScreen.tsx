@@ -34,7 +34,7 @@ const StartupScreen = ({ onComplete }: { onComplete: () => void }) => {
         backgroundPosition: "center",
       }}
     >
-      <div className="flex items-center justify-center">
+      <div className="flex items-center justify-center w-full">
         {currentImage === "first" && (
           <img src={startupImage} alt="Cool Mac" className="w-20" />
         )}
@@ -42,7 +42,7 @@ const StartupScreen = ({ onComplete }: { onComplete: () => void }) => {
           <img
             src={startupMessage}
             alt="Welcome to Jaryd's Site"
-            className="p-28 max-w-[1000px]"
+            className="w-full max-w-[1000px] px-8 sm:p-28"
           />
         )}
       </div>

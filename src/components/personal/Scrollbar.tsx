@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
+import { useIsTouchDevice } from "@/hooks/useIsTouchDevice";
 import arrowUpIcon from "/macos_assets/arrow_up.png";
 import arrowDownIcon from "/macos_assets/arrow_down.png";
 
@@ -17,17 +18,13 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
     scrollPosition: 0,
   });
   const [isDragging, setIsDragging] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  const isTouchDevice = useIsTouchDevice();
   const dragStart = useRef({ y: 0, scrollTop: 0 });
 
   const contentRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const scrollThumbRef = useRef<HTMLDivElement>(null);
-
-  // Check if device supports touch
-  useEffect(() => {
-    setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-  }, []);
 
   const checkOverflow = useCallback((): void => {
     const content = contentRef.current;
@@ -42,9 +39,10 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(checkOverflow);
-    if (contentRef.current) {
-      resizeObserver.observe(contentRef.current);
-    }
+    // The viewport is watched for window resizes, and the content wrapper for
+    // markdown that arrives after the window has already opened.
+    if (contentRef.current) resizeObserver.observe(contentRef.current);
+    if (innerRef.current) resizeObserver.observe(innerRef.current);
     return () => resizeObserver.disconnect();
   }, [checkOverflow]);
 
@@ -95,7 +93,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
       };
       (e.target as HTMLElement).setPointerCapture(e.pointerId);
     },
-    [isTouchDevice]
+    [isTouchDevice],
   );
 
   const handleDragMove = useCallback(
@@ -115,14 +113,14 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
         0,
         Math.min(
           trackHeight,
-          (deltaY / trackHeight) * scrollRange + dragStart.current.scrollTop
-        )
+          (deltaY / trackHeight) * scrollRange + dragStart.current.scrollTop,
+        ),
       );
 
       const scrollPercentage = newThumbPosition / trackHeight;
       content.scrollTop = scrollPercentage * scrollRange;
     },
-    [isDragging, isTouchDevice]
+    [isDragging, isTouchDevice],
   );
 
   const handleDragEnd = useCallback(
@@ -131,7 +129,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
       setIsDragging(false);
       (e.target as HTMLElement).releasePointerCapture(e.pointerId);
     },
-    [isDragging, isTouchDevice]
+    [isDragging, isTouchDevice],
   );
 
   const handleArrowClick = useCallback((direction: "up" | "down"): void => {
@@ -151,7 +149,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
     const trackHeight = track.clientHeight;
     const thumbHeight = Math.max(
       viewportToContentRatio * trackHeight,
-      trackHeight * 0.1
+      trackHeight * 0.1,
     );
     return `${thumbHeight}px`;
   }, []);
@@ -165,7 +163,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
           isTouchDevice ? "overflow-y-auto" : "hover:overflow-y-auto"
         } no-scrollbar pr-4`}
       >
-        {children}
+        <div ref={innerRef}>{children}</div>
       </div>
 
       {scrollState.isOverflowing && !isTouchDevice && (

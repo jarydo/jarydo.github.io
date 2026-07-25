@@ -1,61 +1,63 @@
-import { File } from "@/components/personal/File";
-import { Window } from "@/components/personal/Window";
-import { Folder } from "@/components/personal/Folder";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { DesktopIcon } from "@/components/personal/DesktopIcon";
+import { Window } from "@/components/personal/Window";
 import { TextContent } from "@/components/personal/TextContent";
-import fileSystemData from "@/content/filesystem.json";
 import { Header } from "@/components/personal/Header";
 import StartupScreen from "@/components/personal/StartupScreen";
-import { useNavigate } from "react-router-dom";
+import fileSystemData from "@/content/filesystem.json";
+import type { FileItem } from "@/types";
 
 import meChannelIcon from "/wii_assets/channel_icon.png";
 
-type FileItem = {
-  id: string;
-  name: string;
-  type: "file" | "folder";
-  path: string;
-  content?: string;
-  children?: FileItem[];
-};
+const fileSystem = fileSystemData as FileItem[];
 
 type WindowState = {
   id: string;
   title: string;
-  content: FileItem[] | string;
-  zIndex: number;
-  isOpen: boolean;
-  windowType: "folder" | "text";
   parentId?: string;
-  sourceElementId?: string;
+  position: { x: number; y: number };
+} & (
+  | { windowType: "folder"; items: FileItem[] }
+  | { windowType: "text"; path: string }
+);
+
+const MOBILE_BREAKPOINT = 768;
+/** Number of windows before the cascade offset wraps, so windows stay on screen. */
+const CASCADE_LENGTH = 5;
+
+// The boot animation is charming on arrival and tedious on every navigation
+// back, so it plays once per browser session. Private modes can refuse storage
+// entirely, in which case replaying it is a fine fallback.
+const BOOTED_KEY = "hasBooted";
+
+const hasBootedThisSession = () => {
+  try {
+    return sessionStorage.getItem(BOOTED_KEY) === "true";
+  } catch {
+    return false;
+  }
 };
 
-// Helper function to recursively process the file system
-function processFileSystem(items: FileItem[]): FileItem[] {
-  return items.map((item) => {
-    if (item.type === "folder" && item.children) {
-      return { ...item, children: processFileSystem(item.children) };
-    }
-    if (item.type === "file" && item.path) {
-      // For files, we'll load the content here
-      return { ...item, content: "" }; // Initialize with empty content
-    }
-    return item;
-  });
-}
+const rememberBooted = () => {
+  try {
+    sessionStorage.setItem(BOOTED_KEY, "true");
+  } catch {
+    // no-op
+  }
+};
 
 function PersonalPage() {
-  const [fileSystem, setFileSystem] = useState<FileItem[]>([]);
   const [windows, setWindows] = useState<WindowState[]>([]);
-  const [maxZIndex, setMaxZIndex] = useState(0);
-  const [disabledItems, setDisabledItems] = useState<Set<string>>(new Set());
   const [clickedItem, setClickedItem] = useState<string | null>(null);
-  const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
-  const [isStarting, setIsStarting] = useState(true);
+  const [isMobile, setIsMobile] = useState(
+    () => window.innerWidth < MOBILE_BREAKPOINT,
+  );
+  const [isStarting, setIsStarting] = useState(() => !hasBootedThisSession());
 
   const navigate = useNavigate();
 
-  // handle clicking outside
+  // Deselect when clicking anywhere that isn't an icon
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
@@ -69,222 +71,141 @@ function PersonalPage() {
   }, []);
 
   useEffect(() => {
-    const processedFileSystem = processFileSystem(fileSystemData as FileItem[]);
-    setFileSystem(processedFileSystem);
+    const handleResize = () =>
+      setIsMobile(window.innerWidth < MOBILE_BREAKPOINT);
 
-    // Load all file contents
-    const loadAllContents = async () => {
-      const loadContent = async (items: FileItem[]): Promise<FileItem[]> => {
-        const promises = items.map(async (item) => {
-          if (item.type === "file" && item.path) {
-            try {
-              // Vite automatically resolves the URL regardless of base path
-              const response = await fetch(item.path);
-              const content = await response.text();
-              return { ...item, content };
-            } catch (error) {
-              console.error(`Error loading file: ${item.path}`, error);
-              return { ...item, content: "Error loading content" };
-            }
-          }
-          if (item.type === "folder" && item.children) {
-            const children = await loadContent(item.children);
-            return { ...item, children };
-          }
-          return item;
-        });
-        return Promise.all(promises);
-      };
-
-      const updatedFileSystem = await loadContent(processedFileSystem);
-      setFileSystem(updatedFileSystem);
-    };
-
-    loadAllContents();
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
-
-  useEffect(() => {
-    window.addEventListener("resize", handleWindowResize);
-    return () => window.removeEventListener("resize", handleWindowResize);
-  }, []);
-
-  const handleWindowResize = () => {
-    if (window.innerWidth < 768) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-
-  const isDisabled = (id: string) => disabledItems.has(id);
 
   const openWindow = (item: FileItem, parentId?: string) => {
-    // Remove click
     setClickedItem(null);
 
-    // Check if window is already open
-    const existingWindow = windows.find((w) => w.id === item.id);
-    if (existingWindow) {
-      bringToFront(item.id);
-      return;
-    }
+    setWindows((previous) => {
+      // Already open — just raise it (windows are ordered back to front)
+      const existing = previous.find((w) => w.id === item.id);
+      if (existing) {
+        return [...previous.filter((w) => w.id !== item.id), existing];
+      }
 
-    // Mark the item as disabled
-    setDisabledItems((prev) => {
-      const newSet = new Set(prev);
-      newSet.add(item.id);
-      return newSet;
+      const cascade = (previous.length % CASCADE_LENGTH) * 20;
+      const position = {
+        x: (isMobile ? 8 : 100) + cascade,
+        y: (isMobile ? 48 : 100) + cascade,
+      };
+
+      const base = { id: item.id, title: item.name, parentId, position };
+      const newWindow: WindowState =
+        item.type === "folder"
+          ? { ...base, windowType: "folder", items: item.children ?? [] }
+          : { ...base, windowType: "text", path: item.path ?? "" };
+
+      return [...previous, newWindow];
     });
+  };
 
-    if (item.type === "file") {
-      const newWindow: WindowState = {
-        id: item.id,
-        title: item.name,
-        content: item.content || "Error: Content not loaded",
-        zIndex: maxZIndex + 1,
-        isOpen: true,
-        windowType: "text",
-        parentId,
-        sourceElementId: item.id,
-      };
-      setWindows([...windows, newWindow]);
-    } else if (item.type === "folder") {
-      const newWindow: WindowState = {
-        id: item.id,
-        title: item.name,
-        content: item.children || [],
-        zIndex: maxZIndex + 1,
-        isOpen: true,
-        windowType: "folder",
-        parentId,
-        sourceElementId: item.id,
-      };
-      setWindows([...windows, newWindow]);
-    }
-    setMaxZIndex(maxZIndex + 1);
+  // Land first-time visitors on something readable rather than a desktop of
+  // icons. Tied to the boot screen, so a reload later in the session doesn't
+  // reopen a window the visitor already closed.
+  const handleStartupComplete = () => {
+    rememberBooted();
+    setIsStarting(false);
+
+    const readme = fileSystem.find((item) => item.id === "readme");
+    if (readme) openWindow(readme);
   };
 
   const bringToFront = (id: string) => {
-    setWindows(
-      windows.map((win) => ({
-        ...win,
-        zIndex: win.id === id ? maxZIndex + 1 : win.zIndex,
-      })),
+    setWindows((previous) => {
+      const target = previous.find((w) => w.id === id);
+      if (!target || previous[previous.length - 1]?.id === id) return previous;
+      return [...previous.filter((w) => w.id !== id), target];
+    });
+  };
+
+  // Close the window along with any windows it opened
+  const closeWindow = (id: string) =>
+    setWindows((previous) =>
+      previous.filter((w) => w.id !== id && w.parentId !== id),
     );
-    setMaxZIndex(maxZIndex + 1);
-  };
 
-  const closeWindow = (id: string) => {
-    // Remove the disabled state when closing the window
-    setDisabledItems((prev) => {
-      const newSet = new Set(prev);
-      newSet.delete(id);
-      return newSet;
-    });
+  // An icon is greyed out exactly while its window is open
+  const openIds = new Set(windows.map((w) => w.id));
 
-    // Close the window and any child windows
-    setWindows((prevWindows) => {
-      const windowToClose = prevWindows.find((w) => w.id === id);
-      if (!windowToClose) return prevWindows;
+  const renderIcon = (item: FileItem, parentId?: string) => {
+    const disabled = openIds.has(item.id);
 
-      // Find all child windows that need to be closed
-      const childWindows = prevWindows.filter((w) => w.parentId === id);
-
-      // Remove disabled state for all child items
-      setDisabledItems((prev) => {
-        const newSet = new Set(prev);
-        childWindows.forEach((child) => newSet.delete(child.id));
-        return newSet;
-      });
-
-      // Remove the window and all its children
-      return prevWindows.filter((w) => w.id !== id && w.parentId !== id);
-    });
-  };
-
-  const renderFileOrFolder = (item: FileItem, parentId?: string) => {
-    const isItemDisabled = isDisabled(item.id);
-
-    if (item.type === "folder") {
-      return (
-        <Folder
-          key={item.id}
-          id={item.id}
-          name={item.name}
-          disabled={isItemDisabled}
-          onOpen={() => !isItemDisabled && openWindow(item, parentId)}
-          clicked={clickedItem === item.id}
-          onClick={() => setClickedItem(item.id)}
-        />
-      );
-    }
     return (
-      <File
+      <DesktopIcon
         key={item.id}
         id={item.id}
         name={item.name}
-        disabled={isItemDisabled}
-        onOpen={() => !isItemDisabled && openWindow(item, parentId)}
+        type={item.type}
+        disabled={disabled}
         clicked={clickedItem === item.id}
         onClick={() => setClickedItem(item.id)}
+        onOpen={() => !disabled && openWindow(item, parentId)}
       />
     );
   };
 
   return (
     <>
-      {isStarting && <StartupScreen onComplete={() => setIsStarting(false)} />}
-      <div className="font-macos fixed top-0 left-0 w-full h-full bg-chessboard">
+      {isStarting && <StartupScreen onComplete={handleStartupComplete} />}
+      <div className="font-macos fixed inset-0 bg-chessboard overflow-hidden flex flex-col">
         <Header />
 
-        <div className="grid grid-flow-row justify-end pr-1">
-          {fileSystem.map((item) => renderFileOrFolder(item))}
+        {/* Icons fill a column top-down and wrap into a new column to the left
+            when they run out of height, so nothing is ever clipped off screen */}
+        <div className="flex-1 min-h-0 flex flex-col flex-wrap-reverse content-start items-center pr-1">
+          {fileSystem.map((item) => renderIcon(item))}
 
           <div
-            className="file-container flex flex-col items-center justify-center p-2 cursor-pointer"
+            className="file-container flex flex-col items-center justify-center p-2 w-[120px] sm:w-[140px] select-none cursor-pointer"
+            role="button"
+            tabIndex={0}
             onClick={() => navigate("/channel")}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                navigate("/channel");
+              }
+            }}
           >
             <img
               src={meChannelIcon}
-              alt="Me Channel"
+              alt=""
               draggable="false"
               width="60"
               height="60"
             />
-            <p className="text-black bg-white text-wrap max-w-[140px] text-center font-medium px-2 text-lg sm:text-xl">
+            <p className="text-black bg-white max-w-full text-center font-medium px-2 text-lg sm:text-xl break-words">
               Me Channel
             </p>
           </div>
         </div>
 
-        {windows
-          .filter((w) => w.isOpen)
-          .map((win) => (
-            <Window
-              key={win.id}
-              title={win.title}
-              width={isMobile ? 350 : 600}
-              height={isMobile ? 300 : 400}
-              initialPosition={{
-                x: (isMobile ? 0 : 100) + windows.length * 20,
-                y: (isMobile ? 40 : 100) + windows.length * 20,
-              }}
-              zIndex={win.zIndex}
-              onFocus={() => bringToFront(win.id)}
-              onClose={() => closeWindow(win.id)}
-              sourceElementId={win.sourceElementId}
-            >
-              {win.windowType === "folder" && Array.isArray(win.content) ? (
-                <div
-                  className={`p-2 pt-4 grid ${isMobile ? "grid-cols-2" : "grid-cols-3"} items-start`}
-                >
-                  {win.content.map((item) => renderFileOrFolder(item, win.id))}
-                </div>
-              ) : (
-                <TextContent content={win.content as string} />
-              )}
-            </Window>
-          ))}
+        {windows.map((win, index) => (
+          <Window
+            key={win.id}
+            title={win.title}
+            width={isMobile ? 350 : 600}
+            height={isMobile ? 300 : 400}
+            initialPosition={win.position}
+            zIndex={index + 1}
+            onFocus={() => bringToFront(win.id)}
+            onClose={() => closeWindow(win.id)}
+            sourceElementId={win.id}
+          >
+            {win.windowType === "folder" ? (
+              <div className="p-2 pt-4 grid grid-cols-2 sm:grid-cols-3 justify-items-center items-start">
+                {win.items.map((item) => renderIcon(item, win.id))}
+              </div>
+            ) : (
+              <TextContent path={win.path} />
+            )}
+          </Window>
+        ))}
       </div>
     </>
   );

@@ -1,5 +1,4 @@
 import PersonalPage from "./pages/PersonalPage";
-import RecruiterPage from "./pages/RecruiterPage";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -17,7 +16,7 @@ const ExternalRedirect = ({ to }: { to: string }) => {
       <img
         src="/wii_assets/channel_icon.png"
         alt="Channel Icon"
-        className="w-32 h-32"
+        className="w-24 h-24 sm:w-32 sm:h-32"
       />
     </div>
   );
@@ -25,10 +24,13 @@ const ExternalRedirect = ({ to }: { to: string }) => {
 
 function App() {
   return (
-    <Router basename="/">
+    <Router>
       <Routes>
         <Route path="/" element={<PersonalPage />} />
-        <Route path="/recruiter" element={<RecruiterPage />} />
+        <Route
+          path="/recruiter"
+          element={<ExternalRedirect to="https://work.jaryddiamond.com" />}
+        />
         {/* Previously launched project redirects*/}
         <Route
           path="/channel"
