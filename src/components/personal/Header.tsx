@@ -83,7 +83,7 @@ export const Header: React.FC = () => {
     {
       name: "Email",
       onClick: () => {
-        window.open("mailto:jaryd.diamond@uwaterloo.ca");
+        window.open("mailto:jarydnoahdiamond@gmail.com");
       },
     },
   ];

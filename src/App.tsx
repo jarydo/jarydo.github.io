@@ -1,5 +1,4 @@
 import PersonalPage from "./pages/PersonalPage";
-import RecruiterPage from "./pages/RecruiterPage";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -28,7 +27,10 @@ function App() {
     <Router basename="/">
       <Routes>
         <Route path="/" element={<PersonalPage />} />
-        <Route path="/recruiter" element={<RecruiterPage />} />
+        <Route
+          path="/recruiter"
+          element={<ExternalRedirect to="https://work.jaryddiamond.com" />}
+        />
         {/* Previously launched project redirects*/}
         <Route
           path="/channel"

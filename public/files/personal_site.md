@@ -1,3 +1,1 @@
-## TODO
-
 The site you are currently using! A loving recreation of System 1.0 of macos, with Susan Kare's iconic icons hand drawn by me. Lots more interactivity to come...(you might want to check our Recruiter Mode and Me Channel if you haven't!)
