@@ -68,7 +68,7 @@ export const DesktopIcon: React.FC<DesktopIconProps> = ({
       role="button"
       tabIndex={disabled ? -1 : 0}
       aria-disabled={disabled}
-      className={`file-container flex flex-col items-center justify-center p-2 w-[120px] sm:w-[140px] select-none ${
+      className={`file-container flex flex-col items-center justify-center p-2 w-[140px] select-none ${
         !disabled ? "cursor-pointer" : ""
       }`}
       onDoubleClick={!disabled ? handleDoubleClick : undefined}

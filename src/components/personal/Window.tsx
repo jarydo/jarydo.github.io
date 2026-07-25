@@ -41,6 +41,18 @@ const fitPosition = ({ x, y }: Position, size: Size): Position => ({
   ),
 });
 
+/**
+ * Elements that own their own click. Focusing the window on top of these steals
+ * the interaction: notably a desktop icon, whose tap opens a new window that
+ * must end up above this one — on touch there's no second click to reorder them.
+ */
+const isInteractive = (target: HTMLElement) =>
+  Boolean(
+    target.closest("a, button, .file-container") ||
+      target.tagName === "INPUT" ||
+      target.tagName === "TEXTAREA",
+  );
+
 interface WindowProps {
   title: string;
   initialPosition: Position;
@@ -285,17 +297,8 @@ export const Window: React.FC<WindowProps> = ({
           bounds="window"
           style={{ zIndex }}
           onClick={(e: { target: HTMLElement }) => {
-            // Only focus if not clicking on a link or interactive element
-            const target = e.target as HTMLElement;
-            const isLink = target.tagName === "A" || target.closest("a");
-            const isButton =
-              target.tagName === "BUTTON" || target.closest("button");
-            const isInput =
-              target.tagName === "INPUT" || target.tagName === "TEXTAREA";
-
-            if (!isLink && !isButton && !isInput) {
-              onFocus();
-            }
+            if (isInteractive(e.target as HTMLElement)) return;
+            onFocus();
           }}
           onDragStop={(_, data) => {
             const next = { x: data.x, y: data.y };
