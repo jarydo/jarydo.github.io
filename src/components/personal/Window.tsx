@@ -1,20 +1,57 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Rnd } from "react-rnd";
 import ClassicScrollbar from "./Scrollbar";
 import windowHeader from "/macos_assets/window_header.png";
 import windowClicked from "/macos_assets/window_clicked.png";
 import windowUnclicked from "/macos_assets/window_unclicked.png";
 
+/** Gap kept between a window and the edge of the viewport. */
+const MARGIN = 8;
+/** Space reserved at the top for the menu bar. */
+const TOP_OFFSET = 40;
+const MIN_WIDTH = 280;
+const MIN_HEIGHT = 240;
+
+type Size = { width: number; height: number };
+type Position = { x: number; y: number };
+
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(Math.max(value, min), max);
+
+const availableWidth = () => window.innerWidth - MARGIN * 2;
+const availableHeight = () => window.innerHeight - TOP_OFFSET - MARGIN;
+
+/** Shrink a window so it always fits the current viewport. */
+const fitSize = ({ width, height }: Size): Size => ({
+  width: Math.min(width, availableWidth()),
+  height: Math.min(height, availableHeight()),
+});
+
+/** Keep a window fully on screen. */
+const fitPosition = ({ x, y }: Position, size: Size): Position => ({
+  x: clamp(
+    x,
+    MARGIN,
+    Math.max(MARGIN, window.innerWidth - size.width - MARGIN),
+  ),
+  y: clamp(
+    y,
+    TOP_OFFSET,
+    Math.max(TOP_OFFSET, window.innerHeight - size.height - MARGIN),
+  ),
+});
+
 interface WindowProps {
   title: string;
-  initialPosition: { x: number; y: number };
+  initialPosition: Position;
   width?: number;
   height?: number;
   zIndex: number;
   onFocus: () => void;
   onClose: () => void;
   children: React.ReactNode;
-  sourceElementId?: string; // Optional: ID of element that triggered window open
+  /** ID of the desktop icon that opened this window; the open/close animation flies to and from it. */
+  sourceElementId: string;
 }
 
 export const Window: React.FC<WindowProps> = ({
@@ -28,7 +65,10 @@ export const Window: React.FC<WindowProps> = ({
   children,
   sourceElementId,
 }) => {
-  const [size, setSize] = useState({ width, height });
+  const [size, setSize] = useState<Size>(() => fitSize({ width, height }));
+  const [position, setPosition] = useState<Position>(() =>
+    fitPosition(initialPosition, fitSize({ width, height })),
+  );
   const [isCloseButtonPressed, setIsCloseButtonPressed] = useState(false);
   const [showOutline, setShowOutline] = useState(true);
   const [showContent, setShowContent] = useState(false);
@@ -36,70 +76,77 @@ export const Window: React.FC<WindowProps> = ({
   const windowRef = useRef<Rnd>(null);
   const animationTimersRef = useRef<number[]>([]);
 
-  // Helper to clear all animation timers
+  // The open animation runs once, from the values the window was opened with
+  const openAnimation = useRef({ size, position, zIndex, sourceElementId });
+
+  // The geometry the user asked for, before it was clamped to the viewport.
+  // Re-clamping from these means a window restores itself when the viewport
+  // grows again instead of shrinking a little more on every resize.
+  const requested = useRef({
+    size: { width, height },
+    position: initialPosition,
+  });
+
   const clearAllTimers = () => {
     animationTimersRef.current.forEach((timer) => window.clearTimeout(timer));
     animationTimersRef.current = [];
   };
 
-  // Helper to add a timer to the tracking array
   const addTimer = (timer: number) => {
     animationTimersRef.current.push(timer);
     return timer;
   };
 
+  // Keep the window inside the viewport when it is resized or rotated
   useEffect(() => {
-    // Start the open animation
-    const sourceElement = sourceElementId
-      ? document.getElementById(sourceElementId)
-      : null;
-
-    let startRect;
-
-    if (sourceElement) {
-      // Animation starts from source element (file or folder)
-      // Use getBoundingClientRect and adjust for scroll position to ensure mobile compatibility
-      const rect = sourceElement.getBoundingClientRect();
-      startRect = {
-        left: rect.left + window.scrollX,
-        top: rect.top + window.scrollY,
-        width: rect.width,
-        height: rect.height,
-      };
-    } else {
-      // Default animation starts from a small centered point
-      startRect = {
-        left: window.innerWidth / 2 - 30,
-        top: window.innerHeight / 2 - 30,
-        width: 60,
-        height: 60,
-      };
-    }
-
-    // Calculate final position
-    const finalRect = {
-      left: initialPosition.x,
-      top: initialPosition.y,
-      width: width,
-      height: height,
+    const handleResize = () => {
+      const nextSize = fitSize(requested.current.size);
+      setSize(nextSize);
+      setPosition(fitPosition(requested.current.position, nextSize));
     };
 
-    // Calculate the center points for both
-    const startCenter = {
-      x: startRect.left + startRect.width / 2,
-      y: startRect.top + startRect.height / 2,
-    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
-    const finalCenter = {
-      x: finalRect.left + finalRect.width / 2,
-      y: finalRect.top + finalRect.height / 2,
-    };
+  useEffect(() => {
+    const {
+      size: finalSize,
+      position: finalPosition,
+      zIndex: animationZIndex,
+      sourceElementId: sourceId,
+    } = openAnimation.current;
 
-    // Calculate translation needed
-    const translateX = finalCenter.x - startCenter.x;
-    const translateY = finalCenter.y - startCenter.y;
+    const sourceElement = document.getElementById(sourceId);
 
-    // Clear any existing timers
+    // The animation starts from the icon that opened the window, or from the
+    // centre of the screen if that icon isn't on screen anymore.
+    const startRect = sourceElement
+      ? (() => {
+          const rect = sourceElement.getBoundingClientRect();
+          return {
+            left: rect.left + window.scrollX,
+            top: rect.top + window.scrollY,
+            width: rect.width,
+            height: rect.height,
+          };
+        })()
+      : {
+          left: window.innerWidth / 2 - 30,
+          top: window.innerHeight / 2 - 30,
+          width: 60,
+          height: 60,
+        };
+
+    const translateX =
+      finalPosition.x +
+      finalSize.width / 2 -
+      (startRect.left + startRect.width / 2);
+    const translateY =
+      finalPosition.y +
+      finalSize.height / 2 -
+      (startRect.top + startRect.height / 2);
+
     clearAllTimers();
 
     // Set initial style to match the source
@@ -114,9 +161,8 @@ export const Window: React.FC<WindowProps> = ({
       pointerEvents: "none",
     });
 
-    // Start the animation sequence
     const animationFrame = requestAnimationFrame(() => {
-      // First phase: Move to center position
+      // First phase: Move to final position
       setAnimationStyle({
         position: "fixed",
         left: `${startRect.left}px`,
@@ -125,7 +171,7 @@ export const Window: React.FC<WindowProps> = ({
         height: `${startRect.height}px`,
         transform: `translate(${translateX}px, ${translateY}px)`,
         transition: "transform 200ms cubic-bezier(0.3, 0, 0.2, 1)",
-        zIndex: zIndex,
+        zIndex: animationZIndex,
         pointerEvents: "none",
       });
 
@@ -134,13 +180,13 @@ export const Window: React.FC<WindowProps> = ({
         window.setTimeout(() => {
           setAnimationStyle({
             position: "fixed",
-            left: `${finalRect.left}px`,
-            top: `${finalRect.top}px`,
-            width: `${finalRect.width}px`,
-            height: `${finalRect.height}px`,
+            left: `${finalPosition.x}px`,
+            top: `${finalPosition.y}px`,
+            width: `${finalSize.width}px`,
+            height: `${finalSize.height}px`,
             transform: "none",
             transition: "all 300ms cubic-bezier(0.2, 0, 0.2, 1)",
-            zIndex: zIndex,
+            zIndex: animationZIndex,
             pointerEvents: "none",
           });
 
@@ -156,111 +202,71 @@ export const Window: React.FC<WindowProps> = ({
     });
 
     return () => {
-      // Cleanup timers to prevent memory leaks
       cancelAnimationFrame(animationFrame);
       clearAllTimers();
     };
-  }, [initialPosition, width, height, zIndex, sourceElementId]);
+  }, []);
 
-  // Close animation
-  const handleClose = () => {
-    // Get current position of window for animation
-    if (!windowRef.current) {
-      onClose();
-      return;
-    }
+  // Close animation: shrink the window back into the icon that opened it
+  const handleClose = useCallback(() => {
+    const rndElement = windowRef.current?.resizableElement.current;
+    const sourceElement = document.getElementById(sourceElementId);
 
-    const rndElement = windowRef.current.resizableElement.current;
-    if (!rndElement) {
+    if (!rndElement || !sourceElement) {
       onClose();
       return;
     }
 
     const currentRect = rndElement.getBoundingClientRect();
+    const targetRect = sourceElement.getBoundingClientRect();
 
-    // Adjust for scroll position
-    const adjustedCurrentRect = {
-      left: currentRect.left + window.scrollX,
-      top: currentRect.top + window.scrollY,
-      width: currentRect.width,
-      height: currentRect.height,
-    };
-
-    // Find the source element if it exists
-    const sourceElement = sourceElementId
-      ? document.getElementById(sourceElementId)
-      : null;
-
-    if (!sourceElement) {
-      // No source element, just close
-      onClose();
-      return;
-    }
-
-    const targetRectRaw = sourceElement.getBoundingClientRect();
-    // Adjust for scroll position
-    const targetRect = {
-      left: targetRectRaw.left + window.scrollX,
-      top: targetRectRaw.top + window.scrollY,
-      width: targetRectRaw.width,
-      height: targetRectRaw.height,
-    };
-
-    // Clear any existing timers
     clearAllTimers();
 
-    // Create a temporary div for the animation
+    // Animate a bare outline so the real window can unmount immediately
     const animationDiv = document.createElement("div");
     animationDiv.className = "fixed border-2 border-black bg-transparent";
     animationDiv.style.position = "fixed";
-    animationDiv.style.left = `${adjustedCurrentRect.left}px`;
-    animationDiv.style.top = `${adjustedCurrentRect.top}px`;
-    animationDiv.style.width = `${adjustedCurrentRect.width}px`;
-    animationDiv.style.height = `${adjustedCurrentRect.height}px`;
+    animationDiv.style.left = `${currentRect.left + window.scrollX}px`;
+    animationDiv.style.top = `${currentRect.top + window.scrollY}px`;
+    animationDiv.style.width = `${currentRect.width}px`;
+    animationDiv.style.height = `${currentRect.height}px`;
     animationDiv.style.zIndex = `${zIndex}`;
     animationDiv.style.pointerEvents = "none";
     document.body.appendChild(animationDiv);
 
-    // Hide the actual window immediately
     setShowContent(false);
     setShowOutline(false);
 
-    // Calculate position to shrink while maintaining center position
-    const centerOffsetX = (adjustedCurrentRect.width - targetRect.width) / 2;
-    const centerOffsetY = (adjustedCurrentRect.height - targetRect.height) / 2;
+    // Shrink around the window's own centre before flying to the icon
+    const centerOffsetX = (currentRect.width - targetRect.width) / 2;
+    const centerOffsetY = (currentRect.height - targetRect.height) / 2;
 
-    // Use direct DOM manipulation for the animation
-    // First phase: Shrink in place
     requestAnimationFrame(() => {
-      // Force reflow
-      void animationDiv.offsetHeight;
+      void animationDiv.offsetHeight; // force reflow so the transition applies
 
-      // Apply transition
       animationDiv.style.transition = "all 250ms cubic-bezier(0.2, 0, 0.2, 1)";
-      animationDiv.style.left = `${adjustedCurrentRect.left + centerOffsetX}px`;
-      animationDiv.style.top = `${adjustedCurrentRect.top + centerOffsetY}px`;
+      animationDiv.style.left = `${currentRect.left + window.scrollX + centerOffsetX}px`;
+      animationDiv.style.top = `${currentRect.top + window.scrollY + centerOffsetY}px`;
       animationDiv.style.width = `${targetRect.width}px`;
       animationDiv.style.height = `${targetRect.height}px`;
 
-      // Second phase: Move to target position
       setTimeout(() => {
         animationDiv.style.transition =
           "all 180ms cubic-bezier(0.3, 0, 0.2, 1)";
-        animationDiv.style.left = `${targetRect.left}px`;
-        animationDiv.style.top = `${targetRect.top}px`;
+        animationDiv.style.left = `${targetRect.left + window.scrollX}px`;
+        animationDiv.style.top = `${targetRect.top + window.scrollY}px`;
 
-        // Remove the animation div and complete close
         setTimeout(() => {
-          document.body.removeChild(animationDiv);
+          animationDiv.remove();
           onClose();
         }, 200);
       }, 250);
     });
-  };
+  }, [onClose, sourceElementId, zIndex]);
 
   return (
     <>
-      {/* Wireframe outline for animation */}
+      {/* Wireframe outline for the open animation */}
       {showOutline && (
         <div
           className="fixed border-2 border-black bg-transparent"
@@ -268,19 +274,15 @@ export const Window: React.FC<WindowProps> = ({
         />
       )}
 
-      {/* Actual window content */}
       {showContent && (
         <Rnd
-          default={{
-            x: initialPosition.x,
-            y: initialPosition.y,
-            width: size.width,
-            height: size.height,
-          }}
-          minWidth={350}
-          minHeight={300}
-          maxWidth={800}
-          maxHeight={600}
+          size={size}
+          position={position}
+          minWidth={Math.min(MIN_WIDTH, availableWidth())}
+          minHeight={Math.min(MIN_HEIGHT, availableHeight())}
+          maxWidth={Math.min(800, availableWidth())}
+          maxHeight={Math.min(600, availableHeight())}
+          bounds="window"
           style={{ zIndex }}
           onClick={(e: { target: HTMLElement }) => {
             // Only focus if not clicking on a link or interactive element
@@ -295,8 +297,16 @@ export const Window: React.FC<WindowProps> = ({
               onFocus();
             }
           }}
-          onResize={(_, __, ref) => {
-            setSize({ width: ref.offsetWidth, height: ref.offsetHeight });
+          onDragStop={(_, data) => {
+            const next = { x: data.x, y: data.y };
+            requested.current.position = next;
+            setPosition(next);
+          }}
+          onResize={(_, __, ref, ___, newPosition) => {
+            const next = { width: ref.offsetWidth, height: ref.offsetHeight };
+            requested.current = { size: next, position: newPosition };
+            setSize(next);
+            setPosition(newPosition);
           }}
           dragHandleClassName="window-header"
           cancel=".window-button"
@@ -306,8 +316,9 @@ export const Window: React.FC<WindowProps> = ({
             <div className="window-header flex border-black border-b-2 items-center cursor-move">
               <img
                 src={windowHeader}
+                alt=""
                 width="12px"
-                className="mx-2"
+                className="mx-2 shrink-0"
                 draggable="false"
               />
               <button
@@ -315,28 +326,35 @@ export const Window: React.FC<WindowProps> = ({
                 onMouseDown={() => setIsCloseButtonPressed(true)}
                 onMouseUp={() => setIsCloseButtonPressed(false)}
                 onMouseLeave={() => setIsCloseButtonPressed(false)}
-                className="window-button cursor-pointer"
+                className="window-button cursor-pointer shrink-0"
+                aria-label={`Close ${title}`}
               >
                 <img
                   src={isCloseButtonPressed ? windowClicked : windowUnclicked}
+                  alt=""
                   width="22px"
                   draggable="false"
                 />
               </button>
               <img
-                className="grow mx-2 h-[38px]"
+                className="grow min-w-0 mx-2 h-[38px]"
                 src={windowHeader}
+                alt=""
                 draggable="false"
               />
-              <div className="text-lg sm:text-xl select-none">{title}</div>
+              <div className="text-lg sm:text-xl select-none truncate max-w-[55%]">
+                {title}
+              </div>
               <img
-                className="grow ml-2 h-[38px]"
+                className="grow min-w-0 ml-2 h-[38px]"
                 src={windowHeader}
+                alt=""
                 draggable="false"
               />
               <img
-                className="h-[38px] w-[50px] mr-2"
+                className="h-[38px] w-[50px] mr-2 shrink-0 hidden sm:block"
                 src={windowHeader}
+                alt=""
                 draggable="false"
               />
             </div>

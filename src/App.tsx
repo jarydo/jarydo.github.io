@@ -16,7 +16,7 @@ const ExternalRedirect = ({ to }: { to: string }) => {
       <img
         src="/wii_assets/channel_icon.png"
         alt="Channel Icon"
-        className="w-32 h-32"
+        className="w-24 h-24 sm:w-32 sm:h-32"
       />
     </div>
   );
@@ -24,7 +24,7 @@ const ExternalRedirect = ({ to }: { to: string }) => {
 
 function App() {
   return (
-    <Router basename="/">
+    <Router>
       <Routes>
         <Route path="/" element={<PersonalPage />} />
         <Route

@@ -26,3 +26,6 @@ dist-ssr
 # Temporary MD files
 IMPROVEMENTS.md
 SITE_REVAMP_TODO.md
+
+# TypeScript incremental build info
+*.tsbuildinfo

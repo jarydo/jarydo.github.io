@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import headerRightIcon from "/macos_assets/header_right.png";
 import headerLeftIcon from "/macos_assets/header_left.png";
@@ -11,32 +11,73 @@ interface MenuItem {
   href?: string;
 }
 
+const MENU_ITEM_CLASS =
+  "block w-full text-left px-4 py-1 hover:bg-black hover:text-white cursor-pointer border-b border-gray-200 last:border-b-0";
+
+const MenuDropdown: React.FC<{ items: MenuItem[]; onSelect: () => void }> = ({
+  items,
+  onSelect,
+}) => (
+  <div className="absolute top-full left-0 bg-white border-2 border-black shadow-md min-w-[160px]">
+    {items.map((item, index) =>
+      item.href ? (
+        <a
+          key={index}
+          href={item.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={MENU_ITEM_CLASS}
+          onClick={onSelect}
+        >
+          {item.name}
+        </a>
+      ) : (
+        <button
+          key={index}
+          type="button"
+          className={MENU_ITEM_CLASS}
+          onClick={() => {
+            item.onClick?.();
+            onSelect();
+          }}
+        >
+          {item.name}
+        </button>
+      ),
+    )}
+  </div>
+);
+
 export const Header: React.FC = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const navigate = useNavigate();
 
-  const handleMenuClick = (menu: string) => {
+  const handleMenuClick = (menu: string) =>
     setActiveDropdown(activeDropdown === menu ? null : menu);
-  };
+
+  const closeDropdown = () => setActiveDropdown(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDropdown();
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
+  }, []);
 
   const webRingItems: MenuItem[] = [
     {
       name: "CS Webring",
-      onClick: () => {
-        window.open("https://cs.uwatering.com/#jaryddiamond");
-      },
+      href: "https://cs.uwatering.com/#jaryddiamond",
     },
     {
       name: "←",
-      onClick: () => {
-        window.open("https://cs.uwatering.com/#jaryddiamond?nav=prev");
-      },
+      href: "https://cs.uwatering.com/#jaryddiamond?nav=prev",
     },
     {
       name: "→",
-      onClick: () => {
-        window.open("https://cs.uwatering.com/#jaryddiamond?nav=next");
-      },
+      href: "https://cs.uwatering.com/#jaryddiamond?nav=next",
     },
   ];
 
@@ -56,30 +97,10 @@ export const Header: React.FC = () => {
   ];
 
   const contactMenuItems: MenuItem[] = [
-    {
-      name: "Twitter",
-      onClick: () => {
-        window.open("https://x.com/jaryddiamond");
-      },
-    },
-    {
-      name: "LinkedIn",
-      onClick: () => {
-        window.open("https://linkedin.com/in/jaryddiamond");
-      },
-    },
-    {
-      name: "Github",
-      onClick: () => {
-        window.open("https://github.com/jarydo");
-      },
-    },
-    {
-      name: "Letterboxd",
-      onClick: () => {
-        window.open("https://letterboxd.com/jarydo");
-      },
-    },
+    { name: "Twitter", href: "https://x.com/jaryddiamond" },
+    { name: "LinkedIn", href: "https://linkedin.com/in/jaryddiamond" },
+    { name: "Github", href: "https://github.com/jarydo" },
+    { name: "Letterboxd", href: "https://letterboxd.com/jarydo" },
     {
       name: "Email",
       onClick: () => {
@@ -89,66 +110,31 @@ export const Header: React.FC = () => {
   ];
 
   const recruiterMenuItems: MenuItem[] = [
-    {
-      name: "Off",
-    },
+    { name: "Off" },
     {
       name: "On",
-      onClick: () => {
-        navigate("/recruiter");
-      },
+      onClick: () => navigate("/recruiter"),
     },
   ];
 
-  const MenuDropdown: React.FC<{ items: MenuItem[] }> = ({ items }) => (
-    <div className="absolute top-full left-0 bg-white border-2 border-black shadow-md min-w-[160px] z-20">
-      {items.map((item, index) => {
-        const className =
-          "block px-4 py-1 hover:bg-black hover:text-white cursor-pointer border-b border-gray-200 last:border-b-0";
-        if (item.href) {
-          return (
-            <a
-              key={index}
-              href={item.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={className}
-              onClick={() => setActiveDropdown(null)}
-            >
-              {item.name}
-            </a>
-          );
-        }
-        return (
-          <div
-            key={index}
-            className={className}
-            onClick={() => {
-              if (item.onClick) {
-                item.onClick();
-                setActiveDropdown(null);
-              }
-            }}
-          >
-            {item.name}
-          </div>
-        );
-      })}
-    </div>
-  );
+  const menuButtonClass = (menu: string) =>
+    `px-1 sm:px-2 py-1 flex items-center shrink-0 whitespace-nowrap ${
+      activeDropdown === menu ? "bg-black text-white" : ""
+    }`;
 
   return (
     <>
-      {/* Header */}
-      <div className="bg-white flex text-lg sm:text-xl border-b-4 border-black items-center">
-        <img src={headerLeftIcon} />
-        <div className="flex grow items-center gap-6 h-full">
+      {/* Menu bar. Sits above every window, which stack from z-index 1. */}
+      <div className="relative z-[100] bg-white flex text-base sm:text-xl border-b-4 border-black items-center">
+        <img src={headerLeftIcon} alt="" />
+        <div className="flex grow items-center gap-6 h-full min-w-0">
           <div className="relative">
             <button
               onClick={() => handleMenuClick("webRing")}
-              className={`px-2 py-1 flex items-center ${
-                activeDropdown === "webRing" ? "bg-black text-white" : ""
-              }`}
+              className={menuButtonClass("webRing")}
+              aria-haspopup="true"
+              aria-expanded={activeDropdown === "webRing"}
+              aria-label="CS Webring"
             >
               <img
                 src={
@@ -158,22 +144,21 @@ export const Header: React.FC = () => {
                 }
                 width="24"
                 height="24"
-                alt="CS Webring"
+                alt=""
                 className="w-5 h-5"
               />
             </button>
             {activeDropdown === "webRing" && (
-              <MenuDropdown items={webRingItems} />
+              <MenuDropdown items={webRingItems} onSelect={closeDropdown} />
             )}
           </div>
           <div className="relative">
             <button
               onClick={() => handleMenuClick("socraticaWebRing")}
-              className={`px-2 py-1 flex items-center ${
-                activeDropdown === "socraticaWebRing"
-                  ? "bg-black text-white"
-                  : ""
-              }`}
+              className={menuButtonClass("socraticaWebRing")}
+              aria-haspopup="true"
+              aria-expanded={activeDropdown === "socraticaWebRing"}
+              aria-label="Socratica Webring"
             >
               <svg
                 viewBox="0 0 215 212"
@@ -187,33 +172,44 @@ export const Header: React.FC = () => {
               </svg>
             </button>
             {activeDropdown === "socraticaWebRing" && (
-              <MenuDropdown items={socraticaWebRingItems} />
+              <MenuDropdown
+                items={socraticaWebRingItems}
+                onSelect={closeDropdown}
+              />
             )}
           </div>
           <div className="relative">
             <button
               onClick={() => handleMenuClick("contact")}
-              className={`px-2 ${activeDropdown === "contact" ? "bg-black text-white" : ""}`}
+              className={menuButtonClass("contact")}
+              aria-haspopup="true"
+              aria-expanded={activeDropdown === "contact"}
             >
               Contact
             </button>
             {activeDropdown === "contact" && (
-              <MenuDropdown items={contactMenuItems} />
+              <MenuDropdown items={contactMenuItems} onSelect={closeDropdown} />
             )}
           </div>
           <div className="relative">
             <button
               onClick={() => handleMenuClick("recruiter")}
-              className={`px-2 ${activeDropdown === "recruiter" ? "bg-black text-white" : ""}`}
+              className={menuButtonClass("recruiter")}
+              aria-haspopup="true"
+              aria-expanded={activeDropdown === "recruiter"}
             >
-              Recruiter Mode
+              {/* "Mode" is dropped on narrow screens so the bar fits */}
+              Recruiter<span className="hidden sm:inline">&nbsp;Mode</span>
             </button>
             {activeDropdown === "recruiter" && (
-              <MenuDropdown items={recruiterMenuItems} />
+              <MenuDropdown
+                items={recruiterMenuItems}
+                onSelect={closeDropdown}
+              />
             )}
           </div>
         </div>
-        <img src={headerRightIcon} />
+        <img src={headerRightIcon} alt="" />
       </div>
 
       {/* Hidden Socratica webring links for crawler detection */}
@@ -233,10 +229,7 @@ export const Header: React.FC = () => {
 
       {/* Click anywhere else to close dropdowns */}
       {activeDropdown && (
-        <div
-          className="fixed inset-0 z-10"
-          onClick={() => setActiveDropdown(null)}
-        />
+        <div className="fixed inset-0 z-[99]" onClick={closeDropdown} />
       )}
     </>
   );
