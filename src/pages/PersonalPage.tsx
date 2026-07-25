@@ -26,13 +26,34 @@ const MOBILE_BREAKPOINT = 768;
 /** Number of windows before the cascade offset wraps, so windows stay on screen. */
 const CASCADE_LENGTH = 5;
 
+// The boot animation is charming on arrival and tedious on every navigation
+// back, so it plays once per browser session. Private modes can refuse storage
+// entirely, in which case replaying it is a fine fallback.
+const BOOTED_KEY = "hasBooted";
+
+const hasBootedThisSession = () => {
+  try {
+    return sessionStorage.getItem(BOOTED_KEY) === "true";
+  } catch {
+    return false;
+  }
+};
+
+const rememberBooted = () => {
+  try {
+    sessionStorage.setItem(BOOTED_KEY, "true");
+  } catch {
+    // no-op
+  }
+};
+
 function PersonalPage() {
   const [windows, setWindows] = useState<WindowState[]>([]);
   const [clickedItem, setClickedItem] = useState<string | null>(null);
   const [isMobile, setIsMobile] = useState(
     () => window.innerWidth < MOBILE_BREAKPOINT,
   );
-  const [isStarting, setIsStarting] = useState(true);
+  const [isStarting, setIsStarting] = useState(() => !hasBootedThisSession());
 
   const navigate = useNavigate();
 
@@ -83,6 +104,17 @@ function PersonalPage() {
     });
   };
 
+  // Land first-time visitors on something readable rather than a desktop of
+  // icons. Tied to the boot screen, so a reload later in the session doesn't
+  // reopen a window the visitor already closed.
+  const handleStartupComplete = () => {
+    rememberBooted();
+    setIsStarting(false);
+
+    const readme = fileSystem.find((item) => item.id === "readme");
+    if (readme) openWindow(readme);
+  };
+
   const bringToFront = (id: string) => {
     setWindows((previous) => {
       const target = previous.find((w) => w.id === id);
@@ -119,7 +151,7 @@ function PersonalPage() {
 
   return (
     <>
-      {isStarting && <StartupScreen onComplete={() => setIsStarting(false)} />}
+      {isStarting && <StartupScreen onComplete={handleStartupComplete} />}
       <div className="font-macos fixed inset-0 bg-chessboard overflow-hidden flex flex-col">
         <Header />
 

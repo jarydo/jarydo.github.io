@@ -22,6 +22,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
   const dragStart = useRef({ y: 0, scrollTop: 0 });
 
   const contentRef = useRef<HTMLDivElement>(null);
+  const innerRef = useRef<HTMLDivElement>(null);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const scrollThumbRef = useRef<HTMLDivElement>(null);
 
@@ -38,9 +39,10 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(checkOverflow);
-    if (contentRef.current) {
-      resizeObserver.observe(contentRef.current);
-    }
+    // The viewport is watched for window resizes, and the content wrapper for
+    // markdown that arrives after the window has already opened.
+    if (contentRef.current) resizeObserver.observe(contentRef.current);
+    if (innerRef.current) resizeObserver.observe(innerRef.current);
     return () => resizeObserver.disconnect();
   }, [checkOverflow]);
 
@@ -161,7 +163,7 @@ export default function ClassicScrollbar({ children }: ClassicScrollbarProps) {
           isTouchDevice ? "overflow-y-auto" : "hover:overflow-y-auto"
         } no-scrollbar pr-4`}
       >
-        {children}
+        <div ref={innerRef}>{children}</div>
       </div>
 
       {scrollState.isOverflowing && !isTouchDevice && (
