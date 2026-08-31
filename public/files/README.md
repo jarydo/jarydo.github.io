@@ -1,6 +1,6 @@
 Yo! I’m Jaryd, a **creative technologist** in Toronto who aims to bring a little extra sparkle to the everyday. I'm obsessed with community, film, music, and any combination of the 3. And yes I have a y in my name - my dad had a dream, don’t question it.
 
-Currently on the Brand Design Engineering team at **Shopify**, formerly CS at **Waterloo**.
+Currently at **Shopify**, formerly CS at **Waterloo**.
 
 A few things I've done:
 
